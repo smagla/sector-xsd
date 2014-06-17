@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
+<!-- Clean version -->
+<!-- version 5.3  -->
+<!-- version 5.3.1 from the 10/01/2014  SMO working version-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/5.3" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/5.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.3.1">
+	<xs:include schemaLocation="taf_cat_complete_candidate.xsd"/>
+	<xs:element name="AirBrakeSpecialCharacteristic" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Special characteristic of an air brake system (e.g. two or more steps brake)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AssociatedTrain">
+		<xs:annotation>
+			<xs:documentation>Train from which comes or in which continues a rolling stock incorporated in the considered train</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="TransportOperationalIdentifiers"/>
+				<xs:element ref="PlannedTransportIdentifiers"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Association">
+		<xs:annotation>
+			<xs:documentation>Indicates the location of association/disassociation of a rolling stock and the identification of the concerned train </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AssociatedTrain" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="AssociationLocation" minOccurs="0"/>
+				<xs:element ref="ComesFromContinuesInIndicator" minOccurs="0"/>
+				<xs:element ref="OperationalTrainNumberIdentifier" minOccurs="0"/>
+				<xs:element ref="ReferenceOTN" minOccurs="0"/>
+				<xs:element ref="TransferPoint" minOccurs="0"/>
+				<xs:element ref="TransfereeIM" minOccurs="0"/>
+				<xs:element ref="RetailServiceID" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Retail Train Number written on the ticket</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AssociationLocation" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Indicates the location of association/disassociation of a rolling stock</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AvailabilityFrom" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Location from where a service is available</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AvailabilityTo" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Location to where a service is available</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CoachOrTrainsetCommercialData">
+		<xs:annotation>
+			<xs:documentation>Information used by the passenger to find its train or the vehicle in which he will travel</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RetailServiceID">
+					<xs:annotation>
+						<xs:documentation>Train number written on the ticket</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="6"/>
+							<xs:pattern value=""/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CommercialNumberOfVehicle" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Reservation number of a vehicle indicated on the ticket</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="CommercialTrafficType" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ComesFromContinuesInIndicator" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Indicates if the rolling stock comes from a train or continues in another train</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CommercialService">
+		<xs:annotation>
+			<xs:documentation>Additional service offered in a train</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CommercialServiceCode" minOccurs="0"/>
+				<xs:element ref="AvailabilityFrom" minOccurs="0"/>
+				<xs:element ref="AvailabilityTo" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CommercialServiceCode">
+		<xs:annotation>
+			<xs:documentation>Code of the additional service offered in a train</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="01 electronic seat reservation mandatory"/>
+				<xs:enumeration value="02 electronic seat reservation possible"/>
+				<xs:enumeration value="03  silence comsectionment"/>
+				<xs:enumeration value="04  silence comsectionment"/>
+				<xs:enumeration value="05 comsectionment for families"/>
+				<xs:enumeration value="06  comsectionement for women"/>
+				<xs:enumeration value="07  nursery in use"/>
+				<xs:enumeration value="08  bike accepted for free"/>
+				<xs:enumeration value="09 bike accepted against paiement"/>
+				<xs:enumeration value="10  comsectionment for train staff"/>
+				<xs:enumeration value="11 comsectionment "/>
+				<xs:enumeration value="12 passport comsectionement"/>
+				<xs:enumeration value="13  comsectionement for PRM"/>
+				<xs:enumeration value="14  journey where seats are in sleeping position"/>
+				<xs:enumeration value="15  empty and not in service coach"/>
+				<xs:enumeration value="16  coach with seats not in standard use"/>
+				<xs:enumeration value="17  cars loaded against direction of travel"/>
+				<xs:enumeration value="18  cars loaded in direction of travel"/>
+				<xs:enumeration value="19  rail courier / rail postal service"/>
+				<xs:enumeration value="20 reduced number of seats for reservation"/>
+				<xs:enumeration value="21  dining car or bar in service"/>
+				<xs:enumeration value="22 mobile dining service "/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CompositionStartOrChangeLocation" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>The location of the most recent change of composition</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DateTimeOfRestriction" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>Date and time when the restriction or defect is detected</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DriverIndication" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Indicates if a driver is operating the rolling stock</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ErrorMessage">
+		<xs:annotation>
+			<xs:documentation>This message should be sent from the receiver to the sender after the processing of the previously sent TAF/TAP message in the backend (legacy) system of the receiver has failed.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="AdministrativeContactInformation"/>
+				<xs:element name="OriginalMessageReference" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="MessageReference"/>
+							<xs:element name="TagReference" type="xs:string" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>This is a placeholder for XPath expression indicating the element of the orginal message which caused the error.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TypeOfError">
+					<xs:annotation>
+						<xs:documentation>It is an enumerated type to indicate if the error was caused due to a bussines rule violation (1 = FUNCTIONAL) or due to a system failure (2 = TECHNICAL) or both (0 = BOTH)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Severity">
+					<xs:annotation>
+						<xs:documentation>1 = WARNING
+2 = FATAL
+3 = SEVER
+4 = SEVER-FATAL
+
+The senders and receivers should agree about the severity levels and their interpretation: should the process stop, should the message be resent etc.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+							<xs:enumeration value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ErrorCode">
+					<xs:annotation>
+						<xs:documentation>To be defined: code list from 1 to 9999. Proposal from PathDossierErrorCode: "Standard values are between 5000 and 6000 (central maintained list). The values greater than 6000 can be used on national level. "</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="9999"/>
+							<xs:pattern value="\d"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="FreeTextField"/>
+				<xs:element ref="PlannedTransportIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EuropeanVehicleNumber">
+		<xs:annotation>
+			<xs:documentation>Number on 12 digits allocated to each rail vehicle to uniquely identify it from any other rail vehicle</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="12"/>
+				<xs:maxInclusive value="12"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InformationToBeDisplayed">
+		<xs:annotation>
+			<xs:documentation>Information for passengers displayed in the stations or in public timetables</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="01 First-class seats vehicle"/>
+				<xs:enumeration value="02 First-class couchettes vehicle"/>
+				<xs:enumeration value="03 First-class sleepers vehicle"/>
+				<xs:enumeration value="04 Second-class seats vehicle"/>
+				<xs:enumeration value="05 Second-class couchettes vehicle"/>
+				<xs:enumeration value="06 Second-class sleepers vehicle"/>
+				<xs:enumeration value="07 Second-class reclining seats vehicle"/>
+				<xs:enumeration value="08 Panorama vehicle"/>
+				<xs:enumeration value="09 Dining vehicle"/>
+				<xs:enumeration value="10 Bar/Bistro vehicle"/>
+				<xs:enumeration value="11 Mobile dining service"/>
+				<xs:enumeration value="12 Cars loaded"/>
+				<xs:enumeration value="13 Cars loaded against direction of travel"/>
+				<xs:enumeration value="14 Cars loaded in direction of travel"/>
+				<xs:enumeration value="15 Non-smoking vehicle"/>
+				<xs:enumeration value="16 Vehicle with smoking compartments"/>
+				<xs:enumeration value="17 Vehicle with PRM access"/>
+				<xs:enumeration value="18 Silence vehicle"/>
+				<xs:enumeration value="19 Vehicle with child/family facilities"/>
+				<xs:enumeration value="20 Vehicle with compartments reserved for women"/>
+				<xs:enumeration value="21 Bike accepted"/>
+				<xs:enumeration value="22 Bike accepted for free"/>
+				<xs:enumeration value="23 Bike accepted against paiement"/>
+				<xs:enumeration value="24 Special vehicle"/>
+				<xs:enumeration value="25 Telephone"/>
+				<xs:enumeration value="26 Wifi"/>
+				<xs:enumeration value="27 Service vehicle"/>
+				<xs:enumeration value="28 Train staff available in this vehicle"/>
+				<xs:enumeration value="29 Not in service vehicle"/>
+				<xs:enumeration value="30 With supplement"/>
+				<xs:enumeration value="31 Reservation compulsory"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InternalFittingDefect">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="InternalFittingDefectCode"/>
+				<xs:element ref="FreeTextField"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InternalFittingDefectCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="05"/>
+				<xs:enumeration value="06"/>
+				<xs:enumeration value="07"/>
+				<xs:enumeration value="08"/>
+				<xs:enumeration value="09"/>
+				<xs:enumeration value="10"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="13"/>
+				<xs:enumeration value="14"/>
+				<xs:enumeration value="99"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InternalVehicleFacility">
+		<xs:annotation>
+			<xs:documentation>Facility offered in a rolling stock</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="01 PRM (generic): Equipements for PRM"/>
+				<xs:enumeration value="02 PRM: number of equipments"/>
+				<xs:enumeration value="03 PRM: fit for wheelchair"/>
+				<xs:enumeration value="04 PRM: adapted toilets"/>
+				<xs:enumeration value="10 boxes for bicycles"/>
+				<xs:enumeration value="11 non-smoking vehicle"/>
+				<xs:enumeration value="12 sound system available"/>
+				<xs:enumeration value="13 box for conductor"/>
+				<xs:enumeration value="14 smoking compartment"/>
+				<xs:enumeration value="15 dining car"/>
+				<xs:enumeration value="16 number of business class seats"/>
+				<xs:enumeration value="17 number if first class seats"/>
+				<xs:enumeration value="18 number of second class seats"/>
+				<xs:enumeration value="19 number of seats with reclining position"/>
+				<xs:enumeration value="20 number of sleeping places"/>
+				<xs:enumeration value="21 compartment for children"/>
+				<xs:enumeration value="22 service vehicle"/>
+				<xs:enumeration value="23 status of vehicle (open/closed to clients)"/>
+				<xs:enumeration value="24 panorama vehicle"/>
+				<xs:enumeration value="25 vehicle with business compartments"/>
+				<xs:enumeration value="26 lounge first class"/>
+				<xs:enumeration value="27 lounge second class"/>
+				<xs:enumeration value="28 vehicle with conference compartment"/>
+				<xs:enumeration value="29 bistro vehicle"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ItineraryOfRollingStock">
+		<xs:annotation>
+			<xs:documentation>Itinerary of a rolling stock incorporated in the considered train</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Origin" minOccurs="0"/>
+				<xs:element ref="Destination" minOccurs="0"/>
+				<xs:element ref="Association" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="JourneySectionDestination" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Destination of the section on which train composition is unchanged</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="JourneySectionOrigin" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Origin of the section on which train composition is unchanged</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LocationOfRestrictionDetection">
+		<xs:annotation>
+			<xs:documentation>Location where the restriction or defect is detected</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Location"/>
+				<xs:element ref="DateTimeOfRestriction"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ObjectInfoMessage">
+		<xs:annotation>
+			<xs:documentation>This message serves to request an information about the object, to update an information in an object, and to inform about the content of the object.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="AdministrativeContactInformation"/>
+				<xs:element name="Identifier" type="CompositIdentifierPlannedType"/>
+				<xs:element name="ObjectInfoType">
+					<xs:annotation>
+						<xs:documentation>The type of action which has to be executed regarding the object (coded through attribute):
+R = request info about object
+I = Information about object
+U = update information on object</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="Code" use="required">
+							<xs:annotation>
+								<xs:documentation>R = request info about object
+I = Information about object
+U = update information on object</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="R"/>
+									<xs:enumeration value="I"/>
+									<xs:enumeration value="U"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="TrainInformation" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Train Information provided by the RUs as an overview for the whole train journey from origin to destination</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="PathInformation" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Information provided by the RU for a requested journey section or by the IM for an offered/booked of the Path section</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Origin" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Origin of the itinerary of a rolling stock incorporated in the considered train</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OtherPassengerRestrictionOrDefect">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RestrictionOrDefectCode"/>
+				<xs:element ref="RestrictionOrDefectValue"/>
+				<xs:element ref="FreeTextField"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PartJourney">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="StartLocation"/>
+				<xs:element ref="EndLocation"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PassengerJourneySectionOrigin">
+		<xs:annotation>
+			<xs:documentation>Origin of the section on which train composition is unchanged with relevant date or calendar</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="JourneySectionOrigin"/>
+				<xs:element ref="SectionDepartureDate" minOccurs="0"/>
+				<xs:element ref="SectionDepartureTime" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Departure time at the origin of the section</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="PlannedCalendar" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PassengerTrainCompositionProcessMessage">
+		<xs:annotation>
+			<xs:documentation>This message is sent from an RU to an IM defining the composition of the proposed train.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:choice>
+					<xs:element ref="PlannedTransportIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:choice>
+				<xs:element ref="ReferenceOTN" minOccurs="0"/>
+				<xs:element ref="TransfereeIM" minOccurs="0"/>
+				<xs:element ref="TransferPoint" minOccurs="0"/>
+				<xs:element ref="TrainDepartureStation" minOccurs="0"/>
+				<xs:element ref="TrainDestinationStation" minOccurs="0"/>
+				<xs:element ref="TrainCompositionJourneySectionPassenger"/>
+				<xs:element ref="Remarks" minOccurs="0"/>
+				<xs:element ref="TrainDataPassenger" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PassengerTrainRunningData">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TrainRunningTechData"/>
+				<xs:element ref="ExceptionalGaugingInd" minOccurs="0"/>
+				<xs:element ref="DangerousGoodsIndication" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PassengerTransportRestriction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TransportRestrictionCode"/>
+				<xs:element ref="TransportRestrictionValue"/>
+				<xs:element ref="FreeTextField"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PathCoordinationMessage">
+		<xs:annotation>
+			<xs:documentation>This message is used for exchange of information between RUs and between  IMs for coordination and data synchronization purposes</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="AdministrativeContactInformation"/>
+				<xs:element ref="Identifiers" minOccurs="0"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="ReceivedOnTime" minOccurs="0"/>
+				<xs:element ref="TypeOfRUHarmonization" minOccurs="0"/>
+				<xs:element ref="TypeOfIMHarmonization" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Enumeration of Type of  IM harmonization: Full, Part
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="LeadRU" minOccurs="0"/>
+				<xs:element ref="CoordinatingIM" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Proposal from the RU, IM's will decide who will take the role.
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="TypeOfRequest">
+					<xs:annotation>
+						<xs:documentation>1=Path Study, 2=Path Request, 3=Path Modification needs to be indicated</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="TypeOfInformation"/>
+				<xs:element ref="TrainInformation"/>
+				<xs:element ref="PathInformation"/>
+				<xs:element ref="NetworkSpecificParameter" minOccurs="0"/>
+				<xs:element ref="RevisedRequest" minOccurs="0"/>
+				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PathSectionNotificationMessage">
+		<xs:annotation>
+			<xs:documentation>This message is used for notification about the usage of path sections during the planning and operational phase for coordination and data synchronization purposes between RUs and IMs</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="AdministrativeContactInformation"/>
+				<xs:element ref="Identifiers" minOccurs="0"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="TypeOfRequest" minOccurs="0"/>
+				<xs:element ref="TypeOfInformation" minOccurs="0"/>
+				<xs:element ref="LeadRU" minOccurs="0"/>
+				<xs:element ref="CoordinatingIM" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Proposal from the RU, IM's will decide who will take the role.
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="TypeOfIMHarmonization" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Enumeration of Type of  IM harmonization: Full, Part
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="TypeOfRUHarmonization" minOccurs="0"/>
+				<xs:element ref="NetworkSpecificParameter" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="AffectedSection" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Indication for the recepient if not the entire path is affected, e.g. in case of a partial cancelation for the last part of the path</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="InterruptionInformation" minOccurs="0"/>
+				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReceivedOnTime"/>
+	<xs:element name="ResponsibilityActualSectionPassenger">
+		<xs:annotation>
+			<xs:documentation>This element identifies the responsible RU or IM for the actual path section</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ResponsibleRU"/>
+				<xs:element ref="ResponsibleIM" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResponsibilityNextSectionPassenger">
+		<xs:annotation>
+			<xs:documentation>This element identifies the responsible RU and IM for the following path section</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ResponsibleRU" minOccurs="0"/>
+				<xs:element ref="ResponsibleIM" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RestrictionOrDefectCode"/>
+	<xs:element name="RestrictionOrDefectValue" type="xs:string"/>
+	<xs:element name="RetailServiceID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Train number used for passenger information (indicated on the ticket, displayed on screens in station, etc.)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RollingStockIdentification">
+		<xs:annotation>
+			<xs:documentation>Code used to identify a vehicle or a trainset</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="EuropeanVehicleNumber"/>
+				<xs:element name="TrainsetID">
+					<xs:annotation>
+						<xs:documentation>Coding used to identify uniquely a trainset</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="12"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RollingStockRestrictionMessage">
+		<xs:annotation>
+			<xs:documentation>Message used for passenger trains when the restrictions and defects are sent sent within the Passenger Train Composition Process message</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="OperationalTrainNumberIdentifier"/>
+				<xs:element ref="ReferenceOTN" minOccurs="0"/>
+				<xs:element ref="TransfereeIM" minOccurs="0"/>
+				<xs:element ref="TransferPoint" minOccurs="0"/>
+				<xs:element ref="LocationOfRestrictionDetection" minOccurs="0"/>
+				<xs:element ref="RollingStockIdentification"/>
+				<xs:element ref="TechnicalPassengerRollingStockRestriction"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RollingStockTechnicalData">
+		<xs:annotation>
+			<xs:documentation>This element shows the rolling stock relevant technical data for the rolling stock within a running train</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="NumberOfAxles" minOccurs="0"/>
+				<xs:element ref="WagonMaxSpeed" minOccurs="0"/>
+				<xs:element ref="LengthOverBuffers" minOccurs="0"/>
+				<xs:element ref="WagonWeightEmpty" minOccurs="0"/>
+				<xs:element ref="TotalLoadWeight" minOccurs="0"/>
+				<xs:element ref="LoadingGauge" minOccurs="0"/>
+				<xs:element ref="ExceptionalGaugingProfile" minOccurs="0"/>
+				<xs:element ref="ExceptionalGaugingIdent" minOccurs="0"/>
+				<xs:element ref="TypeOfHeating" minOccurs="0"/>
+				<xs:element ref="HandBrake" minOccurs="0"/>
+				<xs:element ref="AirBrake" minOccurs="0"/>
+				<xs:element ref="AirBrakeSpecialCharacteristic" minOccurs="0"/>
+				<xs:element ref="CouplingType" minOccurs="0"/>
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="BrakeType"/>
+					<xs:element ref="BrakeWeight"/>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SectionDepartureDate" type="xs:date">
+		<xs:annotation>
+			<xs:documentation>Departure date at the origin of the section</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SectionDepartureTime" type="xs:time"/>
+	<xs:element name="SpecialServiceDescription">
+		<xs:annotation>
+			<xs:documentation>Special Service provided in a Train according to TAP Code List B.4.7161</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SpecialServiceDescriptionCode" minOccurs="0"/>
+				<xs:element ref="AvailabilityFrom" minOccurs="0"/>
+				<xs:element ref="AvailabilityTo" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TechnicalPassengerRollingStockRestriction">
+		<xs:annotation>
+			<xs:documentation>Set of restrictions or defects related to the rolling stock</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="PassengerTransportRestriction" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Restriction that can prevent the ability of the train to run according the path</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TransportRestrictionCode">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="07 Shunt only when hand brake operable with ground staff"/>
+										<xs:enumeration value="08 Tank wagon loaded with liquid"/>
+										<xs:enumeration value="09 Wagon loaded with people"/>
+										<xs:enumeration value="11 Wagon other than bogie wagon with wheelbase of more than 9 metres"/>
+										<xs:enumeration value="12 Bogie wagon with distance between wheels of more than 14 metres and up to and including a distance of 17,50 metres"/>
+										<xs:enumeration value="13 Bogie wagon with distance between wheels of more than 17,50 metres"/>
+										<xs:enumeration value="15 Wagon not allowed over the hump"/>
+										<xs:enumeration value="16 Do not fly shunt or gravity shunt (3 red triangles)"/>
+										<xs:enumeration value="18 Must not use active braking equipment"/>
+										<xs:enumeration value="25 Gas carrying tank wagon with orange side stripe"/>
+										<xs:enumeration value="29 Driving safety equipment fault (e.g. event recorder)"/>
+										<xs:enumeration value="30 CCS fault (see CCS coding list)"/>
+										<xs:enumeration value="31 Braking system fault"/>
+										<xs:enumeration value="32 Wheelset, bogie fault"/>
+										<xs:enumeration value="33 Headlighting or back lighting fault"/>
+										<xs:enumeration value="34 Front glass broken"/>
+										<xs:enumeration value="35 Horn fault"/>
+										<xs:enumeration value="36 Radio fault"/>
+										<xs:enumeration value="37 Energy supply fault"/>
+										<xs:enumeration value="38 Traction or motor fault"/>
+										<xs:enumeration value="39 Access door fault"/>
+										<xs:enumeration value="40 Coupling device fault"/>
+										<xs:enumeration value="41 Place this wagon at the front of the train"/>
+										<xs:enumeration value="42 Place this wagon at the rear of the train"/>
+										<xs:enumeration value="50 Speed restriction"/>
+										<xs:enumeration value="51 Diesel locomotive instead of electric locomotive"/>
+										<xs:enumeration value="52 Electric locomotive instead of diesel locomotive"/>
+										<xs:enumeration value="61 Wagon forming part of a consignment of several wagons"/>
+										<xs:enumeration value="62 Wagon forming part of a group of wagons from which it must not be separated"/>
+										<xs:enumeration value="63 Special consignment or (for passengers trains) loading/cinematical gauge larger than the planned one"/>
+										<xs:enumeration value="68 First or last wagon of a wagon group from which it must not be separated"/>
+										<xs:enumeration value="70 Shunt with care (1 red triangle)"/>
+										<xs:enumeration value="71 Shunt with special care (2 red triangle)"/>
+										<xs:enumeration value="90 Vehicle/trainset planned with passengers operated without passengers"/>
+										<xs:enumeration value="91 Vehicle/trainset planned without passengers operated with passengers"/>
+										<xs:enumeration value="92 Train planned with hauled rolling stock and operated without any coaches (light engine)"/>
+										<xs:enumeration value="94 Gas carrying wagon without orange side stripe"/>
+										<xs:enumeration value="99 Other"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TransportRestrictionValue" type="xs:string" minOccurs="0"/>
+							<xs:element ref="FreeTextField" minOccurs="0"/>
+							<xs:element name="ActiveRestriction" type="xs:boolean" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="InternalFittingDefect" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defect which affects the level of comfort of the passengers</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="InternalFittingDefectCode">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="01 Lighting (totally out)"/>
+										<xs:enumeration value="02 Window pane broken"/>
+										<xs:enumeration value="03 Intercom fault"/>
+										<xs:enumeration value="04 Public-address system (incl. WiFi) fault"/>
+										<xs:enumeration value="05 Seats, berths"/>
+										<xs:enumeration value="06 Heating, air conditioning"/>
+										<xs:enumeration value="07 Toilets"/>
+										<xs:enumeration value="08 Water supply"/>
+										<xs:enumeration value="09 Bar/Restaurant equipments"/>
+										<xs:enumeration value="10 Spotting"/>
+										<xs:enumeration value="11 No reservation signs in the vehicle"/>
+										<xs:enumeration value="12 Facilities for bike transport missing/limited"/>
+										<xs:enumeration value="13 PRM accessible device missing/out of order"/>
+										<xs:enumeration value="99 Other"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="FreeTextField" minOccurs="0"/>
+							<xs:element name="ActiveRestriction" type="xs:boolean" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OtherPassengerRestrictionOrDefect" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of restrictions or defects referring to national rules (or multilateral agreed rules)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="RestrictionOrDefectCode">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="FR01 Train planned as push-pull but not push-pull"/>
+										<xs:enumeration value="FR02 Train planned with ordinary rolling stock realised with specialised rolling stock"/>
+										<xs:enumeration value="FR03 Train planned with specialised rolling stock realised with another specialised rolling stock or with ordinary rolling stock"/>
+										<xs:enumeration value="DE01 Passenger overload with goodwill"/>
+										<xs:enumeration value="DE02 Passenger overload without goodwill"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="RestrictionOrDefectValue" type="xs:string" minOccurs="0"/>
+							<xs:element ref="FreeTextField" minOccurs="0"/>
+							<xs:element name="ActiveRestriction" type="xs:boolean" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TiltingFunction" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>Indicates if a rolling stock is fitted with a tilting system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Traction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TractionDetails" minOccurs="0" maxOccurs="24"/>
+				<xs:element ref="BrakeWeight" minOccurs="0"/>
+				<xs:element ref="HandBrake" minOccurs="0"/>
+				<xs:element ref="NumberOfAxles" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainCompositionJourneySectionPassenger">
+		<xs:annotation>
+			<xs:documentation>Defines the make up of a train for each section of its journey</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PassengerJourneySectionOrigin"/>
+				<xs:element ref="JourneySectionDestination"/>
+				<xs:element ref="ResponsibilityActualSectionPassenger"/>
+				<xs:element ref="ResponsibilityNextSectionPassenger" minOccurs="0"/>
+				<xs:element ref="TrainCompositionPassenger"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainCompositionPassenger">
+		<xs:annotation>
+			<xs:documentation>Defines the rules of train composition description and the list of vehicles</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TainDescriptionManner">
+					<xs:annotation>
+						<xs:documentation>Manner of describing the composition, by vehicle (locomotive or coach), by vehicle in a trainset (including the power car) or by Trainset (as a whole). 1=Vehicle, 2=Vehicle in Trainset 3=Trainset</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Count" type="xs:integer" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Number of vehicles or Trainsets</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DirectionOfDescription">
+					<xs:annotation>
+						<xs:documentation>Direction of composition description according to the drection of departure.  1=from head and 9=from end.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="9"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="VehicleList">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="VehicleTrainPosition" maxOccurs="unbounded">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:choice>
+								<xs:element ref="RollingStockIdentification"/>
+								<xs:element name="RollingStockType" type="xs:string"/>
+							</xs:choice>
+							<xs:element ref="TractionType" minOccurs="0"/>
+							<xs:element ref="TractionMode" minOccurs="0"/>
+							<xs:element name="PoweredLocomotiveOrTrainset" type="xs:boolean" minOccurs="0"/>
+							<xs:element ref="DriverIndication" minOccurs="0"/>
+							<xs:element name="TrainsetOrientation" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>1=First Class first, 2=Second Class firts and 9=unknown</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="9"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="KeeperShortName" type="xs:string" minOccurs="0"/>
+							<xs:element ref="RollingStockTechnicalData" minOccurs="0"/>
+							<xs:element ref="TechnicalPassengerRollingStockRestriction" minOccurs="0"/>
+							<xs:element ref="ItineraryOfRollingStock" minOccurs="0"/>
+							<xs:element ref="InternalVehicleFacility" minOccurs="0"/>
+							<xs:element ref="CharacteristicDescriptionCode" minOccurs="0"/>
+							<xs:element ref="FacilityTypeDescriptionCode" minOccurs="0"/>
+							<xs:element ref="CommercialService" minOccurs="0"/>
+							<xs:element ref="SpecialServiceDescription" minOccurs="0"/>
+							<xs:element ref="InformationToBeDisplayed" minOccurs="0"/>
+							<xs:element ref="CoachOrTrainsetCommercialData" minOccurs="0"/>
+							<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainDataPassenger">
+		<xs:annotation>
+			<xs:documentation>Agregated technical data for the whole train</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TrainType" minOccurs="0"/>
+				<xs:element ref="Length" minOccurs="0"/>
+				<xs:element ref="TrainWeight" minOccurs="0"/>
+				<xs:element ref="BrakingRatio" minOccurs="0"/>
+				<xs:element ref="BrakeWeight" minOccurs="0"/>
+				<xs:element ref="BrakeType" minOccurs="0"/>
+				<xs:element ref="TrainCC_System" minOccurs="0"/>
+				<xs:element ref="TrainRadioSystem" minOccurs="0"/>
+				<xs:element ref="TrainMaxSpeed" minOccurs="0"/>
+				<xs:element ref="TiltingFunction" minOccurs="0"/>
+				<xs:element ref="MaxAxleWeight" minOccurs="0"/>
+				<xs:element ref="NumberOfAxles" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainDepartureStation" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Origin of the train</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TrainDestinationStation" type="LocationIdent">
+		<xs:annotation>
+			<xs:documentation>Destination of the train</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TrainOrCoachGroupComposition">
+		<xs:annotation>
+			<xs:documentation>The new element - TAP specific</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Unit" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>To be differed to "Unit" from TAF. This is the TAP name for vehicle or coach group</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TypeOfVehicle" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>WG_Gattung</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="50"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="VehicleNumber" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>12-character</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="12"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="OrientationOfTrainset" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>0-9 number</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:byte">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="9"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="Keeper" minOccurs="0"/>
+							<xs:element ref="WagonOperationalData" minOccurs="0"/>
+							<xs:element ref="WagonTechData" minOccurs="0"/>
+							<xs:element name="TypeOfCoupling" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="9"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TypeOfHeating" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="9"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="EmergencyBrakeOverride" minOccurs="0"/>
+							<xs:element name="Restrictions" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="RestrictionsDueToLoadOrDamage"/>
+										<xs:element ref="RestrictionOrProhibition"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="InternalVehicleFitting" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>It is not clear should it be filled with the coding list or with the separated elements</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="TypeofService"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ItineraryOfCoachOrTrainset" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="OriginOfVehicle" minOccurs="0">
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="LocationIdent">
+														<xs:sequence>
+															<xs:element ref="TimingAtLocation"/>
+															<xs:element name="ForwardingRU" type="CompanyCode"/>
+														</xs:sequence>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="DestinationOfVehicle" minOccurs="0">
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="LocationIdent">
+														<xs:sequence>
+															<xs:element ref="TimingAtLocation"/>
+															<xs:element name="FinalRU"/>
+														</xs:sequence>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="AssociatedTrain" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="LocationOfChange" type="LocationIdent" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>WARNING: I guess, where the unit is attached to the particular train. Am I right?</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element ref="AssociatedAttachedTrainID" minOccurs="0"/>
+													<xs:element ref="AssociatedAttachedOTN" minOccurs="0"/>
+													<xs:element ref="ReferenceOTN" minOccurs="0"/>
+													<xs:element ref="TransferPoint" minOccurs="0"/>
+													<xs:element ref="TransfereeIM" minOccurs="0"/>
+													<xs:element name="RetailServiceID" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Unknown type!!!</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="CoachOrTrainsetCommercialData"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="CompositionDescriptionManner" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="coach"/>
+						<xs:enumeration value="vehicle_in_trainset"/>
+						<xs:enumeration value="trainset"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="CountOfUnits" type="xs:integer" use="required"/>
+			<xs:attribute name="FromHead" type="xs:boolean" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainsetID">
+		<xs:annotation>
+			<xs:documentation>Coding used to identify uniquely a trainset</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="12"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TransportRestrictionCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="07"/>
+				<xs:enumeration value="08"/>
+				<xs:enumeration value="09"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="13"/>
+				<xs:enumeration value="15"/>
+				<xs:enumeration value="16"/>
+				<xs:enumeration value="18"/>
+				<xs:enumeration value="25"/>
+				<xs:enumeration value="30"/>
+				<xs:enumeration value="31"/>
+				<xs:enumeration value="32"/>
+				<xs:enumeration value="33"/>
+				<xs:enumeration value="34"/>
+				<xs:enumeration value="35"/>
+				<xs:enumeration value="36"/>
+				<xs:enumeration value="37"/>
+				<xs:enumeration value="38"/>
+				<xs:enumeration value="39"/>
+				<xs:enumeration value="41"/>
+				<xs:enumeration value="42"/>
+				<xs:enumeration value="50"/>
+				<xs:enumeration value="51"/>
+				<xs:enumeration value="61"/>
+				<xs:enumeration value="62"/>
+				<xs:enumeration value="63"/>
+				<xs:enumeration value="68"/>
+				<xs:enumeration value="70"/>
+				<xs:enumeration value="71"/>
+				<xs:enumeration value="90"/>
+				<xs:enumeration value="91"/>
+				<xs:enumeration value="92"/>
+				<xs:enumeration value="94"/>
+				<xs:enumeration value="99"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TransportRestrictionValue" type="xs:string"/>
+	<xs:element name="TypeOfHeating">
+		<xs:annotation>
+			<xs:documentation>Type of heating system in a passenger vehicle or trainset</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:annotation>
+					<xs:documentation>Electrical</xs:documentation>
+					<xs:documentation>Autonomous heating</xs:documentation>
+					<xs:documentation>Steam</xs:documentation>
+				</xs:annotation>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4 Other or not known"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="UpdateLinkMessage">
+		<xs:annotation>
+			<xs:documentation>This message serves to request a train path.  The message is sent from the RU to each IM involved.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="MessageStatus"/>
+				<xs:element ref="AdministrativeContactInformation"/>
+				<xs:element name="Operation" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>There are three operations possible:
+- break the link
+- establish the link
+- information (report) about the link
+
+One has to indicate the identifiers of the objects that are affected with this operation. Additionally, the procedure that follows the operation can be indicated too.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Identifiers" maxOccurs="2"/>
+							<xs:element name="Action" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>One of the attribute value has to be chosen:
+TS = Train Shifting
+TC = Train Cancellation
+COT = Change Of Train
+LR = Link Report</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="Type" use="required">
+										<xs:annotation>
+											<xs:documentation>TS = Train Shifting
+TC = Train Cancellation
+COT = Change Of Train</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="TS"/>
+												<xs:enumeration value="TC"/>
+												<xs:enumeration value="COT"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Status" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>One can choose between the following statuses:
+P = proposed
+R = requested
+C = confirmed
+LNC = link not confirmed
+LR = Link refused
+E = exists
+These serve for covering the cases where Update Link request confirmation might be needed.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="Type" use="required">
+										<xs:annotation>
+											<xs:documentation>P = proposed
+R = requested
+C = confirmed
+LNC = link not confirmed
+LR = Link refused
+E = exists</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="P"/>
+												<xs:enumeration value="R"/>
+												<xs:enumeration value="C"/>
+												<xs:enumeration value="LNC"/>
+												<xs:enumeration value="LR"/>
+												<xs:enumeration value="E"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Procedure" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>NP = New Path
+EP = Existiing Path
+PK = Path Kept
+PNK = Path Not Kept
+TC = Train Cancelled
+TNC = Train Not Cancelled
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="NP"/>
+										<xs:enumeration value="EP"/>
+										<xs:enumeration value="PK"/>
+										<xs:enumeration value="PNK"/>
+										<xs:enumeration value="TC"/>
+										<xs:enumeration value="TNC"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="TrainInformation" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Train Information provided by the RUs as an overview for the whole train journey from origin to destination</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="PathInformation" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Information provided by the RU for a requested journey section or by the IM for an offered/booked of the Path section</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="Type" use="required">
+							<xs:annotation>
+								<xs:documentation>B = break the link
+E = establish the link
+I = Information</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="B"/>
+									<xs:enumeration value="E"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Parameters" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Classic method of carrying the parameters specific to the  agreement between the partners: name andvalue pairs.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Name"/>
+							<xs:element name="Value"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="WagonPerformanceMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element name="WagonPerformanceData">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PerformanceDataID" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="255"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="OperatingRU" type="CompanyCode">
+								<xs:annotation>
+									<xs:documentation>Company RICS code of the RU</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DataProvider" type="CompanyCode" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Company RICS Code of the data provider</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="WagonNumberFreight"/>
+							<xs:element name="WagonMileage">
+								<xs:annotation>
+									<xs:documentation>Kilometers</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:long">
+										<xs:totalDigits value="5"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="LoadingStatus"/>
+							<xs:element name="ReportingPeriod">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="StartDateTime"/>
+										<xs:element ref="EndDateTime"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="WagonTransportPerformance" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="TransportPerformance" type="xs:long">
+											<xs:annotation>
+												<xs:documentation>ton-kilometers</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="IncludingWagonWeight" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>false = only load weight (net)
+
+true = load and wagon weight (gross)</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="TerritorialSegment">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="CountryCodeISO"/>
+										<xs:element name="Infrastructure" type="CompanyCode" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The RICS code of the infrastructure on the territory</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

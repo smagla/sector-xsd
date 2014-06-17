@@ -1,0 +1,2236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (x64) (http://www.altova.com) by - - (European Railway Agency (ERA)) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/5.3" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/5.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.3.0">
+	<xs:annotation>
+		<xs:appinfo>
+			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
+			<dcterms:description>This schema defines code lists for the TAF TSI.</dcterms:description>
+			<dcterms:creator>European Railway Agency. mailto:taf_tsi@era.europa.eu</dcterms:creator>
+			<dcterms:coverage>European Union</dcterms:coverage>
+			<dcterms:created>2013-06-27</dcterms:created>
+			<dcterms:type>text/xml</dcterms:type>
+			<dcterms:subject>Transport, Freigth Transport, Rail</dcterms:subject>
+			<dcterms:identifier>{http://www.era.europa.eu/schemes/TAFTSI}taf_cat_codelists.xsd</dcterms:identifier>
+			<dcterms:language>en</dcterms:language>
+			<dcterms:publisher>ERA European Railway Agency, 120 rue Marc Lefrancq, 59307 Valenciennes Cedex, http://www.era.europa.eu/</dcterms:publisher>
+			<dcterms:rights>Unclassified</dcterms:rights>
+			<dcterms:rightsHolder>European Railway Agency</dcterms:rightsHolder>
+			<dcterms:copyright>ERA 2013</dcterms:copyright>
+			<dcterms:status>Draft</dcterms:status>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ActivityCode">
+		<xs:annotation>
+			<xs:documentation>Indicate certain treatments or operations required for a train, a wagon or a load. The following codes are delivered by the industry:
+0001	Commercial stop
+0002	Operational stop
+0003	Service stop
+0004	System stop
+0005	Reversing stop
+0006	Stops for reversing move or driver change ends
+0007	Stops for locomotive to run round train
+0008	Technical check/inspection coaches/wagons
+0009	Change gauge
+0010	attach engine/unit
+0011	detach engine/unit
+0012	change engine
+0013	attach coach/wagon
+0014	detach coach/wagon
+0015	attach and detach coach/wagon
+0016	attach train
+0017	split train
+0018	Parking of vehicle
+0019	Mail/parcel services
+0020	shunting
+0021	shunting service
+0022	Terminal service (terminal in the meaning of final destination)
+0023	Loco driver change
+0024	Loco driver break
+0025	Crew change
+0026	Custom and passport facilities
+0027	Other stop reason (miscellaneous)
+0028	Boarding only
+0029	Disembarking only
+0030	Stop on request
+0031	Departure equals to arrival time
+0032	Departure after disembarking
+0033	No waiting for connection
+0034	Watering
+0035	Heating
+0036	Cleaning / disinfecting
+0037	Treatment on plants and live animals
+0038	Treatment of perishable goods
+0039	Administrative operations
+0040	Run Through (Passing Time)
+0041	Photo run-by / Photo-stop
+0042	Train Waiting
+0043	Train running with another train
+0044	Next working
+0045	
+0046	
+0047				
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+		<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="8"/>
+			<xs:enumeration value="9"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="19"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="21"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="23"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="26"/>
+			<xs:enumeration value="27"/>
+			<xs:enumeration value="28"/>
+			<xs:enumeration value="29"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="32"/>
+			<xs:enumeration value="33"/>
+			<xs:enumeration value="34"/>
+			<xs:enumeration value="35"/>
+			<xs:enumeration value="36"/>
+			<xs:enumeration value="37"/>
+			<xs:enumeration value="38"/>
+			<xs:enumeration value="39"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="43"/>
+			<xs:enumeration value="44"/>
+			<xs:enumeration value="45"/>
+			<xs:enumeration value="46"/>
+			<xs:enumeration value="74"/>
+			<xs:enumeration value="76"/>
+			<xs:enumeration value="77"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AirBrakeChangeoverLever">
+		<xs:annotation>
+			<xs:documentation>Coded Values</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="8"/>
+				<xs:enumeration value="9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="AirBrakeType">
+		<xs:annotation>
+			<xs:documentation>Coded Values</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BrakeType">
+		<xs:annotation>
+			<xs:documentation>Type of braking system</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="G"/>
+				<xs:enumeration value="P"/>
+				<xs:enumeration value="R"/>
+				<xs:enumeration value="M"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BrakingPowerVariationDevice">
+		<xs:annotation>
+			<xs:documentation>Coding in 404-2, chapter 1.8</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>no braked weight variation device</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>empty/loaded manual or automatic device with one changeover weight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>empty/loaded manual or automatic device with two or three changeover weights</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>linear auto continuous device with indication of maximum braked weight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>non-codable variation device</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="CapacityIndicator">
+		<xs:annotation>
+			<xs:documentation>Capacity used of the transport unit</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="CharacteristicDescriptionCode">
+		<xs:annotation>
+			<xs:documentation>Characteristics on a Train according to TAP Code List B.4.7137</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First class</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second class</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation possible</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">With supplement</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation compulsory</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation advised</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation compulsory for parties</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation compulsory in first-class</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Group booking restricted</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Groups not allowed</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="19">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">No reservation</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation in first class only</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation compulsory from origin station</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation allowed for certain classes/products</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Reservation in second class only</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Not available</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Non-bookable</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bookable through an international reservation system</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="27">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bookable through a national reservation system</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bookable manually on the RU selling point</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CommercialTrafficType">
+		<xs:annotation>
+			<xs:documentation>Commercial Brand Name of a train service based on Service Brand Coding List of TAP</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Day car train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="47">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Car sleeper train, motor rail (CST)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="48">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Unaccompanied car service, motor rail</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="49">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">EkspresIC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="50">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">EC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="51">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ICE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="52">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">AVE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="53">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Eurostar</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="54">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Talgo</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="62">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Suburban service</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="63">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Intercity</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="64">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Hotel train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="65">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Hydrofoil</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="66">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Inter City Lyn</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="67">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Inter-regional</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="68">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">International</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="69">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Express</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="70">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Euro Night</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="71">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">HST</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="72">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TRN</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="73">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Sud-Est</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="74">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Atlantique</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="75">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Nord</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="76">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">LYRIA</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="77">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Duplex</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="78">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Nuit</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="79">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Est</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="80">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Interconnexion</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="82">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Thalys</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="83">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Hovercraft</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="84">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Regional</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="85">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Wilhelm Tell Express</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="86">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">City Night Line</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="87">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Pendolino</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="88">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">RER</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="89">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ALV</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="90">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">AVN</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="91">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TER</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="92">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">REG</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="93">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">FB</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="94">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Supercity</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="96">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">InterCityNotte</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="97">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">GB</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="98">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Eurostar Italia</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Funicular</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="100">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Airport train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="101">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Night train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="102">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Touristic train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="104">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Artesia</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="105">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Artesia de nuit </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="107">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Historical train, steam engine train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="108">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">IRE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="109">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">RB</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="110">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">RE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="111">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">RT</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="112">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Shinkansen</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="113">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Talgo 200</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="114">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">EUR</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="115">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ALR</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="116">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ALT</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="117">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ARC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="118">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TEOZ</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="119">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">S-Bahn</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="120">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ICN</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="121">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV Duplex de Nuit</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="122">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="123">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="126">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ARZ</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="127">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Train de Nuit Corail Lunea</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="128">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ELP</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="129">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ELP</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="153">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Sonderzug</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="154">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">InterCityRapid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="155">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">InterPici</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="157">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Fast train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="158">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Euregio</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="159">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">IC Ersatzbus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="160">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">IP Ersatzbus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="161">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV France - Allemagne</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="162">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Replacement bus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="163">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Lyria</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="164">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ES Fast</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="165">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ES AV Fast</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="170">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">YHT</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="171">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">FA</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="172">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">FR</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="173">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">AP</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="174">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">BEX</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="175">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">GEX</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="176">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">GP</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="200">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV-France Luxembourg</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="202">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ICE-Allemagne France  </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="203">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">ÖBB-NIGHTLINE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="204">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Eurostar Italia AV</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="205">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Intercity Plus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="206">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Riviera Day</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="207">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Riviera Night</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="208">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Eurostar City</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="209">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Rail Jet</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="210">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Fyra</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="212">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">City Night Line (D) </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="213">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">DB Autozug </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="214">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Berlin-Warszawa-Express </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="215">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">NMBS Nachtzug</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="216">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Precios Mercado</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="219">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">TGV</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="222">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">City Night Line Transferbus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="ConsignmentTypeCode">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of a waybill</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="CIM"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="CouplingType">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="DelayCode">
+		<xs:annotation>
+			<xs:documentation>Reason for a delay or interruption.  UIC Leaflet 450-2, Appendix C.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="19"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="21"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="26"/>
+			<xs:enumeration value="27"/>
+			<xs:enumeration value="28"/>
+			<xs:enumeration value="29"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="32"/>
+			<xs:enumeration value="33"/>
+			<xs:enumeration value="34"/>
+			<xs:enumeration value="39"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="43"/>
+			<xs:enumeration value="49"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="51"/>
+			<xs:enumeration value="52"/>
+			<xs:enumeration value="53"/>
+			<xs:enumeration value="54"/>
+			<xs:enumeration value="59"/>
+			<xs:enumeration value="60"/>
+			<xs:enumeration value="61"/>
+			<xs:enumeration value="62"/>
+			<xs:enumeration value="63"/>
+			<xs:enumeration value="64"/>
+			<xs:enumeration value="65"/>
+			<xs:enumeration value="66"/>
+			<xs:enumeration value="70"/>
+			<xs:enumeration value="69"/>
+			<xs:enumeration value="71"/>
+			<xs:enumeration value="72"/>
+			<xs:enumeration value="73"/>
+			<xs:enumeration value="74"/>
+			<xs:enumeration value="75"/>
+			<xs:enumeration value="76"/>
+			<xs:enumeration value="79"/>
+			<xs:enumeration value="80"/>
+			<xs:enumeration value="81"/>
+			<xs:enumeration value="82"/>
+			<xs:enumeration value="83"/>
+			<xs:enumeration value="84"/>
+			<xs:enumeration value="85"/>
+			<xs:enumeration value="86"/>
+			<xs:enumeration value="89"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="FacilityTypeDescriptionCode">
+		<xs:annotation>
+			<xs:documentation>Facilities on a Train according to TAP Code List B.4.9039</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleepers</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Standard class sleepers</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class seats</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class seats</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class couchettes</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class couchettes</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Sleeperette</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Restaurant</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, single</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, special</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, double</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Vehicle transport</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class, sleeper, T2</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class sleeper, T3</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class sleeper T4</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, single, shower</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="19">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, double, shower</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Non-smoker service</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Heavily disabled</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Baby room</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bicycle transport</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Wheelchair access</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Video coach</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="34">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Mini-bar</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="36">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Panorama coach</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="44">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Telephone</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Power supply</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Pullmann coach</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="47">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bar</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="48">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Family compartment</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="50">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Buffet machine</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="54">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Premium class</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="55">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Preferente</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="56">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Turista</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="57">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, single, shower, WC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="58">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">First-class sleeper, double shower, WC, </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="59">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second class sleeper, T3, shower, WC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="60">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second class sleeper double</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="61">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second class sleeper double shower/toilets</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="62">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class, couchette, two-bed, C2</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="63">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class, couchette, four-bed, C4</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="64">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second-class, couchette, six-bed, C6</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="65">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Second class couchette wheelchair</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="101">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Metro connection</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="102">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Taxi connection</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="103">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Bus connection</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="104">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Tram connection</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="105">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">2nd Class couchette five beds C5</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="HandBrakeType">
+		<xs:annotation>
+			<xs:documentation>Coded Values</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="InfoIndex">
+		<xs:annotation>
+			<xs:documentation>indicates additional information</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InfoOnGoodsShapeTypeDanger">
+		<xs:annotation>
+			<xs:documentation>Additional codified information on the load.  Coding Structures as defined in 404-2  chapter 4.1</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="06"/>
+				<xs:enumeration value="98"/>
+				<xs:enumeration value="99"/>
+				<xs:enumeration value="10"/>
+				<xs:enumeration value="14"/>
+				<xs:enumeration value="15"/>
+				<xs:enumeration value="16"/>
+				<xs:enumeration value="21"/>
+				<xs:enumeration value="22"/>
+				<xs:enumeration value="23"/>
+				<xs:enumeration value="30"/>
+				<xs:enumeration value="41"/>
+				<xs:enumeration value="42"/>
+				<xs:enumeration value="43"/>
+				<xs:enumeration value="51"/>
+				<xs:enumeration value="52"/>
+				<xs:enumeration value="61"/>
+				<xs:enumeration value="62"/>
+				<xs:enumeration value="71"/>
+				<xs:enumeration value="72"/>
+				<xs:enumeration value="73"/>
+				<xs:enumeration value="74"/>
+				<xs:enumeration value="75"/>
+				<xs:enumeration value="80"/>
+				<xs:enumeration value="90"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="IRN_EventCause">
+		<xs:annotation>
+			<xs:documentation>Type of event cause based on the codification found  in UIC Leaflet 407-1, message 2701.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="05"/>
+				<xs:enumeration value="07"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LoadingGauge">
+		<xs:annotation>
+			<xs:documentation>The enlarged reference profile as defined in UIC Leaflet 506.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="GA"/>
+				<xs:enumeration value="GB"/>
+				<xs:enumeration value="GB1"/>
+				<xs:enumeration value="GC"/>
+				<xs:enumeration value="G"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:attribute name="LocationSubsidiaryTypeCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>Not Defined</xs:documentation>
+						<xs:documentation>not used</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Track</xs:documentation>
+						<xs:documentation>The track is a uniquely defined part of location</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Private Siding</xs:documentation>
+						<xs:documentation>Tracks are not for open access</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Border Point Code</xs:documentation>
+						<xs:documentation>Special code for the Border Points are allocated at the country border and the points between different IM networks. Location of these points sometimes are not geographically same with the station or yard. Therefore these points are "logical point"</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Sorting Code</xs:documentation>
+						<xs:documentation>Destination station of the wagon has a code in order to provide shunting technology.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Vehicle Parking Points</xs:documentation>
+						<xs:documentation>All points (tracks)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Public Loading Places</xs:documentation>
+						<xs:documentation>Is a type of physical location on the open access network where consignor or consignee can load or unload wagons</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Private Loading Places</xs:documentation>
+						<xs:documentation>Is a type of physical location outside the open access network where consignor or consignee can load or unload wagons</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>IM Path Tariff Point</xs:documentation>
+						<xs:documentation>Price Segment change between two IM Networks.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Depot</xs:documentation>
+						<xs:documentation>Place for overhaul or maintenance of the rolling stock.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Switch/turnout</xs:documentation>
+						<xs:documentation>The location where two tracks meet or diverge.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Grade Crossing</xs:documentation>
+						<xs:documentation>The location where two tracks on the same level cross each other.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>Section of the track</xs:documentation>
+						<xs:documentation>Section is inside of the location considered part of a track.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>Twin track point</xs:documentation>
+						<xs:documentation>The spot where is end or start of the twinned track section.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>Retarder (rail brake)</xs:documentation>
+						<xs:documentation>Trackside equipment to control the speed of the wagons running from the shunting hump.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>Platform</xs:documentation>
+						<xs:documentation>The area next to the track which has been raised to make access to railway vehicles easier.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>Railing</xs:documentation>
+						<xs:documentation>barrier Safety equipment used to prevent access to the track by people and animals.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>Movable scotch block</xs:documentation>
+						<xs:documentation>Safety equipment across the track avoiding any unnecessary moving beyond that point.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation>Derailing stop / Trap points / Catch points</xs:documentation>
+						<xs:documentation>Safety equipment is on one rail avoiding any unnecessary moving beyond that point.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="19">
+					<xs:annotation>
+						<xs:documentation>Loading equipment</xs:documentation>
+						<xs:documentation>Special equipment to facilitate the loading and unloading on the Public Loading Places.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation>Weighbridge</xs:documentation>
+						<xs:documentation>Special equipment is to facilitate the measure of the weight of the wagon.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation>Building</xs:documentation>
+						<xs:documentation>Those buildings where IM placed his staff for direct communication with RU staff or the IM buildings serve RU activities as well.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation>Level crossing</xs:documentation>
+						<xs:documentation>Place where rail and road crossing in level. on the same level (grade)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation>Bridge</xs:documentation>
+						<xs:documentation>Special built structure is over the road</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation>Tunnel</xs:documentation>
+						<xs:documentation>Structure to to allow a railway line to pass under the surface.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation>Underpass</xs:documentation>
+						<xs:documentation>Undercrossing or underground passage under the railway track. (Not used by trains)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation>Block section</xs:documentation>
+						<xs:documentation>Block section outside of the location with primary code. In other words: a section on the open track between stations defined by signalling system.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="27">
+					<xs:annotation>
+						<xs:documentation>Signal</xs:documentation>
+						<xs:documentation>A signal is a mechanical or electrical device erected beside a railway line to pass information relating to the state of the line ahead to train drivers/engineers.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation>Sign and board</xs:documentation>
+						<xs:documentation>Equipment to inform the board staff for train traffic and shunting.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="29">
+					<xs:annotation>
+						<xs:documentation>Phase break</xs:documentation>
+						<xs:documentation>Border of the power supply systems (catenary).</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="30">
+					<xs:annotation>
+						<xs:documentation>Leap in kilometer</xs:documentation>
+						<xs:documentation>The section has deviation in length i. e. the section more or less than called.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="32">
+					<xs:annotation>
+						<xs:documentation>Balise</xs:documentation>
+						<xs:documentation>A balise is an electronic beacon or transponder placed between the rails of a railway as part of an Automatic Train Protection (ATP) system.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation>Hot spot detector</xs:documentation>
+						<xs:documentation>Trackside equipment which detects hot wheels or axle-box on passing trains.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="34">
+					<xs:annotation>
+						<xs:documentation>Flat wheel detector</xs:documentation>
+						<xs:documentation>Trackside equipment which detects flat spots on wheels on passing trains.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="35">
+					<xs:annotation>
+						<xs:documentation>Dynamic wheel load</xs:documentation>
+						<xs:documentation>detector Special equipment is in trackside for inspect of the overloaded wagons.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="36">
+					<xs:annotation>
+						<xs:documentation>Freight yard</xs:documentation>
+						<xs:documentation>A freight yard is commercial usage of a physical location which can be used as a sending or a destination station in freight orders of rail freight transports. The freight yard can have his own codification</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="37">
+					<xs:annotation>
+						<xs:documentation>Loading point</xs:documentation>
+						<xs:documentation>A loading point is a commercial usage of a physical location. Each loading point is assigned to a yard.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="38">
+					<xs:annotation>
+						<xs:documentation>IM Network link</xs:documentation>
+						<xs:documentation>It allows to link two locations from different IM Networks</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="39">
+					<xs:annotation>
+						<xs:documentation>Reservation code</xs:documentation>
+						<xs:documentation/>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="40">
+					<xs:annotation>
+						<xs:documentation>Metastation</xs:documentation>
+						<xs:documentation>To mark a meta location that forms the link between different stations that are considered as equal (for the traveller)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="41">
+					<xs:annotation>
+						<xs:documentation>CompanySpecificIdentifier</xs:documentation>
+						<xs:documentation>Company specific identifier of the primary location</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="90">
+					<xs:annotation>
+						<xs:documentation>Test Loc</xs:documentation>
+						<xs:documentation/>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation>Relation to Station</xs:documentation>
+						<xs:documentation>An indicator used to show that this location is a subsidiary of another location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:simpleType name="MessageCode">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of message</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="9999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MessageStatus">
+		<xs:annotation>
+			<xs:documentation>Assigned by the Sender 1=creation, 2=modification, 3=deletion</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MessageType">
+		<xs:annotation>
+			<xs:documentation>To indicate the message type transmitted or referred to</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="MessageCode">
+				<xs:enumeration value="2001">
+					<xs:annotation>
+						<xs:documentation>PathCanceledMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2002">
+					<xs:annotation>
+						<xs:documentation>PathConfirmedMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2003">
+					<xs:annotation>
+						<xs:documentation>PathDetailsMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2004">
+					<xs:annotation>
+						<xs:documentation>PathDetailsRefusedMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2005">
+					<xs:annotation>
+						<xs:documentation>PathNotAvailableMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2006">
+					<xs:annotation>
+						<xs:documentation>PathRequestMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2007">
+					<xs:annotation>
+						<xs:documentation>ReceiptConfirmationMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3001">
+					<xs:annotation>
+						<xs:documentation>TrainAcceptedMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3002">
+					<xs:annotation>
+						<xs:documentation>TrainAtStartMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3003">
+					<xs:annotation>
+						<xs:documentation>TrainCompositionMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3004">
+					<xs:annotation>
+						<xs:documentation>TrainNotSuitableMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3005">
+					<xs:annotation>
+						<xs:documentation>TrainPositionMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3006">
+					<xs:annotation>
+						<xs:documentation>TrainReadyMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4001">
+					<xs:annotation>
+						<xs:documentation>TrainDelayCauseMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4002">
+					<xs:annotation>
+						<xs:documentation>TrainDelayPerformanceMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4003">
+					<xs:annotation>
+						<xs:documentation>TrainForecastAtReportingLocationMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4004">
+					<xs:annotation>
+						<xs:documentation>TrainRunningForecastMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4005">
+					<xs:annotation>
+						<xs:documentation>TrainRunningInformationMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4006">
+					<xs:annotation>
+						<xs:documentation>TrainRunningInterruptionMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5001">
+					<xs:annotation>
+						<xs:documentation>AlertMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5002">
+					<xs:annotation>
+						<xs:documentation>WagonArrivalNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5003">
+					<xs:annotation>
+						<xs:documentation>WagonDeliveryNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5004">
+					<xs:annotation>
+						<xs:documentation>WagonDepartureNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5005">
+					<xs:annotation>
+						<xs:documentation>WagonDeviationMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5006">
+					<xs:annotation>
+						<xs:documentation>WagonETI_ETA_Message</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5007">
+					<xs:annotation>
+						<xs:documentation>WagonExceptionMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5008">
+					<xs:annotation>
+						<xs:documentation>WagonExceptionReasonMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5009">
+					<xs:annotation>
+						<xs:documentation>WagonInterchangeNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5010">
+					<xs:annotation>
+						<xs:documentation>WagonInterchangeSubNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5011">
+					<xs:annotation>
+						<xs:documentation>WagonOrderMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5012">
+					<xs:annotation>
+						<xs:documentation>WagonReceivedAtInterchangeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5013">
+					<xs:annotation>
+						<xs:documentation>WagonRefusedAtInterchangeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5014">
+					<xs:annotation>
+						<xs:documentation>WagonReleaseNoticeMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5015">
+					<xs:annotation>
+						<xs:documentation>WagonYardArrivalMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5016">
+					<xs:annotation>
+						<xs:documentation>WagonYardDepartureMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6001">
+					<xs:annotation>
+						<xs:documentation>IRN_DatasetMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6002">
+					<xs:annotation>
+						<xs:documentation>LocationFileDatasetMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6003">
+					<xs:annotation>
+						<xs:documentation>RollingStockDatasetMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="NormalLoadingGauge">
+		<xs:annotation>
+			<xs:documentation>Wagon or load gauge code used in UK, coded in UIC 505-1 and 503</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="GA"/>
+				<xs:enumeration value="GB"/>
+				<xs:enumeration value="GB1"/>
+				<xs:enumeration value="GC"/>
+				<xs:enumeration value="G"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PackingGroup" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>The Packing Group according to the RID chapter 3.2, table A, column 4. Possible values are "I", "II" or "III", otherwise the Packing Group have to be omitted. Mandatory, if it's foreseen in column 4, except it concerns a declaration of an empty packaging of the type "EMPTY PACKAGING", "EMPTY RECEPTACLE &lt;=1000L", "EMPTY IBC" or "EMPTY LARGE PACKAGING".</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RestrictionOrProhibition">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RestrictionsDueToLoadOrDamage">
+		<xs:annotation>
+			<xs:documentation>These are possible restrictions applicable in the originating country to shunting operations in stations and to main-line movements on account of the nature of the load. Coding in 404-2, chapter 4.4 and 2.11
+	  </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="08"/>
+				<xs:enumeration value="09"/>
+				<xs:enumeration value="15"/>
+				<xs:enumeration value="16"/>
+				<xs:enumeration value="41"/>
+				<xs:enumeration value="42"/>
+				<xs:enumeration value="61"/>
+				<xs:enumeration value="62"/>
+				<xs:enumeration value="63"/>
+				<xs:enumeration value="70"/>
+				<xs:enumeration value="71"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RouteClass">
+		<xs:annotation>
+			<xs:documentation>Indication of the route class (based on CEN EN 15528: line categories for managing the interface between load limits of vehicels on infrastructure).</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="4"/>
+				<xs:pattern value=""/>
+				<xs:enumeration value="A"/>
+				<xs:enumeration value="B"/>
+				<xs:enumeration value="C2"/>
+				<xs:enumeration value="C4"/>
+				<xs:enumeration value="D2"/>
+				<xs:enumeration value="D4"/>
+				<xs:enumeration value="A2"/>
+				<xs:enumeration value="A4"/>
+				<xs:enumeration value="B1"/>
+				<xs:enumeration value="B2"/>
+				<xs:enumeration value="C3"/>
+				<xs:enumeration value="D3"/>
+				<xs:enumeration value="E4"/>
+				<xs:enumeration value="E5"/>
+				<xs:enumeration value="D4xL"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="RunningStatus">
+		<xs:annotation>
+			<xs:documentation>Identifies the status of a train related to the actual time at the reporting point</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="00"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="19"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="SpecialServiceDescriptionCode">
+		<xs:annotation>
+			<xs:documentation>Service on a Train according to TAP Code List B.4.716</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Additional loading</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Additional unloading</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Breakfast</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Dinner</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Loading</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Lunch</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Unloading</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Child</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Cold buffet</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Restaurant in 1st class only</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Hot buffet</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Meal included for 1st class passengers</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Trolley</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Snack</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="27">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Disabled</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Movies</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="29">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Business</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="30">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Nursery</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="31">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Buffet</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="32">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Special services for military</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Boarding possible 2 hours before departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="34">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Alighting possible until 2 hours after arrival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="35">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Boarding possible 30 minutes before departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="36">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Alighting possible until 30 minutes after arrival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="37">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Postal services</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="38">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Meal at the seat</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="39">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Self service</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="40">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Overnight stay</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="41">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Luggage transport</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Luggage transport excluded</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Music</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="44">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Check-in</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Check-out</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TrainCC_Syst">
+		<xs:annotation>
+			<xs:documentation>Identifies the command control system of the train in coded values</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="21"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="23"/>
+			<xs:enumeration value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TrainCC_SystemCode">
+		<xs:annotation>
+			<xs:documentation>Type of Train Control System</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="05"/>
+				<xs:enumeration value="06"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="21"/>
+				<xs:enumeration value="22"/>
+				<xs:enumeration value="31"/>
+				<xs:enumeration value="32"/>
+				<xs:enumeration value="91"/>
+				<xs:enumeration value=""/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TrainRadioSystem">
+		<xs:annotation>
+			<xs:documentation>The on board radio system of the train in coded format</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TypeOfIMHarmonizationCode">
+		<xs:annotation>
+			<xs:documentation>Enumeration of Type of  IM harmonization: Full, Part
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Part"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfInformationCode">
+		<xs:annotation>
+			<xs:documentation> Enumeration indicating to which process step / process type in the planning does the message belong: 
+01	harmonisation - in process
+02	harmonisation - accepted
+03	harmonisation - rejected
+04	harmonisation - completed
+05	path study request
+06	pre-arranged path/reserve capacity
+07	create offer
+08	coordination update
+09	draft offer
+10	draft alternative offer
+11	observation - in process
+12	observation - complete
+13	preparation of final offer - in process
+14	preparation of final offer - accepted
+15	preparation of final offer - rejected
+16	final offer
+17	final offer - accepted
+18	alternative offer accepted
+19    pre-accepted offer
+22    booked 
+
+30	Create Dossier
+31	Close Dossier
+
+40          Fully Assembled Path (FAP, constructed path)
+
+	
+	
+	
+50	activate path (utilisation notification)
+51	deactivate path (utilisation notification)
+52	confirmation of utilisation notification
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="99"/>
+			<xs:minInclusive value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="8"/>
+			<xs:enumeration value="9"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="19"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="51"/>
+			<xs:enumeration value="52"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfRequestCode">
+		<xs:annotation>
+			<xs:documentation> Enumeration for 3 different basic types of the processes in the planning: Study (1), Request (2), Modification (3)
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:short">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="9"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfRUHarmonizationCode">
+		<xs:annotation>
+			<xs:documentation>Type of RU  harmonization: Full, Part, None.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Part"/>
+			<xs:enumeration value="None"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UnitType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of a Transportation unit</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="WagonType">
+		<xs:annotation>
+			<xs:documentation>Category Code as defined in UIC Leaflet 438-1</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="E"/>
+				<xs:enumeration value="F"/>
+				<xs:enumeration value="G"/>
+				<xs:enumeration value="H"/>
+				<xs:enumeration value="I"/>
+				<xs:enumeration value="K"/>
+				<xs:enumeration value="L"/>
+				<xs:enumeration value="O"/>
+				<xs:enumeration value="R"/>
+				<xs:enumeration value="S"/>
+				<xs:enumeration value="T"/>
+				<xs:enumeration value="U"/>
+				<xs:enumeration value="Z"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
