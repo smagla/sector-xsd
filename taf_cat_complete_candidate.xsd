@@ -2,7 +2,7 @@
 <!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
 <!-- Clean version -->
 <!-- version 5.2 from the 30/05/2012 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/5.3" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/5.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version=„5.3.1“>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/5.3" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/5.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.3.1">
 	<xs:include schemaLocation="taf_cat_codelists_candidate.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -128,9 +128,67 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="AirBrakeType" minOccurs="0"/>
-				<xs:element ref="AirBrakeChangeoverLever"/>
-				<xs:element ref="AirBrakedMass" maxOccurs="unbounded"/>
+				<xs:element name="NumberOfBrakes" type="Numeric2-2">
+					<xs:annotation>
+						<xs:documentation>Number of air brakes</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="BrakeSystem" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Abbreviation of air brake system. Code List Candidate: 
+Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brake pipe</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="AirBrakeType"/>
+				<xs:element ref="BrakingPowerVariationDevice"/>
+				<xs:element ref="AirBrakedMass">
+					<xs:annotation>
+						<xs:documentation> General braked weight for wagon without any variation device or braked weight in position "empty" for wagons with a variation device or maximum brake weight for wagons with a linear aoto continouus brake weight device "0" for wagons without brake system (in tonns)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="LoadChangeDevice" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Specific weights for change over air brake systems</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ChangeOverWeight" type="Numeric3-3">
+								<xs:annotation>
+									<xs:documentation>Change over weight of braked weight in tonns variation device</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AirBrakedMassLoaded" type="Numeric3-3">
+								<xs:annotation>
+									<xs:documentation>Braked weight in tonns loaded for change over weight</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="BrakeSpecialCharacteristics">
+					<xs:annotation>
+						<xs:documentation>General brake characteristics:
+Code List Candidate:
+0 = No special characteristic (graduated release brake with cast iron blocks) "GG"
+1 = Disc brake
+2 = Composite brake blocks
+3 = Single release brake
+4 = Single release brake with composite brake blocks
+5 = L-Brake
+6 = LL-Brake
+9 = Non-coded information</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -2111,7 +2169,23 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="HandBrakeType"/>
-				<xs:element ref="BrakeWeight"/>
+				<xs:element ref="BrakeWeight" minOccurs="0"/>
+				<xs:element name="ParkingBrakeForce" type="Numeric1-5" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Parking force of the hand brake measured in kN</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MaxParkingBrakeGradient" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Maximum gradient for parking only with hand brake measured in °</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -2753,7 +2827,7 @@ The other subelements help describing the interruption information more precisel
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="MaxGrossWeight">
+	<xs:element name="MaxGrossWeight" type="WeightValueKilo">
 		<xs:annotation>
 			<xs:documentation>Weight of max Gross Load Weight  plus the tare weight of the equipment</xs:documentation>
 		</xs:annotation>
@@ -4122,98 +4196,533 @@ For Path Requests, this element has to be used
 				<xs:element name="AdministrativeDataSet">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="Keeper"/>
-							<xs:element ref="Registration" maxOccurs="unbounded"/>
-							<xs:element ref="EC_Verification"/>
-							<xs:element ref="SafetyCertAccredFlag"/>
-							<xs:element ref="SafetyCertification"/>
-							<xs:element ref="DateRIV_Certification"/>
-							<xs:element ref="AdmissionType"/>
-							<xs:element ref="Class"/>
-							<xs:element ref="EquipmentID"/>
-							<xs:element ref="RebuildManufacturer" minOccurs="0"/>
-							<xs:element ref="SpecialExamination" minOccurs="0"/>
-							<xs:element ref="DateOfficialScrapping" minOccurs="0"/>
-							<xs:element ref="RefusedBy" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="AdditionalCertification" minOccurs="0"/>
-							<xs:element ref="DatePutIntoService"/>
-							<xs:element ref="MaintenancePlanRef" minOccurs="0"/>
-							<xs:element ref="MaintenanceCycle" minOccurs="0"/>
-							<xs:element ref="Pool_Indicator" minOccurs="0"/>
-							<xs:element ref="RU_Partner"/>
-							<xs:element ref="FleetManager" minOccurs="0"/>
-							<xs:element ref="UNIDROIT_Reference" minOccurs="0"/>
+							<xs:element ref="WagonNumberFreight"/>
+							<xs:element name="PreviousWagonNumberFreight" type="WagonIdent" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>For identification of a wagon after renumbering</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RegistrationCountry" type="CountryIdentISO">
+								<xs:annotation>
+									<xs:documentation>ISO country code of registration country</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="DatePutIntoService">
+								<xs:annotation>
+									<xs:documentation>Date of first operation</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AuthorisationValidUntil" type="xs:date" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>End date for restricted authorisation (special case)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SuspensionOfAuthorisation" type="xs:boolean">
+								<xs:annotation>
+									<xs:documentation>Information if authorisation has been suspended by the authority</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DateSuspensionOfAuthorisation" type="xs:date" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Date of the suspension of authorisation; must be provided in case of suspension</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MulitlateralAuthorisationCountries" type="CountryIdentISO" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation> ISO country code of countries where the wagon is authorised (applies only in case of limited interoperability); first entry indicates the initial authorisation country</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="KeeperShortNameVKM">
+								<xs:annotation>
+									<xs:documentation>Vehicle Keeper Marking of the wagon keeper as listed in VKM register (http://www.era.europa.eu/Document-Register/Pages/list-VKM.aspx, column B - without special characters)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ECM">
+								<xs:annotation>
+									<xs:documentation> Full name of the assigned Entity in Charge of Maintenance</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="256"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="PlannedChangeOfECM" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="CurrentECMAssignedUntil" type="xs:date">
+											<xs:annotation>
+												<xs:documentation> Date until the current Entity in Charge of Maintenance is assigned to the wagon</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SubsequentECM">
+											<xs:annotation>
+												<xs:documentation> Full name of the following Entity in Charge of Maintenance</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="256"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ECMCertificate">
+								<xs:annotation>
+									<xs:documentation>ECM certificate information</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EINNumber">
+											<xs:annotation>
+												<xs:documentation>ECM certificate reference number</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="CountryCodeISO"/>
+													<xs:element name="TypeDocumentEIN" type="Numeric2-2">
+														<xs:annotation>
+															<xs:documentation>Code List Candidate: 
+31, 34</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="CounterAcreditedRecognizedBody" type="Numeric2-2"/>
+													<xs:element name="EINYear" type="Numeric2-2"/>
+													<xs:element name="EINCounter">
+														<xs:simpleType>
+															<xs:restriction base="xs:integer">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="9999"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="ECMCertificateValidFrom" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>Certificate valid from date</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ECMCertificateValidTo" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>Certificate valid to date</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CoversTankWagonsForDangerousGoods" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Certificate covers tank wagons for dangerous goods</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CoversNonTankWagonsForDangerousGoods" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Certificate covers other wagons specialised in transport of dangerous goods</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ECMCertificateSuspended" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Identification if certificate has been suspended for any reason</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="DateECMCertificateSuspended" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Date of the suspension of the ECM certificate; must be provided in case of suspension</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="InteropCapability">
+								<xs:annotation>
+									<xs:documentation>Identification of the general interoperability capability of the wagon
+New Code List Candidate (with enumeration):
+
+01 = National
+02 = Bi-/Multilateral (with agreement or authorisation grid)
+
+03 = RIV
+05 = TEN
+
+06 = TEN-GE
+
+07 = TEN-CW
+
+08 = TEN RIV</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="256"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="GCUWagon" type="xs:boolean">
+								<xs:annotation>
+									<xs:documentation>Indication if wagon is operated under the GCU contract</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="DesignDataSet">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="WagonType"/>
+							<xs:element name="WagonTypeFull">
+								<xs:annotation>
+									<xs:documentation>Complete wagon category letter code</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TankCode" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Tank code (applies only for tank wagons)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
 							<xs:element ref="WagonNumberOfAxles"/>
-							<xs:element ref="WheelSetDistance"/>
-							<xs:element ref="WheelDiameter"/>
-							<xs:element ref="WheelsetGauge"/>
-							<xs:element ref="NumberOfBogies" minOccurs="0"/>
+							<xs:element name="WheelSetType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Type name of the wheel sets</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="256"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="WheelDiameter" minOccurs="0"/>
+							<xs:element ref="WheelsetGauge" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="NumberOfBogies" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Number of bogies for a wagon (applies for bogie wagons only)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 							<xs:element ref="BogiePitch" minOccurs="0"/>
+							<xs:element name="BogiePivotPitch" type="Numeric1-5" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Largest distance between two adjacent bogie pitches in mm</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="InnerWheelbase" type="Numeric1-5">
+								<xs:annotation>
+									<xs:documentation>Maximum distance between two adjacent  axles in mm</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 							<xs:element ref="AxlesInterchangeable" minOccurs="0"/>
 							<xs:element ref="AxlesVariableWidth" minOccurs="0"/>
-							<xs:element ref="CouplingType"/>
-							<xs:element ref="WagonGauge"/>
-							<xs:element ref="MinCurveRadius"/>
-							<xs:element ref="MinVerticleRadiusYardHump"/>
-							<xs:element ref="WagonWeightEmpty"/>
-							<xs:element ref="LengthOverBuffers"/>
-							<xs:element ref="MaxAxleWeight"/>
-							<xs:element ref="MaxMetreLoad"/>
-							<xs:element ref="MaxSpeedEmpty"/>
-							<xs:element ref="BrakeType"/>
-							<xs:element ref="AirBrake" minOccurs="0"/>
-							<xs:element ref="HandBrake"/>
-							<xs:element ref="MaxLengthOfLoad"/>
-							<xs:element ref="LoadingCapacity"/>
-							<xs:element ref="LoadArea"/>
-							<xs:element ref="MaxGrossWeight"/>
-							<xs:element ref="MaxSpeedLoad"/>
-							<xs:element ref="FerryPermittedFlag" minOccurs="0"/>
-							<xs:sequence minOccurs="0">
+							<xs:element ref="CouplingType" minOccurs="0"/>
+							<xs:element name="BufferType" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Temperature Range</xs:documentation>
+									<xs:documentation> Classification of buffer
+Code List Candidate: A, AX, B, C, CX, L0 (130), L0 (150), L2 (130), L2 (150), L4 (130), L4 (150)</xs:documentation>
 								</xs:annotation>
-								<xs:element ref="MaxTemp"/>
-								<xs:element ref="MinTemp"/>
-							</xs:sequence>
-							<xs:element ref="NoiseByPassLimit" minOccurs="0"/>
-							<xs:element ref="TechnicalForwardingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="LoadingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="ConsignmentRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="Noise" minOccurs="0"/>
-							<xs:element ref="DangerousGoodsRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="GeographicLimitations" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="TimePeriodRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="VerticalCurveRestrictions" minOccurs="0"/>
-							<xs:element ref="IntervalNextSpecialInspection" minOccurs="0"/>
-							<xs:element ref="SpecialExamination" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="RestrictionOrProhibition" minOccurs="0"/>
-							<xs:element ref="HumpShuntingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="MaxHumidity" minOccurs="0"/>
-							<xs:element name="RepairStatus" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="256"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="NormalLoadingGauge"/>
+							<xs:element ref="MinCurveRadius">
+								<xs:annotation>
+									<xs:documentation> Minimum allowed curve radius due to design characteristics, measured in meters</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="MinVerticleRadiusYardHump" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Minimum allowed verticle radius over yard humps
+Measured in meters</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="WagonWeightEmpty">
+								<xs:annotation>
+									<xs:documentation>Weight of the empty wagon (tara weight) in kg</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="LengthOverBuffers">
+								<xs:annotation>
+									<xs:documentation>Length of the wagon over buffers measured in mm</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="MaxAxleWeight"/>
+							<xs:element name="LoadTable" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Load table, can be used for international, product specific and additional (country-specific) load tables</xs:documentation>
+								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element ref="FaultDescription" minOccurs="0"/>
-										<xs:element ref="FaultCounter" minOccurs="0"/>
-										<xs:element ref="MajorAccidentData" minOccurs="0"/>
-										<xs:element ref="RepairType" minOccurs="0"/>
-										<xs:element ref="DateLastRepair" minOccurs="0"/>
-										<xs:element ref="RepairLocation" minOccurs="0"/>
-										<xs:element ref="DateAccident" minOccurs="0"/>
+										<xs:element name="LoadTableProduct" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Product description, only applies for product-specific load tables</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ProductUNCode" type="Numeric4-4">
+														<xs:annotation>
+															<xs:documentation>UN code of product if product specific load table</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ProductRIDName">
+														<xs:annotation>
+															<xs:documentation> RID product name as written on the folding panel</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="256"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="LoadTableCountry" type="CountryIdentISO" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>ISO country code of countries for additional load tables</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SpeedCategory" type="Numeric1-5" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Numeric speed in load table, without speed empty in km/h</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="LoadTableStars" type="Numeric1-5" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Number of load table stars </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="RouteClassPayloads" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="RouteClass"/>
+													<xs:element name="MaxPayload" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>Maximum payload in tonns of line category; number of entries must fit to number of entries in SpeedCategory</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:integer">
+																<xs:minInclusive value="1"/>
+																<xs:maxInclusive value="999"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element ref="PermittedTolerance"/>
+							<xs:element ref="MaxSpeedEmpty">
+								<xs:annotation>
+									<xs:documentation>Maxumum speed conditions empty arising rom wagon construction characteristics (in km/h)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="AirBrake"/>
+							<xs:element ref="HandBrake">
+								<xs:annotation>
+									<xs:documentation>Characteristics of hand brake</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="BrakeBlock" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Characteristics of brake blocks</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="BrakeBlockName" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Name of the brake block type, including the length in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="256"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CompositeBrakeBlockRetrofitted" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation> Indication if composite brake blocks are retrofitted or originally equipped</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CompositeBrakeBlockInstallationDate" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Date of composite brake block installation, for originally equipped wagon = date put into service</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="MaxLengthOfLoad" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation> Maximum length of the load measured in mm </xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="LoadArea" minOccurs="0"/>
+							<xs:element name="HeightOfLoadingPlaneUnladen" type="Numeric1-5" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Height of the loading plane when wagon is empty measured in mm</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RemovableAccessories" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="TypeOfRemovableAccessories">
+											<xs:annotation>
+												<xs:documentation>Specification of removable accessory
+Code List Candidate:
+01 = Removable stanchion
+02 = Removable side flap of flat wagon
+03 = Removable end flap of flat wagon
+04 = Removable side rail
+05 = Removable intermediate upright for securing the load
+06 = Stanchion chain
+07 = Removable handle and wheel for winch on car-carrying wagon
+08 = Swivelling bolster (with stanchions)
+09 = Coupling rod (rigid coupling)
+10 = Ice bunker
+11 = Ice bunker screen
+12 = Ice bunker frame
+13 = Trestle or bar with hooks for hanging meat
+14 = Movable cross-member of wagon with low loading plane
+15 = Removable support
+16 = Mooring cross-member on wagon for special loads
+17 = Movable floor panel on wagon for special loads
+18 = Scotch
+19 = Skid bar with or without shoes on car-carrying wagon
+20 = Mooring strap on car-carrying wagon
+21 = Beam for movable ramp on car-carrying wagon
+22 = Spare heating half-coupling
+23 = Fire extinguisher
+24 = Wheel scotches (for cars) on car-carrying wagon
+25 = Gangway loading ramp on car-carrying wagon
+26 = Metal cradles for rolls of metal sheeting
+27 = Panel for covering markings
+28 = Loading frame for special types of goods
+29 = Headstock for "rolling roads"
+99 = Other wagon accessories
+01 = Removable stanchion
+02 = Removable side flap of flat wagon
+03 = Removable end flap of flat wagon
+04 = Removable side rail
+05 = Removable intermediate upright for securing the load
+06 = Stanchion chain
+07 = Removable handle and wheel for winch on car-carrying wagon
+08 = Swivelling bolster (with stanchions)
+09 = Coupling rod (rigid coupling)
+10 = Ice bunker
+11 = Ice bunker screen
+12 = Ice bunker frame
+13 = Trestle or bar with hooks for hanging meat
+14 = Movable cross-member of wagon with low loading plane
+15 = Removable support
+16 = Mooring cross-member on wagon for special loads
+17 = Movable floor panel on wagon for special loads
+18 = Scotch
+19 = Skid bar with or without shoes on car-carrying wagon
+20 = Mooring strap on car-carrying wagon
+21 = Beam for movable ramp on car-carrying wagon
+22 = Spare heating half-coupling
+23 = Fire extinguisher
+24 = Wheel scotches (for cars) on car-carrying wagon
+25 = Gangway loading ramp on car-carrying wagon
+26 = Metal cradles for rolls of metal sheeting
+27 = Panel for covering markings
+28 = Loading frame for special types of goods
+29 = Headstock for "rolling roads"
+99 = Other wagon accessories
+</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="NumberOfAccesorOfSpecType">
+											<xs:annotation>
+												<xs:documentation>Number of specified accessory equipped on the wagon</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="LoadingCapacity" minOccurs="0"/>
+							<xs:element ref="MaxGrossWeight">
+								<xs:annotation>
+									<xs:documentation>Weight of max Gross Load Weight  plus the tare weight of the equipment in kg</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="MaxSpeedLoad">
+								<xs:annotation>
+									<xs:documentation>Maximum speed conditions according to load (in km/h)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="VapourReturnSystem" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Indication if tank wagon is equipped with a vapour return system</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="FerryPermittedFlag" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation> Indication if wagon is permitted to be used on ferries</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="FerryRampAngle" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Maximum allowed angle of the ferry ramp (in grades: °)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="ChannelTunnelPermitted" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Indication if wagon is allowed to pass the Channel Tunnel</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="TemperatureRange" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:annotation>
+											<xs:documentation>Temperature Range</xs:documentation>
+										</xs:annotation>
+										<xs:element ref="MaxTemp"/>
+										<xs:element ref="MinTemp"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="NoiseByPassLimit" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Noise limit on reference track in decibels (dB)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="Noise" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Noise level at stand still in decibels (dB)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="TechnicalForwardingRestrictions" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Restrictions relevant to wagon operations in train formation, yards or in trains due to design characteristics</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DateLastOverhaul" type="xs:date">
+								<xs:annotation>
+									<xs:documentation>Date of the last overhaul, if yet no overhaul date of putting into service</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 							<xs:element ref="DateNextOverhaul"/>
-							<xs:element ref="KMsSinceLastOverhaul"/>
-							<xs:element ref="FireProtectionCategory" minOccurs="0"/>
+							<xs:element ref="PermittedTolerance"/>
+							<xs:element name="DateOfNextTankInspection" type="xs:date" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Date of the next tank inspection, applies only for tank wagons</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -4227,104 +4736,40 @@ For Path Requests, this element has to be used
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="MessageHeader"/>
-				<xs:element name="AdministrativeDataSet">
+				<xs:element ref="RollingStockDataset"/>
+				<xs:element name="RefusedWagonNumbers" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="Keeper"/>
-							<xs:element ref="Registration" maxOccurs="unbounded"/>
-							<xs:element ref="EC_Verification"/>
-							<xs:element ref="SafetyCertAccredFlag"/>
-							<xs:element ref="SafetyCertification"/>
-							<xs:element ref="DateRIV_Certification"/>
-							<xs:element ref="AdmissionType"/>
-							<xs:element ref="Class"/>
-							<xs:element ref="EquipmentID"/>
-							<xs:element ref="RebuildManufacturer" minOccurs="0"/>
-							<xs:element ref="SpecialExamination" minOccurs="0"/>
-							<xs:element ref="DateOfficialScrapping" minOccurs="0"/>
-							<xs:element ref="RefusedBy" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="AdditionalCertification" minOccurs="0"/>
-							<xs:element ref="DatePutIntoService"/>
-							<xs:element ref="MaintenancePlanRef" minOccurs="0"/>
-							<xs:element ref="MaintenanceCycle" minOccurs="0"/>
-							<xs:element ref="Pool_Indicator" minOccurs="0"/>
-							<xs:element ref="RU_Partner"/>
-							<xs:element ref="FleetManager" minOccurs="0"/>
-							<xs:element ref="UNIDROIT_Reference" minOccurs="0"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="DesignDataSet">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="WagonType"/>
-							<xs:element ref="WagonNumberOfAxles"/>
-							<xs:element ref="WheelSetDistance"/>
-							<xs:element ref="WheelDiameter"/>
-							<xs:element ref="WheelsetGauge"/>
-							<xs:element ref="NumberOfBogies" minOccurs="0"/>
-							<xs:element ref="BogiePitch" minOccurs="0"/>
-							<xs:element ref="AxlesInterchangeable" minOccurs="0"/>
-							<xs:element ref="AxlesVariableWidth" minOccurs="0"/>
-							<xs:element ref="CouplingType"/>
-							<xs:element ref="WagonGauge"/>
-							<xs:element ref="MinCurveRadius"/>
-							<xs:element ref="MinVerticleRadiusYardHump"/>
-							<xs:element ref="WagonWeightEmpty"/>
-							<xs:element ref="LengthOverBuffers"/>
-							<xs:element ref="MaxAxleWeight"/>
-							<xs:element ref="MaxMetreLoad"/>
-							<xs:element ref="MaxSpeedEmpty"/>
-							<xs:element ref="BrakeType"/>
-							<xs:element ref="AirBrake" minOccurs="0"/>
-							<xs:element ref="HandBrake"/>
-							<xs:element ref="MaxLengthOfLoad"/>
-							<xs:element ref="LoadingCapacity"/>
-							<xs:element ref="LoadArea"/>
-							<xs:element ref="MaxGrossWeight"/>
-							<xs:element ref="MaxSpeedLoad"/>
-							<xs:element ref="FerryPermittedFlag" minOccurs="0"/>
-							<xs:sequence minOccurs="0">
+							<xs:element ref="WagonNumberFreight"/>
+							<xs:element name="RefusalCode">
 								<xs:annotation>
-									<xs:documentation>Temperature Range</xs:documentation>
+									<xs:documentation>Code List Candidate:
+1 = Data not authorised by Wagon Keeper
+
+2 = Wagon number freight unknown</xs:documentation>
 								</xs:annotation>
-								<xs:element ref="MaxTemp"/>
-								<xs:element ref="MinTemp"/>
-							</xs:sequence>
-							<xs:element ref="NoiseByPassLimit" minOccurs="0"/>
-							<xs:element ref="TechnicalForwardingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="LoadingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="ConsignmentRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="Noise" minOccurs="0"/>
-							<xs:element ref="DangerousGoodsRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="GeographicLimitations" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="TimePeriodRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="VerticalCurveRestrictions" minOccurs="0"/>
-							<xs:element ref="IntervalNextSpecialInspection" minOccurs="0"/>
-							<xs:element ref="SpecialExamination" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="RestrictionOrProhibition" minOccurs="0"/>
-							<xs:element ref="HumpShuntingRestrictions" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="MaxHumidity" minOccurs="0"/>
-							<xs:element name="RepairStatus" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="FaultDescription" minOccurs="0"/>
-										<xs:element ref="FaultCounter" minOccurs="0"/>
-										<xs:element ref="MajorAccidentData" minOccurs="0"/>
-										<xs:element ref="RepairType" minOccurs="0"/>
-										<xs:element ref="DateLastRepair" minOccurs="0"/>
-										<xs:element name="RepairLocation" minOccurs="0"/>
-										<xs:element ref="DateAccident" minOccurs="0"/>
-									</xs:sequence>
-								</xs:complexType>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+									</xs:restriction>
+								</xs:simpleType>
 							</xs:element>
-							<xs:element ref="PermittedTolerance"/>
-							<xs:element ref="DateNextOverhaul"/>
-							<xs:element ref="KMsSinceLastOverhaul"/>
-							<xs:element ref="FireProtectionCategory" minOccurs="0"/>
+							<xs:element ref="KeeperShortNameVKM" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RollingStockDatasetQueryMessage">
+		<xs:annotation>
+			<xs:documentation>Rolling Stock adminsitrative and Technical Dataset</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageHeader"/>
+				<xs:element ref="WagonNumberFreight" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -4641,50 +5086,10 @@ For Path Requests, this element has to be used
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="TagEquipmentID" type="xs:string"/>
-	<xs:element name="TechnicalForwardingRestrictions">
+	<xs:element name="TechnicalForwardingRestrictions" type="ForwardingRestrictionType">
 		<xs:annotation>
 			<xs:documentation>This element is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load</xs:documentation>
 		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="NumberOfRestrictions">
-					<xs:simpleType>
-						<xs:restriction base="xs:integer">
-							<xs:minInclusive value="1"/>
-							<xs:maxInclusive value="99"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="ForwardingRestrictionType">
-					<xs:annotation>
-						<xs:documentation>This code is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:token">
-							<xs:enumeration value="07"/>
-							<xs:enumeration value="08"/>
-							<xs:enumeration value="09"/>
-							<xs:enumeration value="11"/>
-							<xs:enumeration value="12"/>
-							<xs:enumeration value="13"/>
-							<xs:enumeration value="15"/>
-							<xs:enumeration value="16"/>
-							<xs:enumeration value="41"/>
-							<xs:enumeration value="42"/>
-							<xs:enumeration value="61"/>
-							<xs:enumeration value="62"/>
-							<xs:enumeration value="63"/>
-							<xs:enumeration value="70"/>
-							<xs:enumeration value="71"/>
-							<xs:enumeration value="92"/>
-							<xs:enumeration value="94"/>
-							<xs:enumeration value=""/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element ref="Description"/>
-			</xs:sequence>
-		</xs:complexType>
 	</xs:element>
 	<xs:simpleType name="Time">
 		<xs:annotation>
@@ -6118,5 +6523,40 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:element ref="DepartureTimeAtLocation"/>
 			</xs:sequence>
 		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="ForwardingRestrictionType">
+		<xs:annotation>
+			<xs:documentation>Code List Candidate: This code is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+			<xs:enumeration value="09"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="61"/>
+			<xs:enumeration value="62"/>
+			<xs:enumeration value="63"/>
+			<xs:enumeration value="70"/>
+			<xs:enumeration value="71"/>
+			<xs:enumeration value="92"/>
+			<xs:enumeration value="94"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="KeeperShortNameVKM">
+		<xs:annotation>
+			<xs:documentation>Free text, short name/vehicle keeper marking of the wagon keeper</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="10"/>
+			</xs:restriction>
+		</xs:simpleType>
 	</xs:element>
 </xs:schema>
