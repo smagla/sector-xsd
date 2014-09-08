@@ -135,7 +135,7 @@
 				</xs:element>
 				<xs:element name="BrakeSystem" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Abbreviation of air brake system. Code List Candidate: 
+						<xs:documentation>Abbreviation of air brake system. Following values/codes are currently used: 
 Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brake pipe</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
@@ -173,7 +173,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 				<xs:element name="BrakeSpecialCharacteristics">
 					<xs:annotation>
 						<xs:documentation>General brake characteristics:
-Code List Candidate:
+Should be made as the Code List. The values refer to UIC leaflet 920-13:
 0 = No special characteristic (graduated release brake with cast iron blocks) "GG"
 1 = Disc brake
 2 = Composite brake blocks
@@ -2170,10 +2170,16 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 			<xs:sequence>
 				<xs:element ref="HandBrakeType"/>
 				<xs:element ref="BrakeWeight" minOccurs="0"/>
-				<xs:element name="ParkingBrakeForce" type="Numeric1-5" minOccurs="0">
+				<xs:element name="ParkingBrakeForce" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Parking force of the hand brake measured in kN</xs:documentation>
+						<xs:documentation>Parking force of the hand brake measured in kN, with one fraction digit (with comma!)</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="5"/>
+							<xs:fractionDigits value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 				<xs:element name="MaxParkingBrakeGradient" minOccurs="0">
 					<xs:annotation>
@@ -4276,7 +4282,8 @@ For Path Requests, this element has to be used
 									<xs:sequence>
 										<xs:element name="EINNumber">
 											<xs:annotation>
-												<xs:documentation>ECM certificate reference number</xs:documentation>
+												<xs:documentation>ECM certificate reference number
+NOTE: this is a placeholder! CR 335 by ERA is containing this element and its full description and code lists.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
@@ -4336,7 +4343,7 @@ For Path Requests, this element has to be used
 							<xs:element name="InteropCapability">
 								<xs:annotation>
 									<xs:documentation>Identification of the general interoperability capability of the wagon
-New Code List Candidate (with enumeration):
+The following values/codes are proposed for the usage:
 
 01 = National
 02 = Bi-/Multilateral (with agreement or authorisation grid)
@@ -4351,8 +4358,8 @@ New Code List Candidate (with enumeration):
 08 = TEN RIV</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:maxLength value="256"/>
+									<xs:restriction base="xs:integer">
+										<xs:totalDigits value="2"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
@@ -4421,8 +4428,7 @@ New Code List Candidate (with enumeration):
 							<xs:element ref="CouplingType" minOccurs="0"/>
 							<xs:element name="BufferType" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation> Classification of buffer
-Code List Candidate: A, AX, B, C, CX, L0 (130), L0 (150), L2 (130), L2 (150), L4 (130), L4 (150)</xs:documentation>
+									<xs:documentation> Classification of buffer. The following values are parsed / accepted by UIP applications: A, AX, B, C, CX, L0 (130), L0 (150), L2 (130), L2 (150), L4 (130), L4 (150)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -4493,10 +4499,19 @@ Measured in meters</xs:documentation>
 												<xs:documentation>Numeric speed in load table, without speed empty in km/h</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="LoadTableStars" type="Numeric1-5" minOccurs="0">
+										<xs:element name="LoadTableStars" minOccurs="0">
 											<xs:annotation>
-												<xs:documentation>Number of load table stars </xs:documentation>
+												<xs:documentation>Number of load table stars. Currently recognized values/codes:
+1 = Authorised to run loaded in trains up to 100 km/h with a brake that does not meet all the requirements for 100 km/h conditions
+2 = Authorised to run loaded in trains up to 120 km/h with a brake that does not meet all the requirements for 120 km/h conditions
+3 = Authorised to run loaded in trains up to 120 km/h with a brake that does not meet all the requirements for 120 km/h conditions. Wagon is fitted with an automatic load-proportional braking system.
+ </xs:documentation>
 											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:integer">
+													<xs:totalDigits value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
 										</xs:element>
 										<xs:element name="RouteClassPayloads" maxOccurs="unbounded">
 											<xs:complexType>
@@ -4575,8 +4590,8 @@ Measured in meters</xs:documentation>
 									<xs:sequence>
 										<xs:element name="TypeOfRemovableAccessories">
 											<xs:annotation>
-												<xs:documentation>Specification of removable accessory
-Code List Candidate:
+												<xs:documentation>Specification of removable accessory.
+Should be added to Code List. Values refer to UIC Leaflet 920-13:
 01 = Removable stanchion
 02 = Removable side flap of flat wagon
 03 = Removable end flap of flat wagon
@@ -4708,7 +4723,8 @@ Code List Candidate:
 							</xs:element>
 							<xs:element ref="TechnicalForwardingRestrictions" minOccurs="0" maxOccurs="unbounded">
 								<xs:annotation>
-									<xs:documentation>Restrictions relevant to wagon operations in train formation, yards or in trains due to design characteristics</xs:documentation>
+									<xs:documentation>Restrictions relevant to wagon operations in train formation, yards or in trains due to design characteristics.
+Type will be the RestrictionCode instead of ForwardingRestrictionType, according to 920-13: annotation will carry the information that only thechnical parameters are allowed to be used here. Only the code numbers should be in the annotation</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="DateLastOverhaul" type="xs:date">
@@ -4736,7 +4752,7 @@ Code List Candidate:
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="MessageHeader"/>
-				<xs:element ref="RollingStockDataset"/>
+				<xs:element ref="RollingStockDataset" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="RefusedWagonNumbers" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
