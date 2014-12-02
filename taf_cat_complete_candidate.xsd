@@ -135,7 +135,7 @@
 				</xs:element>
 				<xs:element name="BrakeSystem" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Abbreviation of air brake system. Following values/codes are currently used: 
+						<xs:documentation>Abbreviation of air brake system. Following values are examples: 
 Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brake pipe</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
@@ -303,7 +303,7 @@ Should be made as the Code List. The values refer to UIC leaflet 920-13:
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
+				<xs:maxInclusive value="99999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -2620,7 +2620,7 @@ The other subelements help describing the interruption information more precisel
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
+				<xs:maxInclusive value="999999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -2629,19 +2629,25 @@ The other subelements help describing the interruption information more precisel
 			<xs:documentation>Indicates that livestock and people (other than train crew) will be carried</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="LoadArea" type="xs:int">
+	<xs:element name="LoadArea">
 		<xs:annotation>
 			<xs:documentation>Payload Area - measured in M2</xs:documentation>
 		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
 	</xs:element>
 	<xs:element name="LoadingCapacity">
 		<xs:annotation>
 			<xs:documentation>Usable Cube - measured in M3</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="1"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -3191,7 +3197,7 @@ The other subelements help describing the interruption information more precisel
 		<xs:simpleType>
 			<xs:restriction base="xs:int">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="9"/>
+				<xs:maxInclusive value="99"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -4412,10 +4418,10 @@ NOTE: this is a placeholder! CR 335 by ERA is containing this element and its fu
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="InteropCapability">
+							<xs:element ref="InteropCapability">
 								<xs:annotation>
 									<xs:documentation>Identification of the general interoperability capability of the wagon
-The following values/codes are proposed for the usage:
+The following values/codes are proposed for the usage (defined in the InteropCapabilityCode):
 
 01 = National
 02 = Bi-/Multilateral (with agreement or authorisation grid)
@@ -4429,11 +4435,6 @@ The following values/codes are proposed for the usage:
 
 08 = TEN RIV</xs:documentation>
 								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:integer">
-										<xs:totalDigits value="2"/>
-									</xs:restriction>
-								</xs:simpleType>
 							</xs:element>
 							<xs:element name="GCUWagon" type="xs:boolean">
 								<xs:annotation>
@@ -4448,7 +4449,7 @@ The following values/codes are proposed for the usage:
 						<xs:sequence>
 							<xs:element name="WagonTypeFull">
 								<xs:annotation>
-									<xs:documentation>Complete wagon category letter code</xs:documentation>
+									<xs:documentation>Complete wagon category letter code. The Identification marking for freight rolling stock (wagon type) is defined in UIC Leaflet 438-2</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -4458,7 +4459,7 @@ The following values/codes are proposed for the usage:
 							</xs:element>
 							<xs:element name="TankCode" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Tank code (applies only for tank wagons)</xs:documentation>
+									<xs:documentation>Tank code (applies only for tank wagons). The codes are defined in the RID regulation, chapter 4.3.3 and 4.3.4.1.1</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -4469,7 +4470,7 @@ The following values/codes are proposed for the usage:
 							<xs:element ref="WagonNumberOfAxles"/>
 							<xs:element name="WheelSetType" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Type name of the wheel sets</xs:documentation>
+									<xs:documentation>Type name of the wheel sets, and the name of the type depends on the manufacturer.</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -4500,7 +4501,7 @@ The following values/codes are proposed for the usage:
 							<xs:element ref="CouplingType" minOccurs="0"/>
 							<xs:element name="BufferType" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation> Classification of buffer. The following values are parsed / accepted by UIP applications: A, AX, B, C, CX, L0 (130), L0 (150), L2 (130), L2 (150), L4 (130), L4 (150)</xs:documentation>
+									<xs:documentation> Classification of buffer. The following values are mostly used in the sector.: A, AX, B, C, CX, L0 (130), L0 (150), L2 (130), L2 (150), L4 (130), L4 (150)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -4571,7 +4572,7 @@ Measured in meters</xs:documentation>
 												<xs:documentation>Numeric speed in load table, without speed empty in km/h</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="LoadTableStars" minOccurs="0">
+										<xs:element ref="LoadTableStars" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Number of load table stars. Currently recognized values/codes:
 1 = Authorised to run loaded in trains up to 100 km/h with a brake that does not meet all the requirements for 100 km/h conditions
@@ -4579,11 +4580,6 @@ Measured in meters</xs:documentation>
 3 = Authorised to run loaded in trains up to 120 km/h with a brake that does not meet all the requirements for 120 km/h conditions. Wagon is fitted with an automatic load-proportional braking system.
  </xs:documentation>
 											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:integer">
-													<xs:totalDigits value="1"/>
-												</xs:restriction>
-											</xs:simpleType>
 										</xs:element>
 										<xs:element name="RouteClassPayloads" maxOccurs="unbounded">
 											<xs:complexType>
@@ -4594,9 +4590,9 @@ Measured in meters</xs:documentation>
 															<xs:documentation>Maximum payload in tonns of line category; number of entries must fit to number of entries in SpeedCategory</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:integer">
-																<xs:minInclusive value="1"/>
-																<xs:maxInclusive value="999"/>
+															<xs:restriction base="xs:decimal">
+																<xs:totalDigits value="4"/>
+																<xs:fractionDigits value="1"/>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
@@ -4660,40 +4656,10 @@ Measured in meters</xs:documentation>
 							<xs:element name="RemovableAccessories" minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="TypeOfRemovableAccessories">
+										<xs:element ref="TypeOfRemovableAccessories">
 											<xs:annotation>
 												<xs:documentation>Specification of removable accessory.
-Should be added to Code List. Values refer to UIC Leaflet 920-13:
-01 = Removable stanchion
-02 = Removable side flap of flat wagon
-03 = Removable end flap of flat wagon
-04 = Removable side rail
-05 = Removable intermediate upright for securing the load
-06 = Stanchion chain
-07 = Removable handle and wheel for winch on car-carrying wagon
-08 = Swivelling bolster (with stanchions)
-09 = Coupling rod (rigid coupling)
-10 = Ice bunker
-11 = Ice bunker screen
-12 = Ice bunker frame
-13 = Trestle or bar with hooks for hanging meat
-14 = Movable cross-member of wagon with low loading plane
-15 = Removable support
-16 = Mooring cross-member on wagon for special loads
-17 = Movable floor panel on wagon for special loads
-18 = Scotch
-19 = Skid bar with or without shoes on car-carrying wagon
-20 = Mooring strap on car-carrying wagon
-21 = Beam for movable ramp on car-carrying wagon
-22 = Spare heating half-coupling
-23 = Fire extinguisher
-24 = Wheel scotches (for cars) on car-carrying wagon
-25 = Gangway loading ramp on car-carrying wagon
-26 = Metal cradles for rolls of metal sheeting
-27 = Panel for covering markings
-28 = Loading frame for special types of goods
-29 = Headstock for "rolling roads"
-99 = Other wagon accessories
+TypeOfRemovableAccessories code list is used. Values refer to UIC Leaflet 920-13:
 01 = Removable stanchion
 02 = Removable side flap of flat wagon
 03 = Removable end flap of flat wagon
@@ -4727,7 +4693,7 @@ Should be added to Code List. Values refer to UIC Leaflet 920-13:
 </xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="NumberOfAccesorOfSpecType">
+										<xs:element name="NumberOfAccesorOfSpecType" type="Numeric1-5">
 											<xs:annotation>
 												<xs:documentation>Number of specified accessory equipped on the wagon</xs:documentation>
 											</xs:annotation>
@@ -4761,15 +4727,15 @@ Should be added to Code List. Values refer to UIC Leaflet 920-13:
 									<xs:documentation>Maximum allowed angle of the ferry ramp (in grades: °)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
-									<xs:restriction base="xs:integer">
-										<xs:minInclusive value="1"/>
-										<xs:maxInclusive value="99"/>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="3"/>
+										<xs:fractionDigits value="2"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
 							<xs:element name="ChannelTunnelPermitted" type="xs:boolean" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Indication if wagon is allowed to pass the Channel Tunnel</xs:documentation>
+									<xs:documentation>Indication if wagon is allowed to pass the Channel Tunnel - if the transport is planned between UK and France and should use Eurotunnel infrastructure.</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="TemperatureRange" minOccurs="0">
@@ -4829,20 +4795,7 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="WagonNumberFreight"/>
-							<xs:element name="RefusalCode">
-								<xs:annotation>
-									<xs:documentation>Code List Candidate:
-1 = Data not authorised by Wagon Keeper
-
-2 = Wagon number freight unknown</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:integer">
-										<xs:enumeration value="1"/>
-										<xs:enumeration value="2"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
+							<xs:element ref="RefusalCode"/>
 							<xs:element ref="KeeperShortNameVKM" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
@@ -5174,9 +5127,33 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="TagEquipmentID" type="xs:string"/>
-	<xs:element name="TechnicalForwardingRestrictions" type="ForwardingRestrictionType">
+	<xs:element name="TechnicalForwardingRestrictions" type="RestrictionCodes">
 		<xs:annotation>
-			<xs:documentation>This element is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load</xs:documentation>
+			<xs:documentation>This element is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load-
+	All codes of Transport restrictions for Freight Traffic (cf. UIC 920-13) and Passengers Traffic are in the same list which is contained in the code list RestrictionCodes. 
+	In this element we use only those codes that have "T - Technical" characteristics and "F - Freight" as the type. The codes below are sorted out from the RestrictionCodes. Only these codes should be used in this element.
+									F = Freight
+P = Passenger
+T = Technical
+D = Damage
+L = Load
+
+Code	F or P	Description																																				T	D	L
+07	F	Shunt only when hand brake operable with ground staff																								x	 	x
+11	F	Wagon other than bogie wagon with wheelbase of more than 9 metres																		x	 	 
+12	F	Bogie wagon with distance between wheels of more than 14 metres and up to and including a distance of 17,50 metres	x	 	 
+13	F	Bogie wagon with distance between wheels of more than 17,50 metres																		x	 	 
+15	F	Wagon not allowed over the hump																															x	x	x
+16	F	Do not fly shunt or gravity shunt (3 red triangles)																										x	x	x
+18	F	Must not use active braking equipment																													x	 	 
+25	F	Gas carrying tank wagon with orange side stripe																										x	 	 
+41	F	Place this wagon at the front of the train																													x	x	x
+42	F	Place this wagon at the rear of the train																													x	x	x
+63	F (+P)	Special consignment or (for Passengers trains) loading/cinematic gauge larger than the planned one					x	x	 
+70	F	Shunt with care (1 red triangle)																																x	x	x
+71	F	Shunt with special care (2 red triangle)																													x	x	x
+94	F	Gas carrying wagon without orange side stripe																											x	 	 
+</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:simpleType name="Time">
@@ -6513,7 +6490,7 @@ LLD = Latest Location Departure</xs:documentation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
+				<xs:maxInclusive value="9999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -6535,7 +6512,7 @@ LLD = Latest Location Departure</xs:documentation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
+				<xs:maxInclusive value="9999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
