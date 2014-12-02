@@ -1275,6 +1275,36 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:element name="InteropCapability">
+		<xs:annotation>
+			<xs:documentation>Identification of the general interoperability capability of the wagon
+The following values/codes are proposed for the usage:
+
+01 = National
+02 = Bi-/Multilateral (with agreement or authorisation grid)
+
+03 = RIV
+05 = TEN
+
+06 = TEN-GE
+
+07 = TEN-CW
+
+08 = TEN RIV</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:totalDigits value="2"/>
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="05"/>
+				<xs:enumeration value="07"/>
+				<xs:enumeration value="08"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:element name="LoadingGauge">
 		<xs:annotation>
 			<xs:documentation>The enlarged reference profile as defined in UIC Leaflet 506.</xs:documentation>
@@ -1288,6 +1318,24 @@
 				<xs:enumeration value="G"/>
 			</xs:restriction>
 		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LoadTableStars">
+		<xs:annotation>
+			<xs:documentation>Number of load table stars. Currently recognized values/codes:
+1 = Authorised to run loaded in trains up to 100 km/h with a brake that does not meet all the requirements for 100 km/h conditions
+2 = Authorised to run loaded in trains up to 120 km/h with a brake that does not meet all the requirements for 120 km/h conditions
+3 = Authorised to run loaded in trains up to 120 km/h with a brake that does not meet all the requirements for 120 km/h conditions. Wagon is fitted with an automatic load-proportional braking system.
+ </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
 	</xs:element>
 	<xs:attribute name="LocationSubsidiaryTypeCode">
 		<xs:simpleType>
@@ -1805,6 +1853,106 @@ G1, G2, GA, GB, GC, CM, CE, M2, M3, M4, GB1, GB2, GB-M6, GHE16, W6-A, </xs:docum
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:simpleType name="RestrictionCodes">
+		<xs:annotation>
+			<xs:documentation>
+									All codes of Transport restrictions for Freight Traffic (cf. UIC 920-13) and Passengers Traffic are in the same list. 
+									F = Freight
+P = Passenger
+T = Technical
+D = Damage
+L = Load
+
+Code	F or P	Description																																				T	D	L
+07	F	Shunt only when hand brake operable with ground staff																								x	 	x
+08	F	Tank wagon loaded with liquid	 																																	x	 
+09	F	Wagon loaded with people	 																																		x	 
+11	F	Wagon other than bogie wagon with wheelbase of more than 9 metres																		x	 	 
+12	F	Bogie wagon with distance between wheels of more than 14 metres and up to and including a distance of 17,50 metres	x	 	 
+13	F	Bogie wagon with distance between wheels of more than 17,50 metres																		x	 	 
+15	F	Wagon not allowed over the hump																															x	x	x
+16	F	Do not fly shunt or gravity shunt (3 red triangles)																										x	x	x
+18	F	Must not use active braking equipment																													x	 	 
+25	F	Gas carrying tank wagon with orange side stripe																										x	 	 
+30	P (+F)	CCS fault (see CCS coding list)	 																														x	 
+31	P (+F)	Braking system fault	 																																		x	 
+32	P (+F)	Wheelset, bogie fault	 																																		x	 
+33	P (+F)	Headlighting or back lighting fault	 																													x	 
+34	P (+F)	Front glass broken	 																																			x	 
+35	P (+F)	Horn fault	 																																						x	 
+36	P (+F)	Radio fault	 																																						x	 
+37	P (+F)	Energy supply fault	 																																		x	 
+38	P (+F)	Traction or motor fault	 																																	x	 
+39	P	Access door fault	 																																					x	 
+41	F	Place this wagon at the front of the train																													x	x	x
+42	F	Place this wagon at the rear of the train																													x	x	x
+50	P (+F)	Speed restriction	 																																			x	x
+52	P (+F)	Diesel locomotive instead of electric locomotive	 																								x	(X) F
+61	F	Wagon forming part of a consignment of several wagons	 																							x	 
+62	F	Wagon forming part of a group of wagons from which it must not be separated	 															x	 
+63	F (+P)	Special consignment or (for Passengers trains) loading/cinematic gauge larger than the planned one					x	x	 
+68	F	First or last wagon of a wagon group from which it must not be separated	 																	x	 
+70	F	Shunt with care (1 red triangle)																																x	x	x
+71	F	Shunt with special care (2 red triangle)																													x	x	x
+90	P	Train planned with passengers operated without passengers	 	 																						x
+91	P	Train planned without passengers operated with passengers	 	 																						x
+92	P	Train planned with hauled rolling stock and operated without any coaches (light engine)	 												x	x
+94	F	Gas carrying wagon without orange side stripe																											x	 	 
+99	P	Other	 																																									x	x
+
+									</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+			<xs:enumeration value="09"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="32"/>
+			<xs:enumeration value="33"/>
+			<xs:enumeration value="34"/>
+			<xs:enumeration value="35"/>
+			<xs:enumeration value="36"/>
+			<xs:enumeration value="37"/>
+			<xs:enumeration value="38"/>
+			<xs:enumeration value="39"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="52"/>
+			<xs:enumeration value="62"/>
+			<xs:enumeration value="63"/>
+			<xs:enumeration value="68"/>
+			<xs:enumeration value="70"/>
+			<xs:enumeration value="71"/>
+			<xs:enumeration value="90"/>
+			<xs:enumeration value="91"/>
+			<xs:enumeration value="92"/>
+			<xs:enumeration value="94"/>
+			<xs:enumeration value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RefusalCode">
+		<xs:annotation>
+			<xs:documentation>Code List Candidate:
+1 = Data not authorised by Wagon Keeper
+
+2 = Wagon number freight unknown</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:element name="RestrictionsDueToLoadOrDamage">
 		<xs:annotation>
 			<xs:documentation>These are possible restrictions applicable in the originating country to shunting operations in stations and to main-line movements on account of the nature of the load. Coding in 404-2, chapter 4.4 and 2.11
@@ -2181,6 +2329,77 @@ G1, G2, GA, GB, GC, CM, CE, M2, M3, M4, GB1, GB2, GB-M6, GHE16, W6-A, </xs:docum
 			<xs:enumeration value="52"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:element name="TypeOfRemovableAccessories">
+		<xs:annotation>
+			<xs:documentation>Specification of removable accessory.
+Should be added to Code List. Values refer to UIC Leaflet 920-13:
+01 = Removable stanchion
+02 = Removable side flap of flat wagon
+03 = Removable end flap of flat wagon
+04 = Removable side rail
+05 = Removable intermediate upright for securing the load
+06 = Stanchion chain
+07 = Removable handle and wheel for winch on car-carrying wagon
+08 = Swivelling bolster (with stanchions)
+09 = Coupling rod (rigid coupling)
+10 = Ice bunker
+11 = Ice bunker screen
+12 = Ice bunker frame
+13 = Trestle or bar with hooks for hanging meat
+14 = Movable cross-member of wagon with low loading plane
+15 = Removable support
+16 = Mooring cross-member on wagon for special loads
+17 = Movable floor panel on wagon for special loads
+18 = Scotch
+19 = Skid bar with or without shoes on car-carrying wagon
+20 = Mooring strap on car-carrying wagon
+21 = Beam for movable ramp on car-carrying wagon
+22 = Spare heating half-coupling
+23 = Fire extinguisher
+24 = Wheel scotches (for cars) on car-carrying wagon
+25 = Gangway loading ramp on car-carrying wagon
+26 = Metal cradles for rolls of metal sheeting
+27 = Panel for covering markings
+28 = Loading frame for special types of goods
+29 = Headstock for "rolling roads"
+99 = Other wagon accessories
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="05"/>
+				<xs:enumeration value="06"/>
+				<xs:enumeration value="07"/>
+				<xs:enumeration value="08"/>
+				<xs:enumeration value="09"/>
+				<xs:enumeration value="10"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="13"/>
+				<xs:enumeration value="14"/>
+				<xs:enumeration value="15"/>
+				<xs:enumeration value="16"/>
+				<xs:enumeration value="17"/>
+				<xs:enumeration value="18"/>
+				<xs:enumeration value="19"/>
+				<xs:enumeration value="20"/>
+				<xs:enumeration value="21"/>
+				<xs:enumeration value="22"/>
+				<xs:enumeration value="23"/>
+				<xs:enumeration value="24"/>
+				<xs:enumeration value="25"/>
+				<xs:enumeration value="26"/>
+				<xs:enumeration value="27"/>
+				<xs:enumeration value="28"/>
+				<xs:enumeration value="29"/>
+				<xs:enumeration value="99"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:simpleType name="TypeOfRequestCode">
 		<xs:annotation>
 			<xs:documentation> Enumeration for 3 different basic types of the processes in the planning: Study (1), Request (2), Modification (3)
