@@ -268,7 +268,7 @@
 			<xs:sequence>
 				<xs:element ref="Origin" minOccurs="0"/>
 				<xs:element ref="Destination" minOccurs="0"/>
-				<xs:element ref="Association" minOccurs="0"/>
+				<xs:element ref="Association" minOccurs="0" maxOccurs="2"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -392,6 +392,7 @@ U = update information on object</xs:documentation>
 					<xs:element ref="PlannedTransportIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:choice>
+				<xs:element ref="OperationalTrainNumberIdentifier" minOccurs="0"/>
 				<xs:element ref="ReferenceOTN" minOccurs="0"/>
 				<xs:element ref="TransfereeIM" minOccurs="0"/>
 				<xs:element ref="TransferPoint" minOccurs="0"/>
@@ -399,7 +400,6 @@ U = update information on object</xs:documentation>
 				<xs:element ref="TrainDestinationStation" minOccurs="0"/>
 				<xs:element ref="TrainCompositionJourneySectionPassenger"/>
 				<xs:element ref="Remarks" minOccurs="0"/>
-				<xs:element ref="TrainDataPassenger" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -755,6 +755,7 @@ U = update information on object</xs:documentation>
 				<xs:element ref="JourneySectionDestination"/>
 				<xs:element ref="ResponsibilityActualSectionPassenger"/>
 				<xs:element ref="ResponsibilityNextSectionPassenger" minOccurs="0"/>
+				<xs:element ref="TrainDataPassenger" minOccurs="0"/>
 				<xs:element ref="TrainCompositionPassenger"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -765,7 +766,7 @@ U = update information on object</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="TainDescriptionManner">
+				<xs:element name="TrainDescriptionManner">
 					<xs:annotation>
 						<xs:documentation>Manner of describing the composition, by vehicle (locomotive or coach), by vehicle in a trainset (including the power car) or by Trainset (as a whole). 1=Vehicle, 2=Vehicle in Trainset 3=Trainset</xs:documentation>
 					</xs:annotation>
