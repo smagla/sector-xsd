@@ -3197,7 +3197,7 @@ The other subelements help describing the interruption information more precisel
 		<xs:simpleType>
 			<xs:restriction base="xs:int">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="99"/>
+				<xs:maxInclusive value="9"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -4693,7 +4693,7 @@ TypeOfRemovableAccessories code list is used. Values refer to UIC Leaflet 920-13
 </xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="NumberOfAccesorOfSpecType" type="Numeric1-5">
+										<xs:element name="NumberOfAccesorOfSpecType" type="Numeric2-2">
 											<xs:annotation>
 												<xs:documentation>Number of specified accessory equipped on the wagon</xs:documentation>
 											</xs:annotation>
