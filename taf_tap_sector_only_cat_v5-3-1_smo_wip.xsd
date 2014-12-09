@@ -399,6 +399,7 @@ U = update information on object</xs:documentation>
 				<xs:element ref="TrainDepartureStation" minOccurs="0"/>
 				<xs:element ref="TrainDestinationStation" minOccurs="0"/>
 				<xs:element ref="TrainCompositionJourneySectionPassenger"/>
+				<xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Remarks" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -837,6 +838,7 @@ U = update information on object</xs:documentation>
 							<xs:element ref="InformationToBeDisplayed" minOccurs="0"/>
 							<xs:element ref="CoachOrTrainsetCommercialData" minOccurs="0"/>
 							<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -1224,17 +1226,7 @@ I = Information</xs:documentation>
 						</xs:attribute>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="Parameters" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Classic method of carrying the parameters specific to the  agreement between the partners: name andvalue pairs.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="Name"/>
-							<xs:element name="Value"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -1409,6 +1401,17 @@ I = Information</xs:documentation>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Parameters">
+		<xs:annotation>
+			<xs:documentation>Classic method of carrying the parameters specific to the  agreement between the partners: name andvalue pairs.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Name"/>
+				<xs:element name="Value"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
