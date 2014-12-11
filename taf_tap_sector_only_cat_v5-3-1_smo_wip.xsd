@@ -398,7 +398,7 @@ U = update information on object</xs:documentation>
 				<xs:element ref="TransferPoint" minOccurs="0"/>
 				<xs:element ref="TrainDepartureStation" minOccurs="0"/>
 				<xs:element ref="TrainDestinationStation" minOccurs="0"/>
-				<xs:element ref="TrainCompositionJourneySectionPassenger"/>
+				<xs:element ref="TrainCompositionJourneySectionPassenger" maxOccurs="unbounded"/>
 				<xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Remarks" minOccurs="0"/>
 			</xs:sequence>
@@ -1292,8 +1292,8 @@ I = Information</xs:documentation>
 									<xs:documentation>Optional, should be delivered if available by RU (not required when LoadingStatus is empty)</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="WagonTransportPerformance" minOccurs="0">
+									<xs:choice>
+										<xs:element name="WagonTransportPerformance">
 											<xs:annotation>
 												<xs:documentation>Optional, respective ton-kilometres for operated kilometres</xs:documentation>
 											</xs:annotation>
@@ -1304,23 +1304,25 @@ I = Information</xs:documentation>
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
-										<xs:element name="Weight" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Optional, alternative to tranport performance when data is not aggregated</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:integer">
-													<xs:minInclusive value="0"/>
-													<xs:maxInclusive value="999"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="InlcudingTareWeight" type="xs:boolean">
-											<xs:annotation>
-												<xs:documentation>Specification if TransportPerformance or Weight includes tare weight of the wagon</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-									</xs:sequence>
+										<xs:sequence>
+											<xs:element name="Weight">
+												<xs:annotation>
+													<xs:documentation>Optional, alternative to tranport performance when data is not aggregated</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:integer">
+														<xs:minInclusive value="0"/>
+														<xs:maxInclusive value="999"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="InlcudingTareWeight" type="xs:boolean">
+												<xs:annotation>
+													<xs:documentation>Specification if TransportPerformance or Weight includes tare weight of the wagon</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:choice>
 								</xs:complexType>
 							</xs:element>
 							<xs:element ref="Remarks" minOccurs="0"/>
