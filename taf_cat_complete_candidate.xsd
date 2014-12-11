@@ -2241,7 +2241,17 @@ The senders and receivers should agree about the severity levels and their inter
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="HandBrakeType"/>
-				<xs:element ref="BrakeWeight" minOccurs="0"/>
+				<xs:element name="HandBrakedWeight" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Braked weight of the hand brake in tons</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="4"/>
+							<xs:fractionDigits value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 				<xs:element name="ParkingBrakeForce" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Parking force of the hand brake measured in kN, with one fraction digit (with comma!)</xs:documentation>
@@ -4496,8 +4506,6 @@ The following values/codes are proposed for the usage (defined in the InteropCap
 									<xs:documentation>Maximum distance between two adjacent  axles in mm</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element ref="AxlesInterchangeable" minOccurs="0"/>
-							<xs:element ref="AxlesVariableWidth" minOccurs="0"/>
 							<xs:element ref="CouplingType" minOccurs="0"/>
 							<xs:element name="BufferType" minOccurs="0">
 								<xs:annotation>
