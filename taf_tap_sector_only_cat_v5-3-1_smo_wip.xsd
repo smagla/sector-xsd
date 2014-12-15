@@ -338,6 +338,7 @@ U = update information on object</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -455,7 +456,7 @@ U = update information on object</xs:documentation>
 				<xs:element ref="TypeOfInformation"/>
 				<xs:element ref="TrainInformation"/>
 				<xs:element ref="PathInformation"/>
-				<xs:element ref="NetworkSpecificParameter" minOccurs="0"/>
+				<xs:element ref="NetworkSpecificParameter" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="RevisedRequest" minOccurs="0"/>
 				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
@@ -1292,19 +1293,19 @@ I = Information</xs:documentation>
 									<xs:documentation>Optional, should be delivered if available by RU (not required when LoadingStatus is empty)</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
-									<xs:choice>
-										<xs:element name="WagonTransportPerformance">
-											<xs:annotation>
-												<xs:documentation>Optional, respective ton-kilometres for operated kilometres</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:long">
-													<xs:minInclusive value="0"/>
-													<xs:maxInclusive value="99999999"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:sequence>
+									<xs:sequence>
+										<xs:choice>
+											<xs:element name="WagonTransportPerformance">
+												<xs:annotation>
+													<xs:documentation>Optional, respective ton-kilometres for operated kilometres</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:long">
+														<xs:minInclusive value="0"/>
+														<xs:maxInclusive value="99999999"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
 											<xs:element name="Weight">
 												<xs:annotation>
 													<xs:documentation>Optional, alternative to tranport performance when data is not aggregated</xs:documentation>
@@ -1316,13 +1317,13 @@ I = Information</xs:documentation>
 													</xs:restriction>
 												</xs:simpleType>
 											</xs:element>
-											<xs:element name="InlcudingTareWeight" type="xs:boolean">
-												<xs:annotation>
-													<xs:documentation>Specification if TransportPerformance or Weight includes tare weight of the wagon</xs:documentation>
-												</xs:annotation>
-											</xs:element>
-										</xs:sequence>
-									</xs:choice>
+										</xs:choice>
+										<xs:element name="InlcudingTareWeight" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Specification if TransportPerformance or Weight includes tare weight of the wagon</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
 							<xs:element ref="Remarks" minOccurs="0"/>
@@ -1416,5 +1417,30 @@ I = Information</xs:documentation>
 				<xs:element name="Value"/>
 			</xs:sequence>
 		</xs:complexType>
+	</xs:element>
+	<xs:element name="LoadingGauge">
+		<xs:annotation>
+			<xs:documentation>The enlarged reference profile as defined in UIC Leaflet 506.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="GA"/>
+				<xs:enumeration value="GB"/>
+				<xs:enumeration value="GB1"/>
+				<xs:enumeration value="GC"/>
+				<xs:enumeration value="G"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RestrictionOrProhibition">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
 	</xs:element>
 </xs:schema>
