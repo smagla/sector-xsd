@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
-<!-- Clean version -->
-<!-- version 5.2 from the 30/05/2012 -->
+<!-- Clean version, containing approved CRs (JSG and ERA) and bug-fixes -->
+<!-- version 5.3.1 from the 13/12/2014 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/5.3" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/5.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.3.1">
 	<xs:include schemaLocation="taf_cat_codelists_candidate.xsd"/>
 	<xs:annotation>
@@ -36,11 +36,6 @@
 	<xs:element name="AcceptanceTimeAtInterchange" type="xs:dateTime">
 		<xs:annotation>
 			<xs:documentation>Departure Date and Time or the handover Date and Time at an interchange point where the responsibility has changed to another RU</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="ActivityType" type="ActivityCode">
-		<xs:annotation>
-			<xs:documentation>Indicates certain treatments or operations required for a train, a waon or a load</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="ActualEndDateTime" type="xs:dateTime">
@@ -170,25 +165,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="BrakeSpecialCharacteristics">
-					<xs:annotation>
-						<xs:documentation>General brake characteristics:
-Should be made as the Code List. The values refer to UIC leaflet 920-13:
-0 = No special characteristic (graduated release brake with cast iron blocks) "GG"
-1 = Disc brake
-2 = Composite brake blocks
-3 = Single release brake
-4 = Single release brake with composite brake blocks
-5 = L-Brake
-6 = LL-Brake
-9 = Non-coded information</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:string">
-							<xs:maxLength value="256"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
+				<xs:element ref="BrakeSpecialCharacteristics"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -428,45 +405,6 @@ Should be made as the Code List. The values refer to UIC leaflet 920-13:
 			<xs:documentation>The closing Date and Time of the port for the delivery of the shipment by rail to a vessel.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="CombinedTrafficLoadProfile">
-		<xs:annotation>
-			<xs:documentation>This element does refer to combined load units that can be used for Freight Requests only.
-There are two entry options:
-•	One option refers to “P” (Semi-trailer/road semi-trailer):
-P1 requires the code in case the gauge of the semi-trailer is ≤ 2500 mm.
-P2 requires the code in case the gauge of the semi-trailer is > 2500 mm ≤ 2600 mm
-•The other option refers to “C” (Swap body):
-C1 requires the code in case the gauge of the swap body is ≤ 2550 mm.
-C2 requires the code in case the gauge of the swap body is > 2550 mm ≤ 2600 mm
-•	
-The RUs may indicate the relevant values if they are familiar with the IMs line profiles. In case there is a path request for a train with combined traffic load, the IM should indicate the possible max. vValue for all 4 elements (P1, P2, C1, C2)
-</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="P1" type="Numeric3-3">
-					<xs:annotation>
-						<xs:documentation>P1 requires the code in case the gauge of the semi-trailer is ≤ 2500 mm.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="P2" type="Numeric3-3">
-					<xs:annotation>
-						<xs:documentation>P2 requires the code in case the gauge of the semi-trailer is > 2500 mm ≤ 2600 mm</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="C1" type="Numeric3-3">
-					<xs:annotation>
-						<xs:documentation>C1 requires the code in case the gauge of the swap body is ≤ 2550 mm.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="C2" type="Numeric3-3">
-					<xs:annotation>
-						<xs:documentation>C2 requires the code in case the gauge of the swap body is > 2550 mm ≤ 2600 mm</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="Comments" type="FreeText"/>
 	<xs:element name="CommitmentETA" type="xs:dateTime">
 		<xs:annotation>
@@ -602,61 +540,7 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
-										<xs:element name="ConsignmentOrderType">
-											<xs:annotation>
-												<xs:documentation>Preliminary list of messages, by now restricted on different types of consignment orders</xs:documentation>
-												<xs:documentation>CIM: none</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:token">
-													<xs:enumeration value="ORU">
-														<xs:annotation>
-															<xs:documentation>Subset for RU which fetches consignment at origin.</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="ORX">
-														<xs:annotation>
-															<xs:documentation>Update for ORU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="ORD">
-														<xs:annotation>
-															<xs:documentation>Deletion of ORU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="TRU">
-														<xs:annotation>
-															<xs:documentation>Subset for transit RU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="TRX">
-														<xs:annotation>
-															<xs:documentation>Update for TRU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="TRD">
-														<xs:annotation>
-															<xs:documentation>Deletion of TRU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="DRU">
-														<xs:annotation>
-															<xs:documentation>Subset for RU which takes consignment to destination</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="DRX">
-														<xs:annotation>
-															<xs:documentation>Update for DRU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-													<xs:enumeration value="DRD">
-														<xs:annotation>
-															<xs:documentation>Deletion for DRU</xs:documentation>
-														</xs:annotation>
-													</xs:enumeration>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
+										<xs:element ref="ConsignmentOrderType"/>
 										<xs:element name="COM_PreparationDatetime">
 											<xs:annotation>
 												<xs:documentation>Date and Time of preparation of the COM</xs:documentation>
@@ -736,7 +620,7 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 															<xs:documentation>This element identifies the RU, which was responsible for the train operation on the journey section before an interchange point</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="AcceptanceDate">
+													<xs:element name="AcceptanceDate" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation>Date and time (month, day and hour) at which the goods were accepted. </xs:documentation>
 														</xs:annotation>
@@ -793,13 +677,10 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="Code">
+													<xs:element name="ConsignorDeclarationsCode" type="xs:string">
 														<xs:annotation>
 															<xs:documentation>Coded consignor declaration</xs:documentation>
 														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:token"/>
-														</xs:simpleType>
 													</xs:element>
 													<xs:element ref="DeclarationText" minOccurs="0"/>
 												</xs:sequence>
@@ -983,12 +864,12 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 																		<xs:documentation>Code of carrier, who added the declaration.</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:element name="DeclarationCode">
+																<xs:element name="RU_DeclarationCode">
 																	<xs:annotation>
 																		<xs:documentation>Carrier declaration code. </xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
-																		<xs:restriction base="xs:token">
+																		<xs:restriction base="xs:string">
 																			<xs:enumeration value="1">
 																				<xs:annotation>
 																					<xs:documentation>Without packing</xs:documentation>
@@ -1424,7 +1305,7 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 						<xs:documentation>Type of participation CR: Consignor  CE: Consignee In the consignment order,the Lead RU acts as both types </xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
-						<xs:restriction base="xs:token">
+						<xs:restriction base="xs:string">
 							<xs:enumeration value="CR"/>
 							<xs:enumeration value="CN"/>
 						</xs:restriction>
@@ -1441,34 +1322,6 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 				</xs:sequence>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="DangerLabel">
-		<xs:annotation>
-			<xs:documentation>All Danger Label of this dangerous good according to the RID chapter 3.2, table A, column 5, excepting the shunting labels Model 13 and 15.</xs:documentation>
-			<xs:documentation>CODE: OTIF RID-Specification</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:token">
-				<xs:enumeration value="1"/>
-				<xs:enumeration value="1.4"/>
-				<xs:enumeration value="1.5"/>
-				<xs:enumeration value="1.6"/>
-				<xs:enumeration value="2.1"/>
-				<xs:enumeration value="2.2"/>
-				<xs:enumeration value="2.3"/>
-				<xs:enumeration value="3"/>
-				<xs:enumeration value="4.1"/>
-				<xs:enumeration value="4.2"/>
-				<xs:enumeration value="4.3"/>
-				<xs:enumeration value="5.1"/>
-				<xs:enumeration value="5.2"/>
-				<xs:enumeration value="6.1"/>
-				<xs:enumeration value="6.2"/>
-				<xs:enumeration value="7D"/>
-				<xs:enumeration value="8"/>
-				<xs:enumeration value="9"/>
-			</xs:restriction>
-		</xs:simpleType>
 	</xs:element>
 	<xs:element name="DangerousGoodsIndication" type="DanGoodsType">
 		<xs:annotation>
@@ -1505,7 +1358,7 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 					<xs:restriction base="xs:string">
 						<xs:minLength value="2"/>
 						<xs:maxLength value="4"/>
-						<xs:pattern value="X? (0-9) (2,3)"/>
+						<xs:pattern value="X? [0-9] [2,3]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1516,11 +1369,11 @@ The RUs may indicate the relevant values if they are familiar with the IMs line 
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:length value="4"/>
-						<xs:pattern value="\d*(1-9)\d*"/>
+						<xs:pattern value="\d*[1-9]\d*"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element ref="DangerLabel" minOccurs="0"/>
+			<xs:element ref="DangerLabel" minOccurs="0" maxOccurs="5"/>
 			<xs:element name="RID_Class" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The Class of the dangerous good according to the RID chapter 3.2, table A, column 3a.</xs:documentation>
@@ -2634,11 +2487,6 @@ The other subelements help describing the interruption information more precisel
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="LivestockIndicator" type="InfoIndex">
-		<xs:annotation>
-			<xs:documentation>Indicates that livestock and people (other than train crew) will be carried</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="LoadArea">
 		<xs:annotation>
 			<xs:documentation>Payload Area - measured in M2</xs:documentation>
@@ -3040,6 +2888,57 @@ The other subelements help describing the interruption information more precisel
 		<xs:annotation>
 			<xs:documentation>Additional information used to route the message to the correct recieving application (if needed)</xs:documentation>
 		</xs:annotation>
+	</xs:element>
+	<xs:element name="MessageType">
+		<xs:annotation>
+			<xs:documentation>To indicate the message type transmitted or referred to. The following list was agreed within the sector:
+2001	PathCanceledMessage
+2002	PathConfirmedMessage
+2003	PathDetailsMessage
+2004	PathDetailsRefusedMessage
+2005	PathNotAvailableMessage
+2006	PathRequestMessage
+2007	ReceiptConfirmationMessage
+3001	TrainAcceptedMessage
+3002	TrainAtStartMessage
+3003	TrainCompositionMessage
+3004	TrainNotSuitableMessage
+3005	TrainPositionMessage
+3006	TrainReadyMessage
+4001	TrainDelayCauseMessage
+4002	TrainDelayPerformanceMessage
+4003	TrainForecastAtReportingLocationMessage
+4004	TrainRunningForecastMessage
+4005	TrainRunningInformationMessage
+4006	TrainRunningInterruptionMessage
+5001	AlertMessage
+5002	WagonArrivalNoticeMessage
+5003	WagonDeliveryNoticeMessage
+5004	WagonDepartureNoticeMessage
+5005	WagonDeviationMessage
+5006	WagonETI_ETA_Message
+5007	WagonExceptionMessage
+5008	WagonExceptionReasonMessage
+5009	WagonInterchangeNoticeMessage
+5010	WagonInterchangeSubNoticeMessage
+5011	WagonOrderMessage
+5012	WagonReceivedAtInterchangeMessage
+5013	WagonRefusedAtInterchangeMessage
+5014	WagonReleaseNoticeMessage
+5015	WagonYardArrivalMessage
+5016	WagonYardDepartureMessage
+6001	IRN_DatasetMessage
+6002	LocationFileDatasetMessage
+6003	RollingStockDatasetMessage
+			
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1"/>
+				<xs:maxInclusive value="9999"/>
+			</xs:restriction>
+		</xs:simpleType>
 	</xs:element>
 	<xs:element name="MessageTypeVersion">
 		<xs:annotation>
@@ -3553,23 +3452,7 @@ The other subelements help describing the interruption information more precisel
 						<xs:element ref="OperationalTrainNumber" minOccurs="0"/>
 						<xs:element ref="NetworkSpecificParameter" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
-					<xs:attribute name="JourneyLocationTypeCode">
-						<xs:annotation>
-							<xs:documentation>01 = Origin 02 = Intermediate 03 = Destination 04 = Handover 05 = Interchange 06 = Handover and Interchange 07 = State Border 99 = Mutually Defined</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:restriction base="xs:token">
-								<xs:enumeration value="01"/>
-								<xs:enumeration value="02"/>
-								<xs:enumeration value="03"/>
-								<xs:enumeration value="04"/>
-								<xs:enumeration value="05"/>
-								<xs:enumeration value="06"/>
-								<xs:enumeration value="07"/>
-								<xs:enumeration value="08"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute ref="JourneyLocationTypeCode"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
@@ -3733,41 +3616,7 @@ The identifiers in this message have to be same as those that have come from sen
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="MRN_Type">
-								<xs:annotation>
-									<xs:documentation>Type of MRN given.</xs:documentation>
-									<xs:documentation>CODE: CIT GLV-CIM appendix 2</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:token">
-										<xs:enumeration value="MRN-E">
-											<xs:annotation>
-												<xs:documentation>if an EXPORT declaration has been lodged</xs:documentation>
-											</xs:annotation>
-										</xs:enumeration>
-										<xs:enumeration value="MRN-T">
-											<xs:annotation>
-												<xs:documentation>if a TRANSIT declaration has been lodged</xs:documentation>
-											</xs:annotation>
-										</xs:enumeration>
-										<xs:enumeration value="MRN-TS">
-											<xs:annotation>
-												<xs:documentation>if a TRANSIT declaration with SECURITY data has been lodged</xs:documentation>
-											</xs:annotation>
-										</xs:enumeration>
-										<xs:enumeration value="MRN-EXS">
-											<xs:annotation>
-												<xs:documentation>if the EXIT SUMMARY declaration has been made separately by the consignor</xs:documentation>
-											</xs:annotation>
-										</xs:enumeration>
-										<xs:enumeration value="MRN-ENS">
-											<xs:annotation>
-												<xs:documentation>if the ENTRY SUMMARY declaration has been made separately by the consignor</xs:documentation>
-											</xs:annotation>
-										</xs:enumeration>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
+							<xs:element ref="MRN_Type"/>
 							<xs:element name="MRN_Number">
 								<xs:annotation>
 									<xs:documentation>Movement reference number. Data element in accordance with Regulation (EC) 1875/2006).</xs:documentation>
@@ -3931,6 +3780,12 @@ For Path Requests, this element has to be used
 			<xs:documentation>RU Responsible for the physical operation of the train or wagon</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="RestrictionsDueToLoadOrDamage" type="RestrictionCodes">
+		<xs:annotation>
+			<xs:documentation>These are possible restrictions applicable in the originating country to shunting operations in stations and to main-line movements on account of the nature of the load. Coding in Restriction Codes (according to UIC Leaflet 920-13)
+	  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="RevisedRequest" type="xs:boolean">
 		<xs:annotation>
 			<xs:documentation>Indication for the IM whether wait because the RU will send a revised request soon or to make an alternative offer.</xs:documentation>
@@ -3947,7 +3802,7 @@ For Path Requests, this element has to be used
 						<xs:documentation>The law after which the RID data are declared.</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
-						<xs:restriction base="xs:token">
+						<xs:restriction base="xs:int">
 							<xs:enumeration value="2013"/>
 							<xs:enumeration value="2015"/>
 							<xs:enumeration value="2017"/>
@@ -4045,7 +3900,7 @@ For Path Requests, this element has to be used
 						<xs:documentation>CODE: OTIF RID-Specification, element EMPTY has been added as 'dummy' until the code list has been finished and approved. </xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
-						<xs:restriction base="xs:token">
+						<xs:restriction base="xs:string">
 							<xs:enumeration value="01">
 								<xs:annotation>
 									<xs:documentation>EMPTY PACKAGING</xs:documentation>
@@ -4326,6 +4181,11 @@ For Path Requests, this element has to be used
 									<xs:documentation> ISO country code of countries where the wagon is authorised (applies only in case of limited interoperability); first entry indicates the initial authorisation country</xs:documentation>
 								</xs:annotation>
 							</xs:element>
+							<xs:element name="ChannelTunnelPermitted" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Indication if wagon is allowed to pass the Channel Tunnel - if the transport is planned between UK and France and should use Eurotunnel infrastructure.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 							<xs:element ref="KeeperShortNameVKM">
 								<xs:annotation>
 									<xs:documentation>Vehicle Keeper Marking of the wagon keeper as listed in VKM register (http://www.era.europa.eu/Document-Register/Pages/list-VKM.aspx, column B - without special characters)</xs:documentation>
@@ -4457,7 +4317,7 @@ The following values/codes are proposed for the usage (defined in the InteropCap
 				<xs:element name="DesignDataSet">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="WagonTypeFull">
+							<xs:element name="LetterMarking">
 								<xs:annotation>
 									<xs:documentation>Complete wagon category letter code. The Identification marking for freight rolling stock (wagon type) is defined in UIC Leaflet 438-2</xs:documentation>
 								</xs:annotation>
@@ -4490,6 +4350,7 @@ The following values/codes are proposed for the usage (defined in the InteropCap
 							</xs:element>
 							<xs:element ref="WheelDiameter" minOccurs="0"/>
 							<xs:element ref="WheelsetGauge" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="WheelSetTransformationMethod" minOccurs="0"/>
 							<xs:element ref="NumberOfBogies" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>Number of bogies for a wagon (applies for bogie wagons only)</xs:documentation>
@@ -4740,11 +4601,6 @@ TypeOfRemovableAccessories code list is used. Values refer to UIC Leaflet 920-13
 										<xs:fractionDigits value="2"/>
 									</xs:restriction>
 								</xs:simpleType>
-							</xs:element>
-							<xs:element name="ChannelTunnelPermitted" type="xs:boolean" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation>Indication if wagon is allowed to pass the Channel Tunnel - if the transport is planned between UK and France and should use Eurotunnel infrastructure.</xs:documentation>
-								</xs:annotation>
 							</xs:element>
 							<xs:element name="TemperatureRange" minOccurs="0">
 								<xs:complexType>
@@ -5269,11 +5125,6 @@ LLD = Latest Location Departure</xs:documentation>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="TractionMode" type="Numeric2-2">
-		<xs:annotation>
-			<xs:documentation>Identifies the mode of deployment of a traction within a train</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="TractionPositionInTrain">
 		<xs:annotation>
 			<xs:documentation>Identifies position of intermediate traction unit(s) in the train indicating after which wagon (specified by order number) the unit is placed.</xs:documentation>
@@ -5383,7 +5234,7 @@ LLD = Latest Location Departure</xs:documentation>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element ref="LivestockIndicator"/>
+				<xs:element ref="LivestockOrPeopleIndicator"/>
 				<xs:element ref="WagonData" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -5397,7 +5248,11 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:element ref="MessageHeader"/>
 				<xs:element ref="MessageStatus"/>
 				<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="OperationalTrainNumberIdentifier"/>
 				<xs:element ref="OperationalTrainNumber"/>
+				<xs:element ref="ReferenceOTN" minOccurs="0"/>
+				<xs:element ref="TransferPoint" minOccurs="0"/>
+				<xs:element ref="TransfereeIM" minOccurs="0"/>
 				<xs:element ref="TrainCompositionJourneySection" maxOccurs="99"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -5672,7 +5527,7 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:element name="Activities" minOccurs="0" maxOccurs="99">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="ActivityType"/>
+							<xs:element ref="TrainActivityType"/>
 							<xs:element name="ActivityLocationIdent" type="LocationIdent"/>
 						</xs:sequence>
 					</xs:complexType>
@@ -5763,24 +5618,6 @@ LLD = Latest Location Departure</xs:documentation>
 			<xs:documentation>The Date and Time at which the tain actually started the journey</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="TrainType">
-		<xs:annotation>
-			<xs:documentation>01	Passenger train	train with passenger coaches
-02	Freight train	train with freight wagons
-03	Light engine (locomotive train)	one or more engines without any carriages
-04	Engineering train	train for measure-ment, maintenace, instructions, homologenisation, etc
-00	Other type - train types that are not covered with the four codes given above can be codified as "other" in the messages	 </xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:enumeration value="01"/>
-				<xs:enumeration value="02"/>
-				<xs:enumeration value="03"/>
-				<xs:enumeration value="04"/>
-				<xs:enumeration value="00"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
 	<xs:element name="TrainWeight">
 		<xs:annotation>
 			<xs:documentation>The sum of all weights of wagons and traction units</xs:documentation>
@@ -5857,7 +5694,7 @@ LLD = Latest Location Departure</xs:documentation>
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
 				<xs:length value="4"/>
-				<xs:pattern value="\d*(1-9)\d*"/>
+				<xs:pattern value="\d*[1-9]\d*"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -5991,11 +5828,7 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:element ref="MessageHeader"/>
 				<xs:element ref="RelatedReference" minOccurs="0"/>
 				<xs:element ref="WagonInformation"/>
-				<xs:element ref="Customer">
-					<xs:annotation>
-						<xs:documentation>Consignor</xs:documentation>
-					</xs:annotation>
-				</xs:element>
+				<xs:element ref="Customers"/>
 				<xs:element ref="WagonAtDeparture"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -6493,7 +6326,9 @@ LLD = Latest Location Departure</xs:documentation>
 	</xs:simpleType>
 	<xs:element name="WheelDiameter">
 		<xs:annotation>
-			<xs:documentation>Diameter of wheels meausured in mm.</xs:documentation>
+			<xs:documentation>Diameter of wheels meausured in mm. 
+Reference wheel diameter at maximum.			
+			</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
@@ -6515,7 +6350,8 @@ LLD = Latest Location Departure</xs:documentation>
 	</xs:element>
 	<xs:element name="WheelsetGauge">
 		<xs:annotation>
-			<xs:documentation>Track Gauge measured in mm.</xs:documentation>
+			<xs:documentation>Track Gauge measured in mm; multi-entry for wagons with changeable wheel set gauge			
+			</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
