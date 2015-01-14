@@ -53,11 +53,6 @@
 			<xs:documentation>Identifies the actual valid estimated date and time of interchange of the Wagon or Unit at an interchange point</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="AdditionalCertification" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Additional Certification for conformity due to special cases (chapter 7 TSI Infra) and not covered by OPE TSI.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="AdditionalInstruction" type="FreeText">
 		<xs:annotation>
 			<xs:documentation>Additional instructions regarding the wagon or shipment in free text</xs:documentation>
@@ -82,11 +77,6 @@
 				<xs:element ref="FreeTextField" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="AdmissionType" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Rolling Stock Name - Need further clarification</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="AffectedSection">
 		<xs:annotation>
@@ -263,16 +253,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:documentation>TrainID of the Associated Train in an Attach Activity</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="AxlesInterchangeable" type="xs:boolean">
-		<xs:annotation>
-			<xs:documentation>Russia</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="AxlesVariableWidth" type="xs:boolean">
-		<xs:annotation>
-			<xs:documentation>Spain</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="BogiePitch">
 		<xs:annotation>
 			<xs:documentation>Bogie Wheelbase measured in mm</xs:documentation>
@@ -394,11 +374,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 				<xs:minLength value="1"/>
 			</xs:restriction>
 		</xs:simpleType>
-	</xs:element>
-	<xs:element name="Class" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Factory series, user series</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="ClosingTime" type="xs:dateTime">
 		<xs:annotation>
@@ -1030,16 +1005,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ConsignmentRestrictions">
-		<xs:annotation>
-			<xs:documentation>Restriction for specified goods</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence maxOccurs="unbounded">
-				<xs:element ref="LoadType"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="ContainerHandlingFlag" type="xs:boolean">
 		<xs:annotation>
 			<xs:documentation>This establishment is able to handle container traffic</xs:documentation>
@@ -1333,11 +1298,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:documentation>Indicates whether Dangerous Goods are allowed (Yes/No Indicator) If "0", then no dangerous goods are allowed.  If "1", then the restricted goods are described in DangerousGoodsIndication</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="DangerousGoodsRestrictions" type="DanGoodsType">
-		<xs:annotation>
-			<xs:documentation>Restriction for the dangerous goods as indicated</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="DangerousGoodsVolume" type="VolumeValue">
 		<xs:annotation>
 			<xs:documentation>The volume of the dangerous goods in cubic meters</xs:documentation>
@@ -1408,30 +1368,12 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:documentation>Date</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="DateAccident" type="xs:date"/>
-	<xs:element name="DateEC_Verification">
-		<xs:annotation>
-			<xs:documentation>Date of the EC Verfication</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="DateLastRepair" type="xs:date"/>
 	<xs:element name="DateNextOverhaul" type="xs:date"/>
-	<xs:element name="DateOfficialScrapping" type="xs:date">
-		<xs:annotation>
-			<xs:documentation>Date that the vehicle was officially scrapped</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="DatePutIntoService" type="xs:date">
 		<xs:annotation>
 			<xs:documentation>Original Date of first operation</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="DateRIV_Certification" type="xs:date">
-		<xs:annotation>
-			<xs:documentation>Present date for RIV Certification</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="DateSpecialExamination" type="xs:date"/>
 	<xs:element name="DeclarationText">
 		<xs:annotation>
 			<xs:documentation>Additional Text for codes with free text</xs:documentation>
@@ -1583,11 +1525,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:documentation>Indicates the track ID on which the train runs.  The track of the departure of a train at a reporting point.  This is indicated in the LocationSubsidiaryCode in conjunction with the LocationPrimaryCode.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="Description" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Description in Free-form text</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="Destination" type="LocationIdent">
 		<xs:annotation>
 			<xs:documentation>Destination Location</xs:documentation>
@@ -1637,17 +1574,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="EC_Verification">
-		<xs:annotation>
-			<xs:documentation>Notifiied Body and Date of EC Verification</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="NotifiedBody"/>
-				<xs:element ref="DateEC_Verification"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="eMail" type="CommunicationRefID">
 		<xs:annotation>
 			<xs:documentation>Generic eMail address in Free text</xs:documentation>
@@ -1672,18 +1598,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 		<xs:annotation>
 			<xs:documentation>End point of a section or segment</xs:documentation>
 		</xs:annotation>
-	</xs:element>
-	<xs:element name="EquipmentID">
-		<xs:annotation>
-			<xs:documentation>Wagon Ident and details</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="WagonNumberFreight"/>
-				<xs:element ref="InternationalFrameFlag" minOccurs="0"/>
-				<xs:element ref="TagEquipmentID" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
 	</xs:element>
 	<xs:simpleType name="EquipmentNumberType">
 		<xs:annotation>
@@ -1888,34 +1802,12 @@ The senders and receivers should agree about the severity levels and their inter
 			<xs:documentation>The Date and Time when something unexpected happns during the transportation related to a location</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="FaultCounter">
-		<xs:annotation>
-			<xs:documentation>Number of faults since last overhaul</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:int">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="FaultDescription" type="xs:string"/>
 	<xs:element name="FaxNumber" type="CommunicationRefID">
 		<xs:annotation>
 			<xs:documentation>Generic Fax number in Free text</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="FerryPermittedFlag" type="xs:boolean"/>
-	<xs:element name="FireProtectionCategory">
-		<xs:annotation>
-			<xs:documentation>????????? - Ask Simon Fletcher</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="FleetManager" type="CompanyCode">
-		<xs:annotation>
-			<xs:documentation>The fleet manager is the overall controller of a wagon fleet. Primarily a fleet manager controls the logistics of wagons (dispatching / disposition) from an operational and asset management point of view</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:simpleType name="FreeText">
 		<xs:annotation>
 			<xs:documentation>Clear Text in ISO Unicode character set</xs:documentation>
@@ -1950,11 +1842,6 @@ The senders and receivers should agree about the severity levels and their inter
 				<xs:element ref="Longitude"/>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="GeographicLimitations" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Restriction on operation of wagons in geographic locations</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="Goods">
 		<xs:annotation>
@@ -2156,7 +2043,6 @@ The senders and receivers should agree about the severity levels and their inter
 			<xs:documentation>IM may inform the RU on the speed which was the basis for path construction</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="HumpShuntingRestrictions" type="xs:string"/>
 	<xs:element name="Identifiers">
 		<xs:complexType>
 			<xs:sequence>
@@ -2183,11 +2069,6 @@ The senders and receivers should agree about the severity levels and their inter
 	<xs:element name="InternalReferenceIdentifier" type="FreeText">
 		<xs:annotation>
 			<xs:documentation>The link to the IM System Reference</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="InternationalFrameFlag" type="xs:boolean">
-		<xs:annotation>
-			<xs:documentation>International Frame (e.g. Chassis)</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="InterruptionDateTime" type="xs:dateTime">
@@ -2265,17 +2146,6 @@ The other subelements help describing the interruption information more precisel
 		<xs:annotation>
 			<xs:documentation>This element identifies the reason for an interruption of the train running</xs:documentation>
 		</xs:annotation>
-	</xs:element>
-	<xs:element name="IntervalNextSpecialInspection">
-		<xs:annotation>
-			<xs:documentation>Specified in months</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:int">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="99"/>
-			</xs:restriction>
-		</xs:simpleType>
 	</xs:element>
 	<xs:element name="ITU">
 		<xs:annotation>
@@ -2434,17 +2304,6 @@ The other subelements help describing the interruption information more precisel
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Keeper" type="CompanyCode">
-		<xs:annotation>
-			<xs:documentation>The person, who being the owner or having the right to dispose of it, exploits a vehicle economically in a permanent manner as a means of transport and is registered as such in the Rolling Stock Register.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="Kilometres" type="xs:integer">
-		<xs:annotation>
-			<xs:documentation>Expression of number of Kilometres</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="KMsSinceLastOverhaul" type="xs:integer"/>
 	<xs:element name="LastModifiedDateTime" type="xs:dateTime">
 		<xs:annotation>
 			<xs:documentation>Date and Time of last update or modification of data</xs:documentation>
@@ -2520,7 +2379,6 @@ The other subelements help describing the interruption information more precisel
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="LoadingRestrictions" type="xs:string"/>
 	<xs:element name="LoadingStatus">
 		<xs:annotation>
 			<xs:documentation>Loading status of the equipment.  0=Empty, 1=Loaded</xs:documentation>
@@ -2565,11 +2423,6 @@ The other subelements help describing the interruption information more precisel
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="LoadType" type="CargoCodeType">
-		<xs:annotation>
-			<xs:documentation>This element gives the code for the goods (description of the goods by code).</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="Location" type="LocationIdent">
 		<xs:annotation>
@@ -2736,28 +2589,6 @@ The other subelements help describing the interruption information more precisel
 			<xs:documentation>Longitudinal Coordinates as expressed in decimal degrees</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="MaintenanceCycle">
-		<xs:annotation>
-			<xs:documentation>The maintenance cycle by kilometer, time or combination</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="MaintenanceCycleInterval" minOccurs="0"/>
-				<xs:element ref="Kilometres" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="MaintenanceCycleInterval" type="xs:integer">
-		<xs:annotation>
-			<xs:documentation>Interval of days for mainteance cycle</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="MaintenancePlanRef" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Identification of the maintenance plan assigned by the keeper</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="MajorAccidentData" type="xs:string"/>
 	<xs:element name="MaxAxleWeight">
 		<xs:annotation>
 			<xs:documentation>Maximum allowed axle weight for a wagon within a train.  Unit in tonnes per axle</xs:documentation>
@@ -2774,14 +2605,6 @@ The other subelements help describing the interruption information more precisel
 			<xs:documentation>Weight of max Gross Load Weight  plus the tare weight of the equipment</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="MaxHumidity">
-		<xs:annotation>
-			<xs:documentation>Maximum humidity expressed by %</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:float"/>
-		</xs:simpleType>
-	</xs:element>
 	<xs:element name="MaxLengthOfLoad">
 		<xs:annotation>
 			<xs:documentation>Measured in mm</xs:documentation>
@@ -2790,17 +2613,6 @@ The other subelements help describing the interruption information more precisel
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
 				<xs:maxInclusive value="999999"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="MaxMetreLoad">
-		<xs:annotation>
-			<xs:documentation>Measured in Tonnes</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:float">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -3085,11 +2897,6 @@ The other subelements help describing the interruption information more precisel
 				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
-	</xs:element>
-	<xs:element name="NotifiedBody" type="CompanyCode">
-		<xs:annotation>
-			<xs:documentation>The bodies which are responsible for assessing the conformity or suitability for use of the interoperability constituents or for appraising the EC procedure for verification of the subsystems</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="NumberOfAxles">
 		<xs:annotation>
@@ -3502,11 +3309,6 @@ The other subelements help describing the interruption information more precisel
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PlannedTransportIdentifiers" type="CompositIdentifierPlannedType"/>
-	<xs:element name="Pool_Indicator" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Grouping indicator for vehicles assigned to a 'pool' normally assigned to a specific shipper or region.  </xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="PostalCode">
 		<xs:annotation>
 			<xs:documentation>The postal code for the postal address</xs:documentation>
@@ -3565,11 +3367,6 @@ The other subelements help describing the interruption information more precisel
 				<xs:maxInclusive value="99999"/>
 			</xs:restriction>
 		</xs:simpleType>
-	</xs:element>
-	<xs:element name="RebuildManufacturer" type="CompanyCode">
-		<xs:annotation>
-			<xs:documentation>Party providing the Rebuild of the equipment</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="ReceiptConfirmationMessage">
 		<xs:annotation>
@@ -3668,27 +3465,6 @@ The identifiers in this message have to be same as those that have come from sen
 			<xs:documentation>The Departure Date and Time or the handover Date and Time at an interchange point where teh responsibility was intended to change to another RU, but where the RU refused to take over the responsibility</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="RefusedBy" type="CountryIdentISO">
-		<xs:annotation>
-			<xs:documentation>Country refusing the equipment</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="Registration">
-		<xs:annotation>
-			<xs:documentation>Country and date of the registration of the equipment (Approval of Placing into Service)</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="NotifiedBody"/>
-				<xs:element ref="RegistrationDate"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="RegistrationDate" type="xs:date">
-		<xs:annotation>
-			<xs:documentation>Date that the equipment is approved for placing into service)</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="RelatedIdentifier" type="FreeText"/>
 	<xs:element name="RelatedPlannedTransportIdentifiers" type="CompositIdentifierPlannedType"/>
 	<xs:element name="RelatedReference">
@@ -3712,8 +3488,6 @@ The identifiers in this message have to be same as those that have come from sen
 			<xs:documentation>Free Form Text</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="RepairLocation" type="LocationIdent"/>
-	<xs:element name="RepairType" type="xs:string"/>
 	<xs:element name="RequestedPeriod">
 		<xs:annotation>
 			<xs:documentation>Date/Time period of a request</xs:documentation>
@@ -4745,16 +4519,6 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 			<xs:documentation>Railway Undertaking</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="SafetyCertAccredFlag" type="xs:boolean">
-		<xs:annotation>
-			<xs:documentation>Safety Certification/Accreditation Flag</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="SafetyCertification" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Entity which has issued the safety certification/Accreditation</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="ScheduledDateTimeAtTransfer" type="xs:dateTime">
 		<xs:annotation>
 			<xs:documentation>The scheduled arrival at destination date and time or the scheduled outgoing transfer date and time at the border between two different IMs.</xs:documentation>
@@ -4847,14 +4611,6 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="SpecialExamination">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="DateSpecialExamination"/>
-				<xs:element ref="Description"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -4990,7 +4746,6 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="TagEquipmentID" type="xs:string"/>
 	<xs:element name="TechnicalForwardingRestrictions" type="RestrictionCodes">
 		<xs:annotation>
 			<xs:documentation>This element is designed to identify any special aspects or restrictions which might be relevant to wagon handling operations in train formation yards or in trains because of technical feature of the wagon or its load-
@@ -5026,11 +4781,6 @@ Code	F or P	Description																																				T	D	L
 		</xs:annotation>
 		<xs:restriction base="xs:time"/>
 	</xs:simpleType>
-	<xs:element name="TimePeriodRestrictions" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Restriction on wagon circulation by time period (i.e. by month)</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="TimetableYear">
 		<xs:annotation>
 			<xs:documentation>Refers to the timetable period in which the business will be carried out</xs:documentation>
@@ -5698,11 +5448,6 @@ LLD = Latest Location Departure</xs:documentation>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="UNIDROIT_Reference" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>International Institute for the Unification of Private Law Reference Number</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="ValidityPeriod">
 		<xs:complexType>
 			<xs:sequence>
@@ -5737,11 +5482,6 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:pattern value="[0-9A-Z]{2}"/>
 			</xs:restriction>
 		</xs:simpleType>
-	</xs:element>
-	<xs:element name="VerticalCurveRestrictions" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>Vertical curve caused restrictions (e.g. humping, ferry-angle)</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="VesselIndication">
 		<xs:annotation>
@@ -5924,17 +5664,6 @@ LLD = Latest Location Departure</xs:documentation>
 				<xs:element ref="ExceptionReason" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="WagonGauge">
-		<xs:annotation>
-			<xs:documentation>The gauge of the wagon according to the entry in the rolling stock databases</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:int">
-				<xs:minInclusive value="001"/>
-				<xs:maxInclusive value="999"/>
-			</xs:restriction>
-		</xs:simpleType>
 	</xs:element>
 	<xs:simpleType name="WagonIdent">
 		<xs:annotation>
@@ -6334,17 +6063,6 @@ Reference wheel diameter at maximum.
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
 				<xs:maxInclusive value="9999"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="WheelSetDistance">
-		<xs:annotation>
-			<xs:documentation>Inner wheel set distance / Pivot Pitch (maximum distance etween two consecutive axles) in dms</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
