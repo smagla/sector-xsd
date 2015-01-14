@@ -282,6 +282,11 @@
 			<xs:documentation>Origin of the section on which train composition is unchanged</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="Keeper" type="CompanyCode">
+		<xs:annotation>
+			<xs:documentation>The person, who being the owner or having the right to dispose of it, exploits a vehicle economically in a permanent manner as a means of transport and is registered as such in the Rolling Stock Register.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="LocationOfRestrictionDetection">
 		<xs:annotation>
 			<xs:documentation>Location where the restriction or defect is detected</xs:documentation>
