@@ -37,6 +37,32 @@ additional code:
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:element name="BrakeSpecialCharacteristics">
+		<xs:annotation>
+			<xs:documentation>General brake characteristics:
+Should be made as the Code List. The values refer to UIC leaflet 920-13:
+0 = No special characteristic (graduated release brake with cast iron blocks) "GG"
+1 = Disc brake
+2 = Composite brake blocks
+3 = Single release brake
+4 = Single release brake with composite brake blocks
+5 = L-Brake
+6 = LL-Brake
+9 = Non-coded information</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+				<xs:enumeration value="4"/>
+				<xs:enumeration value="5"/>
+				<xs:enumeration value="6"/>
+				<xs:enumeration value="9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:element name="BrakeType">
 		<xs:annotation>
 			<xs:documentation>Type of braking system. 
@@ -83,32 +109,6 @@ additional code:
 						<xs:documentation>non-codable variation device</xs:documentation>
 					</xs:annotation>
 				</xs:enumeration>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="BrakeSpecialCharacteristics">
-		<xs:annotation>
-			<xs:documentation>General brake characteristics:
-Should be made as the Code List. The values refer to UIC leaflet 920-13:
-0 = No special characteristic (graduated release brake with cast iron blocks) "GG"
-1 = Disc brake
-2 = Composite brake blocks
-3 = Single release brake
-4 = Single release brake with composite brake blocks
-5 = L-Brake
-6 = LL-Brake
-9 = Non-coded information</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:token">
-				<xs:enumeration value="0"/>
-				<xs:enumeration value="1"/>
-				<xs:enumeration value="2"/>
-				<xs:enumeration value="3"/>
-				<xs:enumeration value="4"/>
-				<xs:enumeration value="5"/>
-				<xs:enumeration value="6"/>
-				<xs:enumeration value="9"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -1997,6 +1997,20 @@ III	Low danger
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:element name="RefusalCode">
+		<xs:annotation>
+			<xs:documentation>Code List Candidate:
+1 = Data not authorised by Wagon Keeper
+
+2 = Wagon number freight unknown</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:simpleType name="RestrictionCodes">
 		<xs:annotation>
 			<xs:documentation>
@@ -2083,20 +2097,6 @@ Code	F or P	Description																																				T	D	L
 			<xs:enumeration value="99"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:element name="RefusalCode">
-		<xs:annotation>
-			<xs:documentation>Code List Candidate:
-1 = Data not authorised by Wagon Keeper
-
-2 = Wagon number freight unknown</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:enumeration value="1"/>
-				<xs:enumeration value="2"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
 	<xs:element name="RouteClass">
 		<xs:annotation>
 			<xs:documentation>Indication of the route class (based on CEN EN 15528: line categories for managing the interface between load limits of vehicels on infrastructure).
@@ -2751,18 +2751,18 @@ Should be added to Code List. Values refer to UIC Leaflet 920-13:
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="WheelSetTransformationMethod">
-	<xs:annotation>
+		<xs:annotation>
 			<xs:documentation>
 			„Description of the wheel set transformation method for wagons with a changeable wheel set gauge. Code list: 
 			1 = Automatic, 
 			2 = Bogie/axle change
 			</xs:documentation>
-			</xs:annotation>
-			<xs:simpleType>
-	<xs:restriction base="xs:token">
-			<xs:enumeration value="1"/>
-			<xs:enumeration value="2"/>
-		</xs:restriction>
-	</xs:simpleType>
-	</xs:element> 
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 </xs:schema>
