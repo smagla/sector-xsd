@@ -1139,13 +1139,15 @@ LR = Link Report</xs:documentation>
 										<xs:annotation>
 											<xs:documentation>TS = Train Shifting
 TC = Train Cancellation
-COT = Change Of Train</xs:documentation>
+COT = Change Of Train
+LR = Link Report</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
 												<xs:enumeration value="TS"/>
 												<xs:enumeration value="TC"/>
 												<xs:enumeration value="COT"/>
+												<xs:enumeration value="LR"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
