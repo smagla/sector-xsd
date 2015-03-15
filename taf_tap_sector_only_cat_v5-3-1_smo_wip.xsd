@@ -1229,6 +1229,7 @@ I = Information</xs:documentation>
 								<xs:restriction base="xs:string">
 									<xs:enumeration value="B"/>
 									<xs:enumeration value="E"/>
+									<xs:enumeration value="I"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:attribute>
