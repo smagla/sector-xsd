@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.1">
+<!-- version 2.1.2 from the 11/11/2015 -->
+<!-- 11/11/2015 Error correction of UIP and Raildata (RU-RU communication) according to CRs SMO 46/ ERA 391, SMO 47 / ERA 394  - the version sync-ed with the main schema -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.2">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
 <!-- Clean version, containing approved CRs (JSG and ERA) and bug-fixes, containing sector schema -->
-<!-- version 2.1.1 from the 13/10/2015 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.1">
+<!-- version 2.1.1 from the 16/10/2015 -->
+<!-- 16/10/2015 annotation of MessageType changed. Annotation added to ErrorCode -->
+<!-- version 2.1.2 from the 11/11/2015 -->
+<!-- 11/11/2015 Error correction of UIP and Raildata (RU-RU communication) according to CRs SMO 46/ ERA 391, SMO 47 / ERA 394  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.2">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -23,7 +27,7 @@
 		</xs:appinfo>
 	</xs:annotation>
 	<!-- Sector part begin -->
-	<!-- version 2.1.1 from the 13/10/2015  SMO working version-->
+	<!-- version 2.1.1 from the 16/10/2015  SMO working version-->
 	<xs:element name="AirBrakeSpecialCharacteristic" type="xs:string">
 		<xs:annotation>
 			<xs:documentation>Special characteristic of an air brake system (e.g. two or more steps brake)</xs:documentation>
@@ -2538,7 +2542,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 							<xs:simpleType>
 								<xs:restriction base="xs:token">
 									<xs:enumeration value="CR"/>
-									<xs:enumeration value="CN"/>
+									<xs:enumeration value="CE"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
@@ -2718,12 +2722,12 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:sequence>
 				<xs:element name="CustomerType">
 					<xs:annotation>
-						<xs:documentation>Type of participation CR: Consignor  CE: Consignee In the consignment order,the Lead RU acts as both types </xs:documentation>
+						<xs:documentation>Type of participation CR: Consignor  CE: Consignee  </xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:enumeration value="CR"/>
-							<xs:enumeration value="CN"/>
+							<xs:enumeration value="CE"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -2741,7 +2745,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 	</xs:element>
 	<xs:element name="DangerousGoodsIndication" type="DanGoodsType">
 		<xs:annotation>
-			<xs:documentation>Identifies the Dangerous Goods by code</xs:documentation>
+			<xs:documentation>Identifies dangerous goods</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="DangerousGoodsIndicator" type="xs:boolean">
@@ -2756,7 +2760,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 	</xs:element>
 	<xs:element name="DangerousGoodsWeight" type="WeightValueKilo">
 		<xs:annotation>
-			<xs:documentation>The weight of dangerous goods in Kilograms</xs:documentation>
+			<xs:documentation>The weight of dangerous goods in kilograms</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:complexType name="DanGoodsType">
@@ -3137,7 +3141,264 @@ The senders and receivers should agree about the severity levels and their inter
 				</xs:element>
 				<xs:element name="ErrorCode">
 					<xs:annotation>
-						<xs:documentation>To be defined: code list from 1 to 9999. Proposal from PathDossierErrorCode: "Standard values are between 5000 and 6000 (central maintained list). The values greater than 6000 can be used on national level. "</xs:documentation>
+						<xs:documentation>To be defined: code list from 1 to 9999. Proposal from PathDossierErrorCode now used for ErrorCode: Standard values are between 5000 and 6000 (central maintained list). The values greater than 6000 can be used on national level.
+5000	Invalid or uknown Message Header
+5001	Invalid or uknown Message Header.Message reference
+5002	Invalid or uknown Message Header.Message reference.Message Type Code (A1)
+5003	Invalid or uknown Message Header.Message reference.Message Type Version
+5004	Invalid or uknown Message Header.Message reference.Message Number
+5005	Invalid or uknown Message Header.Message reference.Message Date Time
+5006	Invalid Message Header.Message Routing ID 
+5007	Invalid Message Header.Sender Reference
+5008	Invalid or uknown Message Header.Sender Reference.Sender
+5009	Invalid Message Header.Sender Reference.Sender.CI Instance Number
+5010	Invalid or uknown Message Header.Recipient
+5011	Invalid Message Header.Recipient.CI Instance Number
+5012	Invalid or uknown AdministrativeContactInformation
+5013	Invalid or uknown AdministrativeContactInformation.Company ID
+5014	Invalid or uknown AdministrativeContactInformation.Name
+5015	Invalid AdministrativeContactInformation.Phone number
+5016	Invalid AdministrativeContactInformation.E-Mail
+5017	Invalid AdministrativeContactInformation.Fax number
+5018	Invalid AdministrativeContactInformation.User Identification
+5019	Invalid or uknown Identifiers
+5020	Invalid or uknown Identifiers.Planned Train ID (TRID)
+5021	Invalid Identifiers.Case Reference ID (Dossier)
+5022	Invalid or uknown Identifiers.Path Request ID
+5023	Invalid Identifiers.Path ID
+5024	Invalid Identifiers.Related to other Case reference IDs (Dossier) 
+5025	Invalid Identifiers.Related to other Planned Train IDs 
+5026	Invalid Identifiers.Related to other Path IDs 
+5027	Invalid Identifiers.Reference to Path Request ID
+5028	Invalid or uknown Message Status
+5029	Invalid Received on Time indicator
+5030	Invalid Process trigger
+5031	Invalid or uknown Type of Harmonization
+5032	Invalid Coordinating IM
+5033	Invalid Leading RU
+5034	Invalid or uknown Type of request
+5035	Invalid or uknown Type of information
+5036	Invalid PathDossierError  
+5037	Uknown Error
+5039	Invalid or uknown Type of update
+5040	Invalid or uknown Train Information
+5041	Invalid or uknown Train Information.Planned Journey Location
+5042	Invalid or uknown Train Information.Planned Journey LocationLocation Ident
+5043	Invalid or uknown Train Information.Planned Journey Location Location Ident.Country Code ISO
+5044	Invalid or uknown Train Information.Planned Journey Location Location Ident.Location Primary Code
+5045	Invalid Train Information.Planned Journey Location.Location Ident.PrimaryLocationName
+5046	Invalid Train Information.Planned Journey Location .Location Ident.Location Subsidiary Identification
+5047	Invalid or uknown Train Information.Planned Journey Location .Location Ident.Location Subsidiary Identification.Location Subsidiary type code
+5048	Invalid or uknown Train Information.Planned Journey Location .Location Ident.Location Subsidiary Identification.Location Subsidiary Code
+5049	Invalid or uknown Train Information.Planned Journey Location .Location Ident.Location Subsidiary Identification.Allocation Company
+5050	Invalid Train Information.Planned Journey Location .Location Ident.Location Subsidiary Identification.Location Subsidiary Name
+5051	Invalid Train Information.Planned Journey Location .Type of Location
+5052	Invalid Train Information.Planned Journey Location .Timing at location
+5053	Invalid Train Information.Planned Journey Location .Timing at location.Timing 
+5054	Invalid or uknown Train Information.Planned Journey Location .Timing at location.Timing .Time
+5055	Invalid Train Information.Planned Journey Location.Timing at location.Timing .TimingQualifierCode 
+5056	Invalid or uknown Train Information.Planned Journey Location.Timing at location.Timing.Offset
+5057	Invalid Train Information.Planned Journey Location .Timing at location.Dwell Time
+5058	Invalid Train Information.Planned Journey Location .Free text field
+5059	Invalid Train Information.Planned Journey Location .Responsible Applicant
+5060	Invalid Train Information.Planned Journey Location .Responsible RU
+5061	Invalid Train Information.Planned Journey Location .Responsible IM
+5062	Invalid Train Information.Planned Journey Location .Planned Train Data
+5063	Invalid Train Information.Planned Journey Location .Planned Train Data.Train type
+5064	Invalid Train Information.Planned Journey Location .Planned Train Data.Commercial Traffic Type
+5065	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Traffic Type
+5066	Invalid Train Information.Planned Journey Location .Planned Train Data.Type of service
+5067	Invalid Train Information.Planned Journey Location .Planned Train Data.Type of service.Special service description code 
+5068	Invalid Train Information.Planned Journey Location .Planned Train Data.Type of service.Facility type description code 
+5069	Invalid Train Information.Planned Journey Location .Planned Train Data.Type of service.Characteristic description code
+5070	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data
+5071	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Train Weight
+5072	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Train Length
+5073	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Weight of the set of carriages
+5074	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Length of set of carriages
+5075	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails 
+5076	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Loco Type Number
+5077	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails Traction Mode
+5078	Invalid Train Information.Planned Journey Location Planned Train Data.Planned Train Technical Data.TractionDetails Train CC System
+5079	Invalid Train Information.Planned Journey LocationPlanned Train Data.Planned Train Technical Data.TractionDetails .Train Radio System
+5080	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Traction Weight
+5081	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails Traction Length
+5082	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Train Max Speed
+5083	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Highest Planned Speed
+5084	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Tilting function
+5085	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Max Axle Weight
+5086	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Route Class
+5087	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Planned Brake Type
+5088	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Emergency Brake Override
+5089	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Planned Braking Ratio
+5090	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.MinBrakedWeightPercent
+5091	Invalid Train Information.Planned Journey Location .Planned Train Data.Planned Train Technical Data.Brake Weight
+5092	Invalid Train Information.Planned Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞
+5093	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞.IM Partner
+5094	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞.Exceptional Gauging Code
+5095	Invalid Train Information.Planned Journey Location .Planned Train Data.Container Profile
+5096	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Container Profile.Profile P1
+5097	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Container Profile.Profile P2
+5098	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Container Profile.Profile C1
+5099	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Container Profile.Profile C2
+5100	Invalid Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication 
+5101	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type
+5102	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Hazard Number
+5103	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.UN Material Number
+5104	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.RID Classification
+5105	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Packing Group
+5106	Invalid or uknown Train Information.Planned Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Weight of dangerous good
+5107	Invalid Train Information.Planned Journey Location .Status of Harmonization
+5108	Invalid Train Information.Planned Journey Location .Status of Harmonization.Interchange harmonized
+5109	Invalid Train Information.Planned Journey Location .Status of Harmonization.Handover harmonized
+5110	Invalid Train Information.Planned Journey Location .Train Activity Type 
+5111	Invalid Train Information.Planned Journey Location .AssociatedAttachedTrain ID 
+5112	Invalid Train Information.Planned Journey Location ."On demand" path
+5113	Invalid Train Information.Planned Journey Location .Pre-arranged paths
+5114	Invalid Train Information.Planned Journey Location .Operational Train Number
+5115	Invalid Train Information.Planned Journey Location .Network specific parameters 
+5116	Invalid Train Information.Planned Journey Location .Network specific parameters .Name
+5117	Invalid Train Information.Planned Journey Location .Network specific parameters .Value
+5118	Invalid or uknown Train Information.Path planning reference location
+5119	Invalid or uknown Train Information.Path planning reference location.Location Ident
+5120	Invalid or uknown Train Information.Path planning reference location.Location Ident.Country Code ISO
+5121	Invalid or uknown Train Information.Path planning reference location.Location Ident.Location Primary Code
+5122	Invalid Train Information.Path planning reference location.Location Ident.Location Subsidiary Identification 
+5123	Invalid or uknown Train Information.Path planning reference location.Location Ident.Location Subsidiary Identification .Location Subsidiary type code
+5124	Invalid or uknown Train Information.Path planning reference location.Location Ident.Location Subsidiary Identification .Location Subsidiary Code
+5125	Invalid or uknown Train Information.Path planning reference location.Location Ident.Location Subsidiary Identification .Allocation Company
+5126	Invalid Train Information.Path planning reference location.Location Ident.Location Subsidiary Identification .LocationSubsidiaryName
+5127	Invalid or uknown Train Information.Path planning reference location.Planned calendar 
+5128	Invalid Train Information.Path planning reference location.Planned calendar .BitmapDays
+5129	Invalid or uknown Train Information.Path planning reference location.Planned calendar .Validity Period
+5130	Invalid or uknown Train Information.Path planning reference location.Planned calendar .Validity Period.Start Date
+5131	Invalid Train Information.Path planning reference location.Planned calendar .Validity Period.End Date
+5132	Invalid or uknown Path Information
+5133	Invalid or uknown Path Information.Journey Location 
+5134	Invalid or uknown Path Information.Journey Location .Location Ident
+5135	Invalid or uknown Path Information.Journey Location .Location Ident.Country Code ISO
+5136	Invalid or uknown Path Information.Journey Location .Location Ident.Location Primary Code
+5137	Invalid or uknown Path Information.Journey Location .Location Ident.PrimaryLocationName
+5138	Invalid Path Information.Journey Location .Location Ident.Location Subsidiary Identification
+5139	Invalid or uknown Path Information.Journey Location .Location Ident.Location Subsidiary Identification.Location Subsidiary type code
+5140	Invalid or uknown Path Information.Journey Location .Location Ident.Location Subsidiary Identification.Location Subsidiary Code
+5141	Invalid or uknown Path Information.Journey Location .Location Ident.Location Subsidiary Identification.Allocation Company
+5142	Invalid Path Information.Journey Location .Location Ident.Location Subsidiary Identification.LocationSubsidiaryName
+5143	Invalid Path Information.Journey Location .Timing at location
+5144	Invalid or uknown Path Information.Journey Location .Timing at location.Timing 
+5145	Invalid or uknown Path Information.Journey Location .Timing at location.Timing .Time
+5146	Invalid Path Information.Journey Location .Timing at location.Timing .TimingQualifierCode (attribute of "Timing at location")
+5147	Invalid or uknown Path Information.Journey Location .Timing at location.Timing .Offset
+5148	Invalid Path Information.Journey Location .Timing at location.Dwell Time
+5149	Invalid Path Information.Journey Location .Free text field 
+5150	Invalid Path Information.Journey Location .Responsible Applicant
+5151	Invalid Path Information.Journey Location .Responsible RU
+5152	Invalid Path Information.Journey Location .Responsible IM
+5153	Invalid Path Information.Journey Location .Planned Train Data
+5154	Invalid or uknown Path Information.Journey Location .Planned Train Data.Train type
+5155	Invalid Path Information.Journey Location .Planned Train Data.Commercial Traffic Type
+5156	Invalid or uknown Path Information.Journey Location .Planned Train Data.Traffic Type
+5157	Invalid Path Information.Journey Location .Planned Train Data.Type of service
+5158	Invalid Path Information.Journey Location .Planned Train Data.Type of service.Special service description code 
+5159	Invalid Path Information.Journey Location .Planned Train Data.Type of service.Facility type description code 
+5160	Invalid Path Information.Journey Location .Planned Train Data.Type of service.Characteristic description code 
+5161	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data
+5162	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Train Weight
+5163	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Train Length
+5164	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Weight of the set of carriages
+5165	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Length of set of carriages
+5166	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails 
+5167	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Loco Type Number
+5168	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Traction Mode
+5169	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Train CC System
+5170	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Train Radio System
+5171	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Traction Weight
+5172	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.TractionDetails .Traction Length
+5173	Invalid or uknown Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Train Max Speed
+5174	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Highest Planned Speed
+5175	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Tilting function
+5176	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Max Axle Weight
+5177	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Route Class
+5178	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Planned Brake Type
+5179	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Emergency Brake Override
+5180	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Planned Braking Ratio
+5181	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.MinBrakedWeightPercent
+5182	Invalid Path Information.Journey Location .Planned Train Data.Planned Train Technical Data.Brake Weight
+5183	Invalid Path Information.Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞
+5184	Invalid or uknown Path Information.Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞.IM Code
+5185	Invalid or uknown Path Information.Journey Location .Planned Train Data.Exceptional Gauging Reference 0 ..∞.Exceptional Gauging Code
+5186	Invalid Path Information.Journey Location .Planned Train Data.Container Profile
+5187	Invalid or uknown Path Information.Journey Location .Planned Train Data.Container Profile.Profile P1
+5188	Invalid or uknown Path Information.Journey Location .Planned Train Data.Container Profile.Profile P2
+5189	Invalid or uknown Path Information.Journey Location .Planned Train Data.Container Profile.Profile C1
+5190	Invalid or uknown Path Information.Journey Location .Planned Train Data.Container Profile.Profile C2
+5191	Invalid Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication 
+5192	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type
+5193	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Hazard Number
+5194	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.UN Material Number
+5195	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.RID Classification
+5196	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Packing Group
+5197	Invalid or uknown Path Information.Journey Location .Planned Train Data.Dangerous Goods Indication .Dan Good Type.Weight of dangerous good
+5198	Invalid or uknown Path Information.Journey Location .Status of Harmonization
+5199	Invalid Path Information.Journey Location .Status of Harmonization.Interchange harmonized
+5200	Invalid Path Information.Journey Location .Status of Harmonization.Handover harmonized
+5201	Invalid Path Information.Journey Location .Type of Location
+5202	Invalid Path Information.Journey Location .Train Activity Type 
+5203	Invalid Path Information.Journey Location .AssociatedAttachedTrain ID 
+5204	Invalid Path Information.Journey Location ."On demand" path
+5205	Invalid Path Information.Journey Location .Pre-arranged paths
+5206	Invalid Path Information.Journey Location .Operational Train Number
+5207	Invalid Path Information.Journey Location .Network specific parameters 
+5208	Invalid Path Information.Journey Location .Network specific parameters .Name
+5209	Invalid Path Information.Journey Location .Network specific parameters .Value
+5210	Invalid or uknown Network specific parameters 
+5211	Invalid Network specific parameters .Name
+5212	Invalid Network specific parameters .Value
+5213	Invalid Revised Request
+5214	Invalid or uknown Affected section 
+5215	Invalid or uknown Affected section .Start of section
+5216	Invalid or uknown Affected section .Start of section.Location Ident
+5217	Invalid or uknown Affected section .Start of section.Location Ident.Country Code ISO
+5218	Invalid or uknown Affected section .Start of section.Location Ident.Location Primary Code
+5219	Invalid Affected section .Start of section.Location Ident.PrimaryLocationName
+5220	Invalid Affected section .Start of section.Location Ident.Location Subsidiary code 
+5221	Invalid or uknown Affected section .Start of section.Location Ident.Location Subsidiary code .Location Subsidiary type code
+5222	Invalid or uknown Affected section .Start of section.Location Ident.Location Subsidiary code .Location Subsidiary Ident 
+5223	Invalid or uknown Affected section .Start of section.Location Ident.Location Subsidiary code .Allocation Company
+5224	Invalid Affected section .Start of section.Location Ident.Location Subsidiary code .LocationSubsidiaryName
+5225	Invalid Affected section .Sequence of Start of Section
+5226	Invalid or uknown Affected section .End of section
+5227	Invalid or uknown Affected section .End of section.Location Ident
+5228	Invalid or uknown Affected section .End of section.Location Ident.Country Code ISO
+5229	Invalid or uknown Affected section .End of section.Location Ident.Location Primary Code
+5230	Invalid Affected section .End of section.Location Ident.PrimaryLocationName
+5231	Invalid Affected section .End of section.Location Ident.Location Subsidiary code
+5232	Invalid or uknown Affected section .End of section.Location Ident.Location Subsidiary code.Location Subsidiary type code
+5233	Invalid or uknown Affected section .End of section.Location Ident.Location Subsidiary code.Location Subsidiary Ident
+5234	Invalid or uknown Affected section .End of section.Location Ident.Location Subsidiary code.Allocation Company
+5235	Invalid Affected section .End of section.Location Ident.Location Subsidiary code.LocationSubsidiaryName
+5236	Invalid Affected section .Sequence of End of Section
+5237	Invalid Affected section .Network Section
+5238	Invalid or uknown Affected section .Network Section.Network specific parameters 
+5239	Invalid or uknown Affected section .Network Section.Network specific parameters .Name
+5240	Invalid or uknown Affected section .Network Section.Network specific parameters .Value
+5241	Invalid Affected section .Operational Train Number
+5242	Invalid or uknown Affected section .Calendar 
+5243	Invalid Affected section .Calendar .BitmapDays
+5244	Invalid or uknown Affected section .Calendar .Validity Period
+5245	Invalid or uknown Affected section .Calendar .Validity Period.Start Date
+5246	Invalid Affected section .Calendar .Validity Period.End Date
+5247	Invalid or uknown Interruption Information
+5248	Invalid or uknown Interruption Information.Interruption 
+5249	Invalid or uknown Interruption Information.Interruption .Interruption Reason
+5250	Invalid Interruption Information.Interruption .Interruption DateTime
+5251	Invalid Interruption Information.Interruption .Interruption Description
+5252	Invalid Interruption Information.Interruption .Interruption Reference Number
+5253	Invalid Free Text Field 
+5254	Answer not possible
+
+6000	National Section Elements												
+						 </xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:integer">
@@ -4155,44 +4416,67 @@ The other subelements help describing the interruption information more precisel
 	<xs:element name="MessageType">
 		<xs:annotation>
 			<xs:documentation>To indicate the message type transmitted or referred to. The following list was agreed within the sector:
-2001	PathCanceledMessage
-2002	PathConfirmedMessage
-2003	PathDetailsMessage
-2004	PathDetailsRefusedMessage
-2005	PathNotAvailableMessage
-2006	PathRequestMessage
-2007	ReceiptConfirmationMessage
-3001	TrainAcceptedMessage
-3002	TrainAtStartMessage
-3003	TrainCompositionMessage
-3004	TrainNotSuitableMessage
-3005	TrainPositionMessage
-3006	TrainReadyMessage
-4001	TrainDelayCauseMessage
-4002	TrainDelayPerformanceMessage
-4003	TrainForecastAtReportingLocationMessage
-4004	TrainRunningForecastMessage
-4005	TrainRunningInformationMessage
-4006	TrainRunningInterruptionMessage
-5001	AlertMessage
-5002	WagonArrivalNoticeMessage
-5003	WagonDeliveryNoticeMessage
-5004	WagonDepartureNoticeMessage
-5005	WagonDeviationMessage
-5006	WagonETI_ETA_Message
-5007	WagonExceptionMessage
-5008	WagonExceptionReasonMessage
-5009	WagonInterchangeNoticeMessage
-5010	WagonInterchangeSubNoticeMessage
-5011	WagonOrderMessage
-5012	WagonReceivedAtInterchangeMessage
-5013	WagonRefusedAtInterchangeMessage
-5014	WagonReleaseNoticeMessage
-5015	WagonYardArrivalMessage
-5016	WagonYardDepartureMessage
-6001	IRN_DatasetMessage
-6002	LocationFileDatasetMessage
-6003	RollingStockDatasetMessage
+			
+1000        ConsignmentOrderMessage
+
+2001        PathCanceledMessage
+2002        PathConfirmedMessage
+2003        PathDetailsMessage
+2004        PathDetailsRefusedMessage
+2005        PathNotAvailableMessage
+2006        PathRequestMessage
+2007        ReceiptConfirmationMessage
+ 
+-- sector messages (Planning) --
+2500      PathCoordinationMessage
+2501      PathSectionNotificationMessage
+-- sector message end --
+ 
+3003        TrainCompositionMessage
+3006        TrainReadyMessage
+4001        TrainDelayCauseMessage
+4004        TrainRunningForecastMessage
+4005        TrainRunningInformationMessage
+4006        TrainRunningInterruptionMessage
+ 
+-- sector message (Operations) --
+4500      PassengerTrainCompositionProcessMessage
+4501      RollingStockRestrictionMessage
+4504      ChangeOfTrackMessage
+4505      TrainJourneyModificationMessage
+-- sector message  end --
+
+
+5001        AlertMessage
+5002        WagonArrivalNoticeMessage
+5003        WagonDeliveryNoticeMessage
+5004        WagonDepartureNoticeMessage
+5006        WagonETI_ETA_Message
+5007        WagonExceptionMessage
+5008        WagonExceptionReasonMessage
+5009        WagonInterchangeNoticeMessage 
+5012        WagonReceivedAtInterchangeMessage
+5013        WagonRefusedAtInterchangeMessage
+5014        WagonReleaseNoticeMessage
+5015        WagonYardArrivalMessage
+5016        WagonYardDepartureMessage
+ 
+6002        LocationFileDatasetMessage
+6003        RollingStockDatasetMessage
+ 
+--sector (RU-RU) ---
+5500        WagonPerformanceMessage
+-- sector end---
+
+
+6004        RollingStockDatasetQueryMessage
+ 
+-- sector (TrainID) begin -- 
+8500        UpateLinkMessage
+8501        ObjectInfoMessage
+-- sector end --
+
+9000        ErrorMessage
 			
 			</xs:documentation>
 		</xs:annotation>
@@ -4315,7 +4599,7 @@ The other subelements help describing the interruption information more precisel
 	</xs:element>
 	<xs:element name="NHM_Code" type="NHMCodeType">
 		<xs:annotation>
-			<xs:documentation>NHM code of the good</xs:documentation>
+			<xs:documentation>NHM code of the goods</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:simpleType name="NHMCodeType">
@@ -4363,7 +4647,7 @@ The other subelements help describing the interruption information more precisel
 	<xs:element name="NumberOfBogies">
 		<xs:simpleType>
 			<xs:restriction base="xs:int">
-				<xs:minInclusive value="0"/>
+				<xs:minInclusive value="1"/>
 				<xs:maxInclusive value="9"/>
 			</xs:restriction>
 		</xs:simpleType>
@@ -7176,7 +7460,10 @@ IT72	Train report stop cancelled
 		<xs:annotation>
 			<xs:documentation>Identification code of a freight wagon based on the TSI OPE and CEN Recommendations and CIS wagons coded according to OSJD-UIC leaflet 402, which allows the conversion from 8 digits to 12 digits and viceversa.</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="xs:integer"/>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+			<xs:pattern value="[0-9]{12}"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="WagonInformation">
 		<xs:annotation>
