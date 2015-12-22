@@ -2,7 +2,16 @@
 <!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
 <!-- version 2.1.2 from the 11/11/2015 -->
 <!-- 11/11/2015 Error correction of UIP and Raildata (RU-RU communication) according to CRs SMO 46/ ERA 391, SMO 47 / ERA 394  - the version sync-ed with the main schema -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.2">
+<!-- 22/12/2015 
+CRs approved by ERA and JSG: 
+SMO 38 sector message: passenger train composition - association of vehicle list added to global association
+SMO 49 sector message: other technical restrictions for passenger rolling stock simplified
+SMO 35 / ERA 396 Wagon data cardinality changed to /0 to many/  from  /1 to many/
+SMO 43 / ERA 397 BookedLocationDateTime added to PlannedJourneySection/Timing/TimingAtLocation  
+SMO 44 / ERA 398 BookedLocationDateTime added to AffectedSection/Start-EndOfSection
+No changes to Code Lists - only the version upgrade to follow the main schema.
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.3">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>

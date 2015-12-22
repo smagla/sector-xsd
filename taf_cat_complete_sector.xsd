@@ -5,8 +5,16 @@
 <!-- 16/10/2015 annotation of MessageType changed. Annotation added to ErrorCode -->
 <!-- version 2.1.2 from the 11/11/2015 -->
 <!-- 11/11/2015 Error correction of UIP and Raildata (RU-RU communication) according to CRs SMO 46/ ERA 391, SMO 47 / ERA 394  -->
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.2">
+<!-- version 2.1.3 from the 22/12/2015 -->
+<!-- 22/12/2015 
+CRs approved by ERA and JSG: 
+SMO 38 sector message: passenger train composition - association of vehicle list added to global association
+SMO 49 sector message: other technical restrictions for passenger rolling stock simplified
+SMO 35 / ERA 396 Wagon data cardinality changed to /0 to many/  from  /1 to many/
+SMO 43 / ERA 397 BookedLocationDateTime added to PlannedJourneySection/Timing/TimingAtLocation  
+SMO 44 / ERA 398 BookedLocationDateTime added to AffectedSection/Start-EndOfSection
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.3">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -61,6 +69,17 @@
 					<xs:annotation>
 						<xs:documentation>Retail Train Number written on the ticket</xs:documentation>
 					</xs:annotation>
+				</xs:element>
+				<xs:element name="AssociationVehicleTrainPosition" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Indicates the expected value of the VehicleTrainposition the rolling stock will take in the associated train the rolling stock will continue in. Or the VehicleTrainposition the rolling stock had in the associated train the rolling stock came from. NOTE: the AssociationVehicleTrainPosition will follow the direction of the associated train.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
@@ -743,11 +762,8 @@ U = update information on object</xs:documentation>
 							<xs:element name="RestrictionOrDefectCode">
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
-										<xs:enumeration value="FR01 Train planned as push-pull but not push-pull"/>
-										<xs:enumeration value="FR02 Train planned with ordinary rolling stock realised with specialised rolling stock"/>
-										<xs:enumeration value="FR03 Train planned with specialised rolling stock realised with another specialised rolling stock or with ordinary rolling stock"/>
-										<xs:enumeration value="DE01 Passenger overload with goodwill"/>
-										<xs:enumeration value="DE02 Passenger overload without goodwill"/>
+										<xs:minLength value="4"/>
+										<xs:maxLength value="4"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
@@ -1539,8 +1555,28 @@ I = Information</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="StartOfSection" type="LocationIdent"/>
-				<xs:element name="EndOfSection" type="LocationIdent"/>
+				<xs:element name="StartOfSection">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="LocationIdent">
+								<xs:sequence minOccurs="0">
+									<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="EndOfSection">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="LocationIdent">
+								<xs:sequence minOccurs="0">
+									<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
 				<xs:element ref="OperationalTrainNumber" minOccurs="0"/>
 				<xs:element ref="PlannedCalendar"/>
 				<xs:element ref="NetworkSpecificParameter" minOccurs="0" maxOccurs="unbounded"/>
@@ -6546,6 +6582,7 @@ Code	F or P	Description																																				T	D	L
 									<xs:documentation>in days</xs:documentation>
 								</xs:annotation>
 							</xs:element>
+							<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
 						</xs:sequence>
 						<xs:attribute name="TimingQualifierCode">
 							<xs:annotation>
@@ -6776,7 +6813,7 @@ IT72	Train report stop cancelled
 					</xs:complexType>
 				</xs:element>
 				<xs:element ref="LivestockOrPeopleIndicator"/>
-				<xs:element ref="WagonData" maxOccurs="unbounded"/>
+				<xs:element ref="WagonData" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
