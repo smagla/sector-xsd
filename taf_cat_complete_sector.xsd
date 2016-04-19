@@ -14,6 +14,11 @@ SMO 35 / ERA 396 Wagon data cardinality changed to /0 to many/  from  /1 to many
 SMO 43 / ERA 397 BookedLocationDateTime added to PlannedJourneySection/Timing/TimingAtLocation  
 SMO 44 / ERA 398 BookedLocationDateTime added to AffectedSection/Start-EndOfSection
   -->
+  <!-- 15/04/2016 
+Bug Fix: CR 45 / ERA 395 Approved correction of LocationFileDatasetMessage
+usage of corrected ValidityType without restriction
+Schema Version remains the same due to bug fix.
+--> 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.3">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
@@ -4245,7 +4250,7 @@ The other subelements help describing the interruption information more precisel
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
-				<xs:element name="LocationValidityPeriod" type="ValidityPeriod"/>
+				<xs:element ref="LocationValidityPeriod"/>
 				<xs:element ref="ContainerHandlingFlag" minOccurs="0"/>
 				<xs:element ref="HandoverPointFlag" minOccurs="0"/>
 				<xs:sequence minOccurs="0">
@@ -4310,7 +4315,7 @@ The other subelements help describing the interruption information more precisel
 				<xs:element ref="LocationSubsidiaryCode"/>
 				<xs:element ref="LocationSubsidiaryName"/>
 				<xs:element ref="AllocationCompany"/>
-				<xs:element ref="ValidityPeriod"/>
+				<xs:element ref="LocationValidityPeriod"/>
 				<xs:element ref="Comments" minOccurs="0"/>
 				<xs:element ref="GeographicCoordinates" minOccurs="0"/>
 			</xs:sequence>
@@ -6427,16 +6432,10 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 		</xs:annotation>
 		<xs:restriction base="Numeric3-3"/>
 	</xs:simpleType>
-	<xs:element name="StartDate">
+	<xs:element name="StartDate" type="xs:date">
 		<xs:annotation>
 			<xs:documentation>The start of the date/time in effect</xs:documentation>
 		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:date">
-				<xs:minInclusive value="2012-01-01"/>
-				<xs:maxInclusive value="2097-12-31"/>
-			</xs:restriction>
-		</xs:simpleType>
 	</xs:element>
 	<xs:element name="StartDateTime" type="xs:dateTime">
 		<xs:annotation>
@@ -8017,4 +8016,5 @@ Reference wheel diameter at maximum.
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:element name="LocationValidityPeriod" type="ValidityPeriod"/>
 </xs:schema>
