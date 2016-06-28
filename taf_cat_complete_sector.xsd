@@ -14,12 +14,21 @@ SMO 35 / ERA 396 Wagon data cardinality changed to /0 to many/  from  /1 to many
 SMO 43 / ERA 397 BookedLocationDateTime added to PlannedJourneySection/Timing/TimingAtLocation  
 SMO 44 / ERA 398 BookedLocationDateTime added to AffectedSection/Start-EndOfSection
   -->
-  <!-- 15/04/2016 
+<!-- 15/04/2016 
 Bug Fix: CR 45 / ERA 395 Approved correction of LocationFileDatasetMessage
 usage of corrected ValidityType without restriction
 Schema Version remains the same due to bug fix.
---> 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.3">
+-->
+<!-- version 2.1.4 from the 27/06/2016 -->
+<!-- 27/06/2015
+CRs approved by ERA and JSG:
+SMO 16	ERA 357	Public Time Support – TimeQualifierCode (PathRequest/PathDetails) - TimerQualifierCode moved to code list schema
+SMO 34	ERA 392	"DangerousGoodsIndication in TrainCompositionMessage - TrainRunningData
+SMO 50	ERA 409	(Hand) Brake (Braked) weight values “0” in TrainCompositionMessage - HandBrakedBrakeWeight type changed from Numeric3-3 to xs:integer with restriction 000 to 999
+SMO 51	ERA 411	Replace Train Control System Code in TrainCompositionMessage with xs:token and annotation. Code list remains in the code list schema to be updated accordingly.  
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.4">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -1771,7 +1780,7 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:int">
-				<xs:minInclusive value="1"/>
+				<xs:minInclusive value="0"/>
 				<xs:maxInclusive value="99999"/>
 			</xs:restriction>
 		</xs:simpleType>
@@ -6564,17 +6573,34 @@ Code	F or P	Description																																				T	D	L
 	</xs:element>
 	<xs:element name="TimingAtLocation">
 		<xs:annotation>
-			<xs:documentation>Timing at an operation point</xs:documentation>
+			<xs:documentation>Timing at an operation point
+It has an attribute TimerQualifierCode with the following values:
+PLA = Public Location Arrival
+ELA = Earliest Location Arrival
+ALA = Actual Location Arival
+LLA = Latest Location Arrival
+PLD = Public Location Departure
+ELD = Earliest Location Departure
+ALD = Actual Location Departure
+LLD = Latest Location Departure			
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Timing" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Time" type="xs:time">
+							<xs:element name="Time">
 								<xs:annotation>
 									<xs:documentation>hh:mm:ss</xs:documentation>
 								</xs:annotation>
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:time">
+											<xs:attribute ref="TimingQualifierCode"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
 							</xs:element>
 							<xs:element ref="Offset">
 								<xs:annotation>
@@ -6583,26 +6609,6 @@ Code	F or P	Description																																				T	D	L
 							</xs:element>
 							<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
 						</xs:sequence>
-						<xs:attribute name="TimingQualifierCode">
-							<xs:annotation>
-								<xs:documentation>ELA = Earliest Location Arrival
-ALA = Actual Location Arival
-LLA = Latest Location Arrival
-ELD = Earliest Location Departure
-ALD = Actual Location Departure
-LLD = Latest Location Departure</xs:documentation>
-							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:token">
-									<xs:enumeration value="ELA"/>
-									<xs:enumeration value="ELD"/>
-									<xs:enumeration value="LLA"/>
-									<xs:enumeration value="LLD"/>
-									<xs:enumeration value="ALA"/>
-									<xs:enumeration value="ALD"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:attribute>
 					</xs:complexType>
 				</xs:element>
 				<xs:element ref="DwellTime" minOccurs="0"/>
@@ -6774,9 +6780,70 @@ IT72	Train report stop cancelled
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="TrainCC_System" type="TrainCC_Syst">
+	<xs:element name="TrainCC_System" type="xs:token">
 		<xs:annotation>
-			<xs:documentation>Type of Train Control System by code (UIC 407-1)</xs:documentation>
+			<xs:documentation>Type of Train Control System. The following types are used: 
+CCS TSI Class A:
+
+ETCS Level 0
+ETCS Level NSC
+ETCS Level 1
+ETCS Level 2
+ETCS Level 3
+
+ERA/TD/2011-11, Class B:
+PZB
+LZB
+Crocodile
+TBL 1
+TBL 2
+TVM 430TBL1+
+EBICAB 700
+LS
+ZUB 123
+ALSN
+ATP-VR/RHK
+KVB
+TVM 300
+TVM 430
+KVBP
+KCVP
+KCVB
+NEXTEO
+DAAT
+EVM
+CAWS
+ATP
+BACC
+RSDD/SCMT
+SSC
+MEMOR II+
+SHP
+PKP
+ASFA
+EBICAB 900
+SELCAB
+SIGNUM
+ZUB
+ATB 1st Gen
+ATB Next Gen
+GW ATP
+RETB
+TPWS 
+
+
+ UIC Leaflet 407-1 Codes (legacy) are covered in the ERA/TD/2011-11:
+
+91	ETCS L1
+92	ETCS L2
+51	PZB
+3	LZB
+22	KVB
+52	EVM
+11	ZUB
+31	ATB
+32	ATBNG
+</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="TrainCompositionJourneySection">
@@ -7100,7 +7167,7 @@ IT72	Train report stop cancelled
 			<xs:sequence>
 				<xs:element ref="TrainRunningTechData"/>
 				<xs:element ref="ExceptionalGaugingInd" minOccurs="0"/>
-				<xs:element ref="DangerousGoodsIndication" minOccurs="0"/>
+				<xs:element ref="DangerousGoodsIndicator" minOccurs="0"/>
 				<xs:element name="Activities" minOccurs="0" maxOccurs="99">
 					<xs:complexType>
 						<xs:sequence>
@@ -7808,10 +7875,16 @@ IT72	Train report stop cancelled
 					</xs:simpleType>
 				</xs:element>
 				<xs:element ref="HandBrakeType" minOccurs="0"/>
-				<xs:element name="HandBrakeBrakedWeight" type="Numeric3-3" minOccurs="0">
+				<xs:element name="HandBrakeBrakedWeight" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Coding in 404-2, chapter 1.7 </xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="000"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 				<xs:element ref="NormalLoadingGauge" minOccurs="0"/>
 				<xs:element ref="WagonWeightEmpty"/>
