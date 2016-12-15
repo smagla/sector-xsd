@@ -20,7 +20,7 @@ usage of corrected ValidityType without restriction
 Schema Version remains the same due to bug fix.
 -->
 <!-- version 2.1.4 from the 27/06/2016 -->
-<!-- 27/06/2015
+<!-- 27/06/2016
 CRs approved by ERA and JSG:
 SMO 16	ERA 357	Public Time Support – TimeQualifierCode (PathRequest/PathDetails) - TimerQualifierCode moved to code list schema
 SMO 34	ERA 392	"DangerousGoodsIndication in TrainCompositionMessage - TrainRunningData
@@ -28,7 +28,27 @@ SMO 50	ERA 409	(Hand) Brake (Braked) weight values “0” in TrainCompositionMe
 SMO 51	ERA 411	Replace Train Control System Code in TrainCompositionMessage with xs:token and annotation. Code list remains in the code list schema to be updated accordingly.  
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.4">
+<!-- version 2.1.5 from the 15/12/2016 -->
+<!--
+SMO 53 ERA 419 Loco Numbers in Train Composition Message (TCM): the new optional element LocoNumber is added to the LocoIdent used in TCM (affected only TCM. New global element LocoNumber added)
+SMO 55 ERA 417 Creation of the code list for the element TractionType: The TractionType is converted to a code list and moved to taf_cat_codelists_sector.xsd. The new codes are:
+First digit:
+	“0” = not specified
+	“1” = external electric power supply for traction (catenary and pantograph, third rail or other such as maglev)
+	“2” = on-board traction power supply for traction without external electrical or other power supply available
+	“3” = hybrid traction (both on-board or electric traction available)
+Second digit (definitions in chapter 2.2.2 of the LOC&PAS TSI 1302/2014):
+	“0” = not specified
+	“1” = locomotive or power unit
+	“2” = trainset or multiple unit or railcar
+	“3” = shunter
+“4” = on track machine or infrastructure inspection vehicle
+(affected only TCM)
+SMO 57 (Sector CR, nor ERA ID) PathSectionNotification - added ScheduledDateTimeAtTransferPoint on message level (affected only PathSectionNotificationMessage)
+SMO 59 ERA 418 TrainCompositionMessage: Mistake in HazardIdentificationNumber element resolved: the regular expression with the constraint on the format is removed. (affected only TCM)
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.5">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -557,6 +577,7 @@ U = update information on object</xs:documentation>
 				</xs:element>
 				<xs:element ref="InterruptionInformation" minOccurs="0"/>
 				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ScheduledDateTimeAtTransfer" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -2823,7 +2844,6 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 					<xs:restriction base="xs:string">
 						<xs:minLength value="2"/>
 						<xs:maxLength value="4"/>
-						<xs:pattern value="X? [0-9] [2,3]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -4334,6 +4354,17 @@ The other subelements help describing the interruption information more precisel
 		<xs:annotation>
 			<xs:documentation>To be completed in an official language of the Country using the ISO Unicode alphabet</xs:documentation>
 		</xs:annotation>
+	</xs:element>
+	<xs:element name="LocoNumber">
+		<xs:annotation>
+			<xs:documentation>Identifies the number of the locomotive, usually the European Vehicle Number on 12N. It is currently not restricted only to numeric values.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="12"/>
+				<xs:minLength value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
 	</xs:element>
 	<xs:element name="LocoTypeNumber">
 		<xs:annotation>
@@ -6663,11 +6694,6 @@ LLD = Latest Location Departure
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="TractionType" type="Numeric2-2">
-		<xs:annotation>
-			<xs:documentation>Identifies the type of a locomotive </xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="TractionWeight" type="WeightValueTonne">
 		<xs:annotation>
 			<xs:documentation>The weight of the traction unit</xs:documentation>
@@ -6862,6 +6888,7 @@ TPWS
 						<xs:sequence>
 							<xs:element ref="TractionType"/>
 							<xs:element ref="LocoTypeNumber" minOccurs="0"/>
+							<xs:element ref="LocoNumber" minOccurs="0"/>
 							<xs:element ref="TractionMode" minOccurs="0"/>
 							<xs:element name="DriverIndication" minOccurs="0">
 								<xs:annotation>

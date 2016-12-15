@@ -12,14 +12,35 @@ SMO 44 / ERA 398 BookedLocationDateTime added to AffectedSection/Start-EndOfSect
 No changes to Code Lists - only the version upgrade to follow the main schema.
   -->
 <!-- version 2.1.4 from the 27/06/2016 -->
-<!-- 27/06/2015
+<!-- 27/06/2016
 CRs approved by ERA and JSG:
 SMO 16	ERA 357	Public Time Support – TimeQualifierCode (PathRequest/PathDetails) - TimerQualifierCode moved to code list schema
 SMO 34	ERA 392	"DangerousGoodsIndication in TrainCompositionMessage - TrainRunningData
 SMO 50	ERA 409	(Hand) Brake (Braked) weight values “0” in TrainCompositionMessage - HandBrakedBrakeWeight type changed from Numeric3-3 to xs:integer with restriction 000 to 999
 SMO 51	ERA 411	Replace Train Control System Code in TrainCompositionMessage with xs:token and annotation. Code list remains in the code list schema to be updated accordingly.  
--->  
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.4">
+-->
+<!-- version 2.1.5 from the 15/12/2016 -->
+<!--
+SMO 53 ERA 419 Loco Numbers in Train Composition Message (TCM): the new optional element LocoNumber is added to the LocoIdent used in TCM (affected only TCM. New global element LocoNumber added)
+IMPORTANT FOR CODELIST: SMO 55 ERA 417 Creation of the code list for the element TractionType: The TractionType is converted to a code list and moved to taf_cat_codelists_sector.xsd. The new codes are:
+First digit:
+	“0” = not specified
+	“1” = external electric power supply for traction (catenary and pantograph, third rail or other such as maglev)
+	“2” = on-board traction power supply for traction without external electrical or other power supply available
+	“3” = hybrid traction (both on-board or electric traction available)
+Second digit (definitions in chapter 2.2.2 of the LOC&PAS TSI 1302/2014):
+	“0” = not specified
+	“1” = locomotive or power unit
+	“2” = trainset or multiple unit or railcar
+	“3” = shunter
+“4” = on track machine or infrastructure inspection vehicle
+(affected only TCM)
+SMO 57 (Sector CR, nor ERA ID) PathSectionNotification - added ScheduledDateTimeAtTransferPoint on message level (affected only PathSectionNotificationMessage)
+SMO 59 ERA 418 TrainCompositionMessage: Mistake in HazardIdentificationNumber element resolved: the regular expression with the constraint on the format is removed. (affected only TCM)
+
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.5">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
@@ -2489,6 +2510,43 @@ Second digit – position in group of traction units with the same role
 				<xs:enumeration value="36"/>
 				<xs:enumeration value="46"/>
 				<xs:enumeration value="56"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TractionType">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of a locomotive: 
+First digit:
+“0” = not specified
+“1” = external electric power supply for traction (catenary and pantograph, third rail or other such as maglev)
+“2” = on-board traction power supply for traction without external electrical or other power supply available
+“3” = hybrid traction (both on-board or electric traction available)
+Second digit (definitions in chapter 2.2.2 of the LOC and PAS TSI 1302/2014):
+“0” = not specified
+“1” = locomotive or power unit
+“2” = trainset or multiple unit or railcar
+“3” = shunter
+“4” = on track machine or infrastructure inspection vehicle
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="13"/>
+				<xs:enumeration value="14"/>
+				<xs:enumeration value="21"/>
+				<xs:enumeration value="22"/>
+				<xs:enumeration value="23"/>
+				<xs:enumeration value="24"/>
+				<xs:enumeration value="31"/>
+				<xs:enumeration value="32"/>
+				<xs:enumeration value="33"/>
+				<xs:enumeration value="34"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
