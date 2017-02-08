@@ -48,7 +48,45 @@ SMO 57 (Sector CR, nor ERA ID) PathSectionNotification - added ScheduledDateTime
 SMO 59 ERA 418 TrainCompositionMessage: Mistake in HazardIdentificationNumber element resolved: the regular expression with the constraint on the format is removed. (affected only TCM)
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.5">
+<!-- version 2.1.6 from the 08/02/2017 -->
+<!--
+CRs approved by ERA and JSG:
+
+CR60 ERA 423 CR is mainly renaming and adding the annotation - affects only RSRD. 
+Elements affected:
+....MaxDesignSpeed - added, replaced MaxSpeedEmpty and MaxSpeedLoaded
+....NormalLoadingGauge
+....LoadTable
+....ParkingBrakeForce
+Elements deleted (completely removed from the schema!):
+....MaxSpeedEmpty
+....MaxSpeedLoaded
+....MaxParkingBrakeGradient
+
+CR61 ERA 424 Change of the type of the element MaxAxleWeight - affects:
+ .....RollingStockDatasetMessage
+......TrainCompoositionMessage
+......PathRequestMessage
+......PathDetailsMessage
+
+CR62 ERA 425 Renaming and annotation improvement - affects TrainComposition & RSRD
+Elements affected:
+....LengthOverBuffers (replaced WagonLenth - IMPORTANT for those who already have mapping on TCM)
+....ExceptionalGaugingInd (Train Level)
+Element removed from the message (but remains in the schema) (IMPORTANT for those who already have mapping on TCM!):
+....WagonLength
+
+CR63 (Sector Message PassengerTrainComposition):
+Redefinition of the type of EuropeanVehicleNumber - changed from integer to string with restiction and regular expression.
+
+CR66 ERA 426 Wrong number in the code list (repeated value) - affects TrainComposition (the change is applied on the code list)
+Affected code list: TractionMode. Code 44 repeated twice, code 54 must be added instead.
+
+CR67 ERA 427 Wrong pattern applied - affects ErrorMessage
+Error code number format was wrong - there will be no restrictions on format on the error code any more.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.6">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -228,10 +266,11 @@ SMO 59 ERA 418 TrainCompositionMessage: Mistake in HazardIdentificationNumber el
 			<xs:documentation>Number on 12 digits allocated to each rail vehicle to uniquely identify it from any other rail vehicle</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="12"/>
-				<xs:maxInclusive value="12"/>
-			</xs:restriction>
+			<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+			<xs:minLength value="12"/>
+			<xs:pattern value='[0-9]{12}'/>
+		</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="InformationToBeDisplayed">
@@ -3474,7 +3513,6 @@ The senders and receivers should agree about the severity levels and their inter
 						<xs:restriction base="xs:integer">
 							<xs:minInclusive value="1"/>
 							<xs:maxInclusive value="9999"/>
-							<xs:pattern value="\d"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -3508,9 +3546,9 @@ The senders and receivers should agree about the severity levels and their inter
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ExceptionalGaugingInd" type="InfoIndex">
+	<xs:element name="ExceptionalGaugingInd" type="xs:boolean">
 		<xs:annotation>
-			<xs:documentation>Indicates that an exceptional Gauging is in the train or for the wagon</xs:documentation>
+			<xs:documentation>Indicates that an exceptional gauging is in the train or for the wagon - (true/false)</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="ExceptionalGaugingProfile">
@@ -3776,23 +3814,13 @@ The senders and receivers should agree about the severity levels and their inter
 				</xs:element>
 				<xs:element name="ParkingBrakeForce" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Parking force of the hand brake measured in kN, with one fraction digit (with comma!)</xs:documentation>
+						<xs:documentation>Indicates the parking brake force of the hand brake (kN).
+When the parking brake force is marked on the wagon the information must be provided in the RSRD message.</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:decimal">
 							<xs:totalDigits value="5"/>
 							<xs:fractionDigits value="1"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="MaxParkingBrakeGradient" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Maximum gradient for parking only with hand brake measured in ‰</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:integer">
-							<xs:minInclusive value="1"/>
-							<xs:maxInclusive value="99"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4119,7 +4147,7 @@ The other subelements help describing the interruption information more precisel
 	</xs:element>
 	<xs:element name="LengthOverBuffers">
 		<xs:annotation>
-			<xs:documentation>Measured in dm</xs:documentation>
+			<xs:documentation>Length over buffers is expressed in cm.</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
@@ -4384,12 +4412,23 @@ The other subelements help describing the interruption information more precisel
 	</xs:element>
 	<xs:element name="MaxAxleWeight">
 		<xs:annotation>
-			<xs:documentation>Maximum allowed axle weight for a wagon within a train.  Unit in tonnes per axle</xs:documentation>
+			<xs:documentation>Indicates the maximum design axle weight (to).</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
-			<xs:restriction base="xs:int">
-				<xs:minInclusive value="01"/>
-				<xs:maxInclusive value="99"/>
+			<xs:restriction base="xs:decimal">
+				<xs:minInclusive value="0.1"/>
+				<xs:maxInclusive value="99.9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MaxDesignSpeed">
+		<xs:annotation>
+			<xs:documentation>Maximum approved speed of the wagon (km/h)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1"/>
+				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -4406,28 +4445,6 @@ The other subelements help describing the interruption information more precisel
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
 				<xs:maxInclusive value="999999"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="MaxSpeedEmpty">
-		<xs:annotation>
-			<xs:documentation>Maxumum speed conditions empty arising rom wagon construction characteristics (in km)</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="MaxSpeedLoad">
-		<xs:annotation>
-			<xs:documentation>Maximum speed conditions according to load</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -5968,7 +5985,7 @@ The following values/codes are proposed for the usage (defined in the InteropCap
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element ref="NormalLoadingGauge"/>
+							<xs:element ref="NormalLoadingGauge" minOccurs="0"/>
 							<xs:element ref="MinCurveRadius">
 								<xs:annotation>
 									<xs:documentation> Minimum allowed curve radius due to design characteristics, measured in meters</xs:documentation>
@@ -5991,9 +6008,13 @@ Measured in meters</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element ref="MaxAxleWeight"/>
-							<xs:element name="LoadTable" maxOccurs="unbounded">
+							<xs:element name="LoadTable" minOccurs="0" maxOccurs="unbounded">
 								<xs:annotation>
-									<xs:documentation>Load table, can be used for international, product specific and additional (country-specific) load tables</xs:documentation>
+									<xs:documentation>Indicates the load tables marked on the wagon. 
+When load tables are marked on the wagon the information must be provided in the RSRD message.
+Several load tables (international, product specific for LPG wagons  and additional/country specific) can be specified by providing the element several times consecutively.
+For special wagons with specific load tables (e.g. heavy haul wagons) no load table need to be provided. 
+The complete load table must be provided including the empty load row (if existent).</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
@@ -6061,11 +6082,7 @@ Measured in meters</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element ref="MaxSpeedEmpty">
-								<xs:annotation>
-									<xs:documentation>Maxumum speed conditions empty arising rom wagon construction characteristics (in km/h)</xs:documentation>
-								</xs:annotation>
-							</xs:element>
+							<xs:element ref="MaxDesignSpeed"/>
 							<xs:element ref="AirBrake"/>
 							<xs:element ref="HandBrake">
 								<xs:annotation>
@@ -6164,11 +6181,6 @@ TypeOfRemovableAccessories code list is used. Values refer to UIC Leaflet 920-13
 							<xs:element ref="MaxGrossWeight">
 								<xs:annotation>
 									<xs:documentation>Weight of max Gross Load Weight  plus the tare weight of the equipment in kg</xs:documentation>
-								</xs:annotation>
-							</xs:element>
-							<xs:element ref="MaxSpeedLoad">
-								<xs:annotation>
-									<xs:documentation>Maximum speed conditions according to load (in km/h)</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="VapourReturnSystem" type="xs:boolean" minOccurs="0">
@@ -7886,7 +7898,7 @@ TPWS
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="WagonLength"/>
+				<xs:element ref="LengthOverBuffers"/>
 				<xs:element ref="WagonNumberOfAxles"/>
 				<xs:element ref="AirBrakeType" minOccurs="0"/>
 				<xs:element ref="BrakingPowerVariationDevice" minOccurs="0"/>

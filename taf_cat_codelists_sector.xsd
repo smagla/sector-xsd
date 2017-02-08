@@ -39,8 +39,45 @@ SMO 57 (Sector CR, nor ERA ID) PathSectionNotification - added ScheduledDateTime
 SMO 59 ERA 418 TrainCompositionMessage: Mistake in HazardIdentificationNumber element resolved: the regular expression with the constraint on the format is removed. (affected only TCM)
 
 -->
+<!-- version 2.1.6 from the 08/02/2017 -->
+<!--
+CRs approved by ERA and JSG:
 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.5">
+CR60 ERA 423 CR is mainly renaming and adding the annotation - affects only RSRD. 
+Elements affected:
+....MaxDesignSpeed
+....NormalLoadingGauge
+....LoadTable
+....ParkingBrakeForce
+Elements deleted:
+....MaxSpeedEmpty
+....MaxSpeedLoaded
+....MaxParkingBrakeGradient
+
+CR61 ERA 424 Change of the type of the element MaxAxleWeight - affects:
+ .....RollingStockDatasetMessage
+......TrainCompoositionMessage
+......PathRequestMessage
+......PathDetailsMessage
+
+CR62 ERA 425 Renaming and annotation improvement - affects TrainComposition & RSRD
+Elements affected:
+....LengthOverBuffers
+....ExceptionalGaugingInd (Train Level)
+Element removed from the message (but remains in the schema):
+....WagonLength
+
+CR63 (Sector Message PassengerTrainComposition):
+Redefinition of the type of EuropeanVehicleNumber - changed from integer to string with restiction and regular expression.
+
+CR66 ERA 426 Wrong number in the code list (repeated value) - affects TrainComposition (the change is applied on the code list)
+Affected code list: TractionMode. Code 44 repeated twice, code 54 must be added instead.
+
+CR67 ERA 427 Wrong pattern applied - affects ErrorMessage
+Error code number format was wrong - there will be no restrictions on format on the error code any more.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.6">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
@@ -1989,18 +2026,9 @@ MRN-ENS	if the ENTRY SUMMARY declaration has been made separately by the consign
 	</xs:element>
 	<xs:element name="NormalLoadingGauge">
 		<xs:annotation>
-			<xs:documentation>Wagon or load gauge code used in UK, coded in UIC 505-1 and 503:
-			All codes are defined in the UIC Leaflet 505-1 and 503, as well as in the EN 15273-2. For details please refer to EN 15273-2:2013 (Railway applications - Gauges - Part 2: Rolling stock gauge). For the existing gauges in the list, the Annex B.3 should be used. For the new ones, use the table below.
-Candidate:
-G1, G2, GA, GB, GC, CM, CE, M2, M3, M4, GB1, GB2, GB-M6, GHE16, W6-A. 
-Lately added:
-G1		Annex A.3
-G2		Annex E.1.2
-GB2		Annex C.1.2
-GB-M6		Annex N.4 (annex currently in preparation)
-GHE16		Annex P.3
-W6-A		W6a is designed for non- bogied wagons with axle spacings of 12.8m (42'), and 18.3m length (60')
-
+			<xs:documentation>Indicates the wagon loading gauge. 
+When the wagon loading gauge is marked on the wagon the information must be provided in the RSRD message.
+Codes are defined in UIC leaflet 505-1/503 and EN 15273-2:2013 Code list.
 </xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
@@ -2499,7 +2527,7 @@ Second digit – position in group of traction units with the same role
 				<xs:enumeration value="24"/>
 				<xs:enumeration value="34"/>
 				<xs:enumeration value="44"/>
-				<xs:enumeration value="44"/>
+				<xs:enumeration value="54"/>
 				<xs:enumeration value="15"/>
 				<xs:enumeration value="25"/>
 				<xs:enumeration value="35"/>
