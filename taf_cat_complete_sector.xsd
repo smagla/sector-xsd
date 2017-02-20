@@ -86,6 +86,12 @@ CR67 ERA 427 Wrong pattern applied - affects ErrorMessage
 Error code number format was wrong - there will be no restrictions on format on the error code any more.
 
 -->
+<!-- version 2.1.6 from the 20/02/2017 -->
+<!--
+LengthOverBuffers annotation on DesignDataset level (RSRD message) removed - this is not needed, since the global annotation (documentation) of the element LengthOverBuffers applies.
+No version change is needed for this documentation error fix.
+-->
+
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.6">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
@@ -267,10 +273,10 @@ Error code number format was wrong - there will be no restrictions on format on 
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-			<xs:maxLength value="12"/>
-			<xs:minLength value="12"/>
-			<xs:pattern value='[0-9]{12}'/>
-		</xs:restriction>
+				<xs:maxLength value="12"/>
+				<xs:minLength value="12"/>
+				<xs:pattern value="[0-9]{12}"/>
+			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
 	<xs:element name="InformationToBeDisplayed">
@@ -6002,11 +6008,7 @@ Measured in meters</xs:documentation>
 									<xs:documentation>Weight of the empty wagon (tara weight) in kg</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element ref="LengthOverBuffers">
-								<xs:annotation>
-									<xs:documentation>Length of the wagon over buffers measured in mm</xs:documentation>
-								</xs:annotation>
-							</xs:element>
+							<xs:element ref="LengthOverBuffers"/>
 							<xs:element ref="MaxAxleWeight"/>
 							<xs:element name="LoadTable" minOccurs="0" maxOccurs="unbounded">
 								<xs:annotation>
