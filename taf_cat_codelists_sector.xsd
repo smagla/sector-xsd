@@ -77,7 +77,13 @@ CR67 ERA 427 Wrong pattern applied - affects ErrorMessage
 Error code number format was wrong - there will be no restrictions on format on the error code any more.
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.6">
+<!-- version 2.1.7 from the 18/05/2017 -->
+<!--
+CR 70 ERA 433: Error Message Element Multiplicity: all significant elements of the message are packed into one complex element Error which has the 1-n multiplicity. Affected message: ErrorMessage
+CR 71 ERA 434 (affects this code list file): TypeOfInformationCode 23 added. The code is used for PathNotAvailable message. Indicates that the alternative offer will be prepared by IM. Affected messages: all messages for Path Request process, because they all use the TypeOfInformatonCode list. This particular code should be used only for PathNotAvailable and ReceiptConfirmation.
+CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Integer 1-9999 became MinVerticalRadiusYardHump / Integer 1-999, measured in meters. Affected message: RSRD.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.7">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
@@ -2688,6 +2694,7 @@ Passenger with Freight - military trains, the Overnight Express; Royalty, Head o
 19    pre-accepted offer
 21    no alternative available
 22    booked 
+23    preparation of draft alternative offer is in progress
 
 30	Create Dossier
 31	Close Dossier
@@ -2726,6 +2733,7 @@ Passenger with Freight - military trains, the Overnight Express; Royalty, Head o
 			<xs:enumeration value="19"/>
 			<xs:enumeration value="21"/>
 			<xs:enumeration value="22"/>
+			<xs:enumeration value="23"/>
 			<xs:enumeration value="30"/>
 			<xs:enumeration value="31"/>
 			<xs:enumeration value="40"/>

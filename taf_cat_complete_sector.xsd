@@ -91,8 +91,13 @@ Error code number format was wrong - there will be no restrictions on format on 
 LengthOverBuffers annotation on DesignDataset level (RSRD message) removed - this is not needed, since the global annotation (documentation) of the element LengthOverBuffers applies.
 No version change is needed for this documentation error fix.
 -->
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.6">
+<!-- version 2.1.7 from the 18/05/2017 -->
+<!--
+CR 70 ERA 433: Error Message Element Multiplicity: all significant elements of the message are packed into one complex element Error which has the 1-n multiplicity. Affected message: ErrorMessage
+CR 71 ERA 434: TypeOfInformationCode 23 added. The code is used for PathNotAvailable message. Indicates that the alternative offer will be prepared by IM. Affected messages: all messages for Path Request process, because they all use the TypeOfInformatonCode list. This particular code should be used only for PathNotAvailable and ReceiptConfirmation.
+CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Integer 1-9999 became MinVerticalRadiusYardHump / Integer 1-999, measured in meters. Affected message: RSRD.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.7">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -3216,47 +3221,50 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="MessageReference"/>
-							<xs:element name="TagReference" type="xs:string" maxOccurs="unbounded">
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Error" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TagReference" type="xs:string" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>This is a placeholder for XPath expression indicating the element of the orginal message which caused the error.</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="TypeOfError">
-					<xs:annotation>
-						<xs:documentation>It is an enumerated type to indicate if the error was caused due to a bussines rule violation (1 = FUNCTIONAL) or due to a system failure (2 = TECHNICAL) or both (0 = BOTH)</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:integer">
-							<xs:enumeration value="0"/>
-							<xs:enumeration value="1"/>
-							<xs:enumeration value="2"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="Severity">
-					<xs:annotation>
-						<xs:documentation>1 = WARNING
+							<xs:element name="TypeOfError">
+								<xs:annotation>
+									<xs:documentation>It is an enumerated type to indicate if the error was caused due to a bussines rule violation (1 = FUNCTIONAL) or due to a system failure (2 = TECHNICAL) or both (0 = BOTH)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:enumeration value="0"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Severity">
+								<xs:annotation>
+									<xs:documentation>1 = WARNING
 2 = FATAL
 3 = SEVER
 4 = SEVER-FATAL
 
 The senders and receivers should agree about the severity levels and their interpretation: should the process stop, should the message be resent etc.</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:integer">
-							<xs:enumeration value="1"/>
-							<xs:enumeration value="2"/>
-							<xs:enumeration value="3"/>
-							<xs:enumeration value="4"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="ErrorCode">
-					<xs:annotation>
-						<xs:documentation>To be defined: code list from 1 to 9999. Proposal from PathDossierErrorCode now used for ErrorCode: Standard values are between 5000 and 6000 (central maintained list). The values greater than 6000 can be used on national level.
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+										<xs:enumeration value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="ErrorCode">
+								<xs:annotation>
+									<xs:documentation>To be defined: code list from 1 to 9999. Proposal from PathDossierErrorCode now used for ErrorCode: Standard values are between 5000 and 6000 (central maintained list). The values greater than 6000 can be used on national level.
 5000	Invalid or uknown Message Header
 5001	Invalid or uknown Message Header.Message reference
 5002	Invalid or uknown Message Header.Message reference.Message Type Code (A1)
@@ -3514,15 +3522,18 @@ The senders and receivers should agree about the severity levels and their inter
 
 6000	National Section Elements												
 						 </xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:integer">
-							<xs:minInclusive value="1"/>
-							<xs:maxInclusive value="9999"/>
-						</xs:restriction>
-					</xs:simpleType>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="9999"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="FreeTextField"/>
+						</xs:sequence>
+					</xs:complexType>
 				</xs:element>
-				<xs:element ref="FreeTextField"/>
 				<xs:element ref="PlannedTransportIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="TransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
@@ -4634,14 +4645,14 @@ The other subelements help describing the interruption information more precisel
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="MinVerticleRadiusYardHump">
+	<xs:element name="MinVerticalRadiusYardHump">
 		<xs:annotation>
-			<xs:documentation>Measured in mm</xs:documentation>
+			<xs:documentation>Minimum allowed vertical radius over yard humps. Measured in meters.</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:integer">
 				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="9999"/>
+				<xs:maxInclusive value="999"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -5997,12 +6008,7 @@ The following values/codes are proposed for the usage (defined in the InteropCap
 									<xs:documentation> Minimum allowed curve radius due to design characteristics, measured in meters</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element ref="MinVerticleRadiusYardHump" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation>Minimum allowed verticle radius over yard humps
-Measured in meters</xs:documentation>
-								</xs:annotation>
-							</xs:element>
+							<xs:element ref="MinVerticalRadiusYardHump" minOccurs="0"/>
 							<xs:element ref="WagonWeightEmpty">
 								<xs:annotation>
 									<xs:documentation>Weight of the empty wagon (tara weight) in kg</xs:documentation>
