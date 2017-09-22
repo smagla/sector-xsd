@@ -83,7 +83,13 @@ CR 70 ERA 433: Error Message Element Multiplicity: all significant elements of t
 CR 71 ERA 434 (affects this code list file): TypeOfInformationCode 23 added. The code is used for PathNotAvailable message. Indicates that the alternative offer will be prepared by IM. Affected messages: all messages for Path Request process, because they all use the TypeOfInformatonCode list. This particular code should be used only for PathNotAvailable and ReceiptConfirmation.
 CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Integer 1-9999 became MinVerticalRadiusYardHump / Integer 1-999, measured in meters. Affected message: RSRD.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.7">
+<!-- version 2.1.8 from the 21/09/2017 -->
+<!--
+1) Error Correction (Affected: PathRequest, PathDetails, PathCoordination, ObjectInfo messages): The TimingQualifierCode list of attributes was accidentaly moved to time in the version 2.1.4. It actually belongs to Timing (it was an attribute list of the Timing element in all versions before 2.1.4). To correct the error, we moved the list of attributes TimerQualifierCode back to Timing element. 
+
+2) CR 82: Update of RU-WagonKeeper communication (GCU Working Party result, affects only WagonPerformanceMessage): new version of WagonPerformanceMessage is provided in the SECTOR schema.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.8">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>

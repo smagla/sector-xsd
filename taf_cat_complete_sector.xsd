@@ -97,7 +97,13 @@ CR 70 ERA 433: Error Message Element Multiplicity: all significant elements of t
 CR 71 ERA 434: TypeOfInformationCode 23 added. The code is used for PathNotAvailable message. Indicates that the alternative offer will be prepared by IM. Affected messages: all messages for Path Request process, because they all use the TypeOfInformatonCode list. This particular code should be used only for PathNotAvailable and ReceiptConfirmation.
 CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Integer 1-9999 became MinVerticalRadiusYardHump / Integer 1-999, measured in meters. Affected message: RSRD.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.7">
+<!-- version 2.1.8 from the 21/09/2017 -->
+<!--
+1) Error Correction (Affected: PathRequest, PathDetails, PathCoordination, ObjectInfo messages): The TimingQualifierCode list of attributes was accidentaly moved to time in the version 2.1.4. It actually belongs to Timing (it was an attribute list of the Timing element in all versions before 2.1.4). To correct the error, we moved the list of attributes TimerQualifierCode back to Timing element. 
+
+2) CR 82: Update of RU-WagonKeeper communication (GCU Working Party result): new version of WagonPerformanceMessage is provided in the SECTOR schema.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.8">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -1364,177 +1370,55 @@ I = Information</xs:documentation>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="UserRU" type="CompanyCode">
+		<xs:annotation>
+			<xs:documentation>Identifies uniquely the RU who has operated the wagon or is in custody of the wagon.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="WagonPerformanceMessage">
+		<xs:annotation>
+			<xs:documentation>Message used by the User RU to deliver wagon performance data to the wagon keeper.</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="MessageHeader" minOccurs="0"/>
-				<xs:element ref="WagonNumberFreight"/>
-				<xs:element name="OperatingRU" type="CompanyCode">
+				<xs:element ref="MessageHeader"/>
+				<xs:element name="PerformanceData" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation>Company RICS code of the RU</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="ReportingPeriodSection" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation>Information about time period and (optional) journey section of delivered performance data</xs:documentation>
+						<xs:documentation>Performance data of a freight wagon for a specified period.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="DataRecordID" minOccurs="0">
+							<xs:element ref="WagonNumberFreight"/>
+							<xs:element ref="UserRU"/>
+							<xs:element name="PeriodStart" type="xs:dateTime">
 								<xs:annotation>
-									<xs:documentation>Optional, ID of the specific data record (ReportingPeriodSection), can be used by the data provider for data record identification</xs:documentation>
+									<xs:documentation>Start date and time of the delivery period.</xs:documentation>
 								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:maxLength value="256"/>
-									</xs:restriction>
-								</xs:simpleType>
 							</xs:element>
-							<xs:element ref="StartDateTime"/>
-							<xs:element ref="EndDateTime"/>
 							<xs:element ref="StartLocation" minOccurs="0"/>
-							<xs:element ref="EndLocation" minOccurs="0"/>
-							<xs:element name="Territory">
+							<xs:element name="PeriodEnd" type="xs:dateTime">
 								<xs:annotation>
-									<xs:documentation>Territory where the delivered performance data has been performed</xs:documentation>
+									<xs:documentation>End date and time of the delivery period.</xs:documentation>
 								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element ref="CountryCodeISO"/>
-										<xs:element name="Infrastructure" type="CompanyCode" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>The RICS code of the infrastructure on the territory</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
 							</xs:element>
-							<xs:element ref="LoadingStatus"/>
-							<xs:element name="WagonMileage">
+							<xs:element ref="EndLocation" minOccurs="0"/>
+							<xs:element name="Country" type="CountryIdentISO" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Operated kilometres</xs:documentation>
+									<xs:documentation>Country where the wagon has been operated during the delivery period. Identifies a country or state by code (ISO 3166-1).</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Kilometers">
+								<xs:annotation>
+									<xs:documentation>Actual and complete kilometric performance of the wagon for the delivery period in kilometers. Kilometric performance due to shunting at stations can be neglected.</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
-									<xs:restriction base="xs:long">
-										<xs:totalDigits value="6"/>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="-99999"/>
+										<xs:maxInclusive value="99999"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="WagonPerformanceData" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation>Optional, should be delivered if available by RU (not required when LoadingStatus is empty)</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:choice>
-											<xs:element name="WagonTransportPerformance">
-												<xs:annotation>
-													<xs:documentation>Optional, respective ton-kilometres for operated kilometres</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-													<xs:restriction base="xs:long">
-														<xs:minInclusive value="0"/>
-														<xs:maxInclusive value="99999999"/>
-													</xs:restriction>
-												</xs:simpleType>
-											</xs:element>
-											<xs:element name="Weight">
-												<xs:annotation>
-													<xs:documentation>Optional, alternative to tranport performance when data is not aggregated</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-													<xs:restriction base="xs:decimal">
-														<xs:minInclusive value="0"/>
-														<xs:maxInclusive value="999.9"/>
-														<xs:totalDigits value="4"/>
-														<xs:fractionDigits value="1"/>
-													</xs:restriction>
-												</xs:simpleType>
-											</xs:element>
-										</xs:choice>
-										<xs:element name="IncludingTareWeight" type="xs:boolean">
-											<xs:annotation>
-												<xs:documentation>Specification if TransportPerformance or Weight includes tare weight of the wagon</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element ref="Remarks" minOccurs="0"/>
-							<xs:element name="AdditionalTransportCriteria" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation>Optional additional information regarding the period or transport</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="TypeOfMovement" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Type of Movement
-	Codes currently foreseen:
-	"01" = Transportation between loading terminal to train departure location
-	"02" = Transportation between train arrival location and loading terminal
-	"03" = Transportation between train arrival and train departure locationi in the same station</xs:documentation>
-												<xs:documentation>F1212MOT</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:length value="2"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="MaxSpeed" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Maximum Speed
-	= km/h</xs:documentation>
-												<xs:documentation>F1213MSP</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:short">
-													<xs:minInclusive value="1"/>
-													<xs:maxInclusive value="160"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="NumberOfTrainChanges" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Number of Train Changes</xs:documentation>
-												<xs:documentation>F1221TCN</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:byte">
-													<xs:minInclusive value="0"/>
-													<xs:totalDigits value="2"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="NumberOfShuntings" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Number of Shuntings</xs:documentation>
-												<xs:documentation>F1222SHN</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:byte">
-													<xs:minInclusive value="0"/>
-													<xs:totalDigits value="2"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="TypeOfGood" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Type of Good</xs:documentation>
-												<xs:documentation>use here the NHM code of the good in/on the wagon</xs:documentation>
-												<xs:documentation>F1225NHM</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:length value="6"/>
-													<xs:pattern value="\d*[1-9]\d*"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
+							<xs:element ref="TotalLoadWeight"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -6647,9 +6531,7 @@ LLD = Latest Location Departure
 								</xs:annotation>
 								<xs:complexType>
 									<xs:simpleContent>
-										<xs:extension base="xs:time">
-											<xs:attribute ref="TimingQualifierCode"/>
-										</xs:extension>
+										<xs:extension base="xs:time"/>
 									</xs:simpleContent>
 								</xs:complexType>
 							</xs:element>
@@ -6660,6 +6542,7 @@ LLD = Latest Location Departure
 							</xs:element>
 							<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
 						</xs:sequence>
+						<xs:attribute ref="TimingQualifierCode"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element ref="DwellTime" minOccurs="0"/>
