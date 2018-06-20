@@ -103,7 +103,29 @@ CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Intege
 
 2) CR 82: Update of RU-WagonKeeper communication (GCU Working Party result): new version of WagonPerformanceMessage is provided in the SECTOR schema.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.8">
+<!-- version 2.2.1 from 14/06/2018 -->
+<!-- 
+1) CR 87 / ERA 444: Information on connecting services and their direction should be provided by defining two new type codes “Connecting service to other train” and “Connecting service from other train” (definition according to type codes 0044/0045). Affected element: TrainActivity, description - no functional change.
+ 
+2) CR 88 / ERA 445: DerailmentDetectionDevice element added. New type (enumerated code list) created. CHANGE ON THE CODE LIST: DerailmentDetectionDeviceEnumeration added, 
+
+3) CR 89 / ERA 446: Extension of the NormalLoadingGauge code list.
+
+4) CR79 / ERA 443: Add an optional element RequestedCalendar in the PathInformation.
+This calendar will indicate the dates of the request to which that path is answering. Its value is a subset of the PlannedCalendar which was sent in the PathRequest message.
+In case the element is not present, the RequestedCalendar is assumed to be strictly identical to the PlannedCalendar provided in the TrainInfomation (no offset). Affected messages: Path Reqiest, Path Details, Path Coordination (sector message). 
+New global element RequestedCalendar is created. It is now the optional element of the PathInformation.
+
+5) CR93 : RouteClass code list error fixed: the empty pattern indication is removed.
+
+6) CR 86 (sector-only): make TrainInformation and PathInformation in PathCoordinationMessage optional. During the harmonization phase, the messages between RUs contain usually only the TrainInformation. During the path elaboration phase (after path request, before path offer), the IMs usually exhange only PathInformation. Also, during the planning process, the companies indicate their acceptance of the dossier by sending only the TypeOfInformation, where the details of the whole train and / or path are not relevant. Therefore, both TrainInformation and PathInformation may become optional.
+
+7) CR85 (sector-only): In the PassengerTrainCompositionProcessMessage, the Lenth (expressed in mm) used in TrainDataPassenger is replaced by TrainLength (expressed in m)
+
+8) CR84 (sector-only):  Identification of the RollingStockType and the RollingStockIdentification in the PassengersTrainCompositionProcessMessage was provided in the "choice" structure: one could choose only one or another element but not both. The use cases show that there is a need to have both identification elements at the same time. Therefore, the structure "choice" is changed to the structure "sequence". Both elements are set as optional, but the sequence is mandatory. 
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.1">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -125,6 +147,7 @@ CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Intege
 	</xs:annotation>
 	<!-- Sector part begin -->
 	<!-- version 2.1.1 from the 16/10/2015  SMO working version-->
+	<!-- version 2.2.1. from the 14/06/2018 SMO version -->
 	<xs:element name="AirBrakeSpecialCharacteristic" type="xs:string">
 		<xs:annotation>
 			<xs:documentation>Special characteristic of an air brake system (e.g. two or more steps brake)</xs:documentation>
@@ -591,8 +614,8 @@ U = update information on object</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element ref="TypeOfInformation"/>
-				<xs:element ref="TrainInformation"/>
-				<xs:element ref="PathInformation"/>
+				<xs:element ref="TrainInformation" minOccurs="0"/>
+				<xs:element ref="PathInformation" minOccurs="0"/>
 				<xs:element ref="NetworkSpecificParameter" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="RevisedRequest" minOccurs="0"/>
 				<xs:element ref="FreeTextField" minOccurs="0" maxOccurs="unbounded"/>
@@ -942,10 +965,10 @@ U = update information on object</xs:documentation>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:choice>
-								<xs:element ref="RollingStockIdentification"/>
-								<xs:element name="RollingStockType" type="xs:string"/>
-							</xs:choice>
+							<xs:sequence>
+								<xs:element ref="RollingStockIdentification" minOccurs="0"/>
+								<xs:element name="RollingStockType" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
 							<xs:element ref="TractionType" minOccurs="0"/>
 							<xs:element ref="TractionMode" minOccurs="0"/>
 							<xs:element name="PoweredLocomotiveOrTrainset" type="xs:boolean" minOccurs="0"/>
@@ -988,7 +1011,7 @@ U = update information on object</xs:documentation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="TrainType" minOccurs="0"/>
-				<xs:element ref="Length" minOccurs="0"/>
+				<xs:element ref="TrainLength" minOccurs="0"/>
 				<xs:element ref="TrainWeight" minOccurs="0"/>
 				<xs:element ref="BrakingRatio" minOccurs="0"/>
 				<xs:element ref="BrakeWeight" minOccurs="0"/>
@@ -2984,6 +3007,17 @@ Kk; Dr; Bo; Hik; Bd; Ch; O; KE; WE; DK; WU; WA; DM; MH, SW; KE 435; through brak
 			<xs:documentation>Indicates the track ID on which the train runs.  The track of the departure of a train at a reporting point.  This is indicated in the LocationSubsidiaryCode in conjunction with the LocationPrimaryCode.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="DerailmentDetectionDevice" type="DerailmentDetectionDeviceEnumeration">
+		<xs:annotation>
+			<xs:documentation>
+		Identification of derailment detection device equipped on the wagon. Element is mandatory if wagon is equipped with such device.
+		The following values are defined:
+			EDT 101
+			MDV 100
+			Non coded device
+	</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="Destination" type="LocationIdent">
 		<xs:annotation>
 			<xs:documentation>Destination Location</xs:documentation>
@@ -4840,6 +4874,7 @@ The other subelements help describing the interruption information more precisel
 			<xs:sequence>
 				<xs:element ref="PlannedJourneyLocation" minOccurs="2" maxOccurs="unbounded"/>
 				<xs:element ref="PlannedCalendar"/>
+				<xs:element ref="RequestedCalendar" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -5293,6 +5328,29 @@ For Path Requests, this element has to be used
 			<xs:documentation>These are possible restrictions applicable in the originating country to shunting operations in stations and to main-line movements on account of the nature of the load. Coding in Restriction Codes (according to UIC Leaflet 920-13)
 	  </xs:documentation>
 		</xs:annotation>
+	</xs:element>
+	<xs:element name="RequestedCalendar">
+		<xs:annotation>
+			<xs:documentation>This is the calendar item to indicate the requested calendar, which came in the path request. This is used in the path details messages. It is a subset of the calendar provided in the path request</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BitmapDays" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Bitmapstream must be provided for the trains that are running more than one day in timetable period; it is optional otherwise.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="730"/>
+							<xs:whiteSpace value="collapse"/>
+							<xs:pattern value="[0-1]{1,730}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="ValidityPeriod"/>
+			</xs:sequence>
+		</xs:complexType>
 	</xs:element>
 	<xs:element name="RevisedRequest" type="xs:boolean">
 		<xs:annotation>
@@ -6666,7 +6724,9 @@ brake test, checking load
 0042	Train Waiting		Waiting according to local rules
 0043	Train running with another train	RU	Where trains have been attached at a previous location on the schedule
 0044	Next working service	RU	Association where there is a need to define a relationship between a train and its next service. The same vehicle is used for the next train service. Also called "train-set turnover"
-0045	Previous working service	RU	Association where there is a need to define a relationship between a train and its previous service. The same vehicle is reused from the previous train service. 
+0045	Previous working service	RU	Association where there is a need to define a relationship between a train and its previous service. The same vehicle is reused from the previous train service.
+0046 Connecting service to other train. 
+0047 Connecting service from other train 
 			
 			
 			

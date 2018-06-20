@@ -89,7 +89,30 @@ CR 76 ERA 435: Element name and type changed: MinVerticleRadiusYardHump / Intege
 
 2) CR 82: Update of RU-WagonKeeper communication (GCU Working Party result, affects only WagonPerformanceMessage): new version of WagonPerformanceMessage is provided in the SECTOR schema.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1.8">
+<!-- version 2.2.1 from 14/06/2018 -->
+<!-- 
+1) CR 87 / ERA 444: Information on connecting services and their direction should be provided by defining two new type codes “Connecting service to other train” and “Connecting service from other train” (definition according to type codes 0044/0045). Affected element: TrainActivity, description - no functional change.
+
+2) CR 88 / ERA 445: DerailmentDetectionDevice element added. New type (enumerated code list) created. CHANGE ON THE CODE LIST: DerailmentDetectionDeviceEnumeration added, 
+
+3) CR 89 / ERA 446: Extension of the NormalLoadingGauge code list.
+
+4) CR79 / ERA 443: Add an optional element RequestedCalendar in the PathInformation.
+This calendar will indicate the dates of the request to which that path is answering. Its value is a subset of the PlannedCalendar which was sent in the PathRequest message.
+In case the element is not present, the RequestedCalendar is assumed to be strictly identical to the PlannedCalendar provided in the TrainInfomation (no offset). Affected messages: Path Reqiest, Path Details, Path Coordination (sector message). 
+New global element RequestedCalendar is created. It is now the optional element of the PathInformation.
+
+ 5) CR93 : RouteClass code list error fixed: the empty pattern indication is removed.
+
+6) CR 86 (sector-only): make TrainInformation and PathInformation in PathCoordinationMessage optional. During the harmonization phase, the messages between RUs contain usually only the TrainInformation. During the path elaboration phase (after path request, before path offer), the IMs usually exhange only PathInformation. Also, during the planning process, the companies indicate their acceptance of the dossier by sending only the TypeOfInformation, where the details of the whole train and / or path are not relevant. Therefore, both TrainInformation and PathInformation may become optional.
+
+7) CR85 (sector-only): In the PassengerTrainCompositionProcessMessage, the Lenth (expressed in mm) used in TrainDataPassenger is replaced by TrainLength (expressed in m)
+
+8) CR84 (sector-only):  Identification of the RollingStockType and the RollingStockIdentification in the PassengersTrainCompositionProcessMessage was provided in the "choice" structure: one could choose only one or another element but not both. The use cases show that there is a need to have both identification elements at the same time. Therefore, the structure "choice" is changed to the structure "sequence". Both elements are set as optional, but the sequence is mandatory. 
+
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.1">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
@@ -1146,6 +1169,22 @@ New codes added:
 			<xs:enumeration value="95"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="DerailmentDetectionDeviceEnumeration">
+		<xs:annotation>
+			<xs:documentation>
+Identification of derailment detection device equipped on the wagon. Element is mandatory if wagon is equipped with such device.
+        The following values are defined:
+			EDT 101
+			MDV 100
+			Non coded device
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="EDT 101"/>
+			<xs:enumeration value="MDV 100"/>
+			<xs:enumeration value="Non coded device"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="FacilityTypeDescriptionCode">
 		<xs:annotation>
 			<xs:documentation>Facilities on a Train according to TAP Code List B.4.9039</xs:documentation>
@@ -2040,7 +2079,8 @@ MRN-ENS	if the ENTRY SUMMARY declaration has been made separately by the consign
 		<xs:annotation>
 			<xs:documentation>Indicates the wagon loading gauge. 
 When the wagon loading gauge is marked on the wagon the information must be provided in the RSRD message.
-Codes are defined in UIC leaflet 505-1/503 and EN 15273-2:2013 Code list.
+Codes are defined in UIC leaflet
+505-1/503 and EN 15273-2:2013 Code list.
 </xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
@@ -2049,13 +2089,19 @@ Codes are defined in UIC leaflet 505-1/503 and EN 15273-2:2013 Code list.
 				<xs:enumeration value="G2"/>
 				<xs:enumeration value="GA"/>
 				<xs:enumeration value="GB"/>
+				<xs:enumeration value="GC"/>
+				<xs:enumeration value="CM"/>
+				<xs:enumeration value="CE"/>
+				<xs:enumeration value="M2"/>
+				<xs:enumeration value="M3"/>
+				<xs:enumeration value="M4"/>
 				<xs:enumeration value="GB1"/>
 				<xs:enumeration value="GB2"/>
 				<xs:enumeration value="GB-M6"/>
 				<xs:enumeration value="GHE16"/>
-				<xs:enumeration value="GC"/>
 				<xs:enumeration value="G"/>
 				<xs:enumeration value="W6-A"/>
+				<xs:enumeration value="SEa"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -2200,7 +2246,6 @@ Note: some existing applications are not able to handle more than two characters
 			<xs:restriction base="xs:string">
 				<xs:minLength value="1"/>
 				<xs:maxLength value="4"/>
-				<xs:pattern value=""/>
 				<xs:enumeration value="A"/>
 				<xs:enumeration value="B"/>
 				<xs:enumeration value="C"/>
