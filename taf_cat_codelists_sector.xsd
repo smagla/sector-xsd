@@ -112,7 +112,11 @@ New global element RequestedCalendar is created. It is now the optional element 
 
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.1">
+<!-- version 2.2.2 from 21/06/2018 -->
+<!-- 
+Alignment with ERA 2.2.2 (implementing ERA CR 439): Fixing the error found in ConsignmentOrderMessage in RouteCode: the wrong pattern was used \d*(1-9)\d*0, and it is replaced by the correct one: \d*[1-9]\d*0
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.2">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>

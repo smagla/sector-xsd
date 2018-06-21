@@ -125,7 +125,11 @@ New global element RequestedCalendar is created. It is now the optional element 
 8) CR84 (sector-only):  Identification of the RollingStockType and the RollingStockIdentification in the PassengersTrainCompositionProcessMessage was provided in the "choice" structure: one could choose only one or another element but not both. The use cases show that there is a need to have both identification elements at the same time. Therefore, the structure "choice" is changed to the structure "sequence". Both elements are set as optional, but the sequence is mandatory. 
 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.1">
+<!-- version 2.2.2 from 21/06/2018 -->
+<!-- 
+Alignment with ERA 2.2.2 (implementing ERA CR 439): Fixing the error found in ConsignmentOrderMessage in RouteCode: the wrong pattern was used \d*(1-9)\d*0, and it is replaced by the correct one: \d*[1-9]\d*0
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.2">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -6260,7 +6264,7 @@ Type will be the RestrictionCode instead of ForwardingRestrictionType, according
 									<xs:simpleType>
 										<xs:restriction base="xs:string">
 											<xs:length value="5"/>
-											<xs:pattern value="\d*(1-9)\d*0"/>
+											<xs:pattern value="\d*[1-9]\d*0"/>
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:element>
