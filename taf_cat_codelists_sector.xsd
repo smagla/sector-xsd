@@ -116,7 +116,19 @@ New global element RequestedCalendar is created. It is now the optional element 
 <!-- 
 Alignment with ERA 2.2.2 (implementing ERA CR 439): Fixing the error found in ConsignmentOrderMessage in RouteCode: the wrong pattern was used \d*(1-9)\d*0, and it is replaced by the correct one: \d*[1-9]\d*0
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.2">
+<!-- version 2.2.3 from 07/12/2018 -->
+<!-- 
+Change Requests approved on ERA TAF/TAP CCM WP on 2018-11-15 are reflected in this version.
+1) CR: SMO ID 72, ERA ID 453: BitmapDays of calendar used in Path Request related messages changed to 740. Affected messages: all path-request related messages
+2) CR: SMO ID 95, ERA 459: Correction of value range of element AirBrakedMass. Affected: RSRD messages 
+3) CR: SMO ID 101, ERA ID 460 Identification of Affected Section. Affected messages: PathSectionNotification, PathCancelation, PathConfirmed, PathDetailsRefused 
+4) CR: SMO ID 91, ERA ID  457 ErrorMessage : to add an optional element in ErrorCauseReference tag. Affected: ErrorMessage 
+5) CR: SMO ID  90, ERA ID 456 ReceiptConfirmationMessage : to add an optional element in RelatedReference tag. Affected: ReceiptConfirmationMessage
+6) CR: SMO ID 73, ERA ID 454 Unified use of the element “ LocoTypeNumber”. IMPORTANT: Fundamental element structure change. Affected: TrainCompositionMessage, PathRequest, PathDetails, PathCoordination, ObjectInfo   
+7) CR: SMO ID 52: (Sector Only): ObjectInfoMessage adaptation with multiple TrainInformation and PathInformation blocks. Affected: ObjectInfoMessage 
+8) CR: SMO ID 119: (Sector Only): Identification of the Rolling Stock in the PassengersTrainCompositionProcessMessage by both the EVN and RollingStockType + RollingStockIdentification. Affected: PassengerTrainCompositionProcessMessage 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.3">
 	<xs:annotation>
 		<xs:appinfo>
 			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
