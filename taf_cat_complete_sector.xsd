@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2011 rel. 3 sp1 (http://www.altova.com) by Seid Maglajlic (RailNetEurope) -->
+<!-- edited with XMLSpy v2012 rel. 2 (x64) (http://www.altova.com) by Daniel Drexler (RailNetEurope) -->
 <!-- Clean version, containing approved CRs (JSG and ERA) and bug-fixes, containing sector schema -->
 <!-- version 2.1.1 from the 16/10/2015 -->
 <!-- 16/10/2015 annotation of MessageType changed. Annotation added to ErrorCode -->
@@ -140,6 +140,20 @@ Change Requests approved on ERA TAF/TAP CCM WP on 2018-11-15 are reflected in th
 6) CR: SMO ID 73, ERA ID 454 Unified use of the element “ LocoTypeNumber”. IMPORTANT: Fundamental element structure change. Affected: TrainCompositionMessage, PathRequest, PathDetails, PathCoordination, ObjectInfo   
 7) CR: SMO ID 52: (Sector Only): ObjectInfoMessage adaptation with multiple TrainInformation and PathInformation blocks. Affected: ObjectInfoMessage 
 8) CR: SMO ID 119: (Sector Only): Identification of the Rolling Stock in the PassengersTrainCompositionProcessMessage by both the EVN and RollingStockType + RollingStockIdentification. Affected: PassengerTrainCompositionProcessMessage 
+-->
+<!-- version 2.2.4 from 22/05/2019 -->
+<!--
+Change Requests approved on ERA TAF/TAP CCM WP on 2019-05-22 are reflected in this version.
+1) CR: SMO ID: 125, ERA ID 472 Update of TrainCompositionMessage with complex TrainActivityType
+2) CR: SMO ID: 126, ERA ID 473 Correction of Error: Requested Calendar BitmapDays
+3) CR: SMO ID: 124, ERA ID 474 New TypeOfInformation for acceptance and rejection of Draft and Final offer
+4) CR: SMO ID: 114, ERA ID 475 Specification for number in “message type” for national messages
+5) CR: SMO ID: 127, ERA ID 477 Addition of a Related Identifier Section in TrainRunningForecast and Information
+6) CR: SMO ID: 128, ERA ID 478 Cancellation of train object
+7) CR: SMO ID: 99, ERA ID 480 Change of annotation of data type “Time” in xsd
+8) CR: SMO ID: 111, ERA ID 482 Change of process to reject path offer
+9) CR: SMO ID: 102, ERA ID 485 Identification of a Section (Operation)
+10) CR: SMO ID: 140, ERA ID / Error in pattern for LocoTypeNumber
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.3">
 	<xs:include schemaLocation="taf_cat_codelists_sector.xsd"/>
@@ -442,15 +456,33 @@ Change Requests approved on ERA TAF/TAP CCM WP on 2018-11-15 are reflected in th
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="JourneySectionDestination" type="LocationIdent">
+	<xs:element name="JourneySectionDestination">
 		<xs:annotation>
 			<xs:documentation>Destination of the section on which train composition is unchanged</xs:documentation>
 		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="LocationIdent">
+				<xs:sequence minOccurs="0">
+				<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+				</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
 	</xs:element>
-	<xs:element name="JourneySectionOrigin" type="LocationIdent">
+	<xs:element name="JourneySectionOrigin">
 		<xs:annotation>
 			<xs:documentation>Origin of the section on which train composition is unchanged</xs:documentation>
 		</xs:annotation>
+				<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="LocationIdent">
+				<xs:sequence minOccurs="0">
+				<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+				</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
 	</xs:element>
 	<xs:element name="Keeper" type="CompanyCode">
 		<xs:annotation>
@@ -4380,7 +4412,7 @@ The other subelements help describing the interruption information more precisel
 							<xs:minLength value="1"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="1"/>
-							<xs:pattern value="9"/>
+							<xs:pattern value="[9]"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4388,13 +4420,13 @@ The other subelements help describing the interruption information more precisel
 					<xs:annotation>
 						<xs:documentation>Type of tractive rolling stock as in Part 8 of the Appendix 6 of the decision 2007/756</xs:documentation>
 					</xs:annotation>
-					<!--In PCS the following types are differentiated: Eletric, Diesel, Steam, Hybrid:-->
+					<!--In PCS the following types are differentiated: Electric, Diesel, Steam, Hybrid:-->
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:minLength value="1"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="1"/>
-							<xs:pattern value="0-9"/>
+							<xs:pattern value="[0-9]"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4407,7 +4439,7 @@ The other subelements help describing the interruption information more precisel
 							<xs:minLength value="2"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="2"/>
-							<xs:pattern value="0-9"/>
+							<xs:pattern value="[0-9]{2}"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4417,10 +4449,10 @@ The other subelements help describing the interruption information more precisel
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
-							<xs:minLength value="1"/>
+							<xs:minLength value="4"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="4"/>
-							<xs:pattern value="0-9"/>
+							<xs:pattern value="[0-9]{4}"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4431,10 +4463,10 @@ The other subelements help describing the interruption information more precisel
 					<!--Not necessary for Planning. Composite identifier should be unique with the series number inside one country:-->
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
-							<xs:minLength value="1"/>
+							<xs:minLength value="3"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="3"/>
-							<xs:pattern value="0-9"/>
+							<xs:pattern value="[0-9]"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4448,7 +4480,7 @@ The other subelements help describing the interruption information more precisel
 							<xs:minLength value="1"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="1"/>
-							<xs:pattern value="0-9"/>
+							<xs:pattern value="[0-9]"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -4629,9 +4661,9 @@ The other subelements help describing the interruption information more precisel
 			</xs:documentation>
 		</xs:annotation>
 		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="1"/>
-				<xs:maxInclusive value="9999"/>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="4"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -5350,6 +5382,7 @@ The identifiers in this message have to be same as those that have come from sen
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="RelatedIdentifier" type="FreeText"/>
+	<xs:element name="RelatedTransportOperationalIdentifiers" type="CompositIdentifierOperationalType"/>
 	<xs:element name="RelatedPlannedTransportIdentifiers" type="CompositIdentifierPlannedType"/>
 	<xs:element name="RelatedReference">
 		<xs:annotation>
@@ -5462,9 +5495,9 @@ For Path Requests, this element has to be used
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:minLength value="1"/>
-							<xs:maxLength value="730"/>
+							<xs:maxLength value="740"/>
 							<xs:whiteSpace value="collapse"/>
-							<xs:pattern value="[0-1]{1,730}"/>
+							<xs:pattern value="[0-1]{1,740}"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -6669,7 +6702,7 @@ Code	F or P	Description																																				T	D	L
 	</xs:element>
 	<xs:simpleType name="Time">
 		<xs:annotation>
-			<xs:documentation>Time expressed in HH:MM</xs:documentation>
+			<xs:documentation>Time expressed in HH:MM:SS</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:time"/>
 	</xs:simpleType>
@@ -7195,6 +7228,11 @@ TPWS
 						<xs:documentation>according to the new identifier structure, ObjectType has to be used to differ between train and path id</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+				<xs:element ref="RelatedTransportOperationalIdentifiers" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>according to the new identifier structure, ObjectType has to be used to differ between train and path id</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -7281,7 +7319,7 @@ TPWS
 				<xs:element name="Activities" minOccurs="0" maxOccurs="99">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="TrainActivityType"/>
+							<xs:element ref="TrainActivity"/>
 							<xs:element name="ActivityLocationIdent" type="LocationIdent"/>
 						</xs:sequence>
 					</xs:complexType>

@@ -128,6 +128,20 @@ Change Requests approved on ERA TAF/TAP CCM WP on 2018-11-15 are reflected in th
 7) CR: SMO ID 52: (Sector Only): ObjectInfoMessage adaptation with multiple TrainInformation and PathInformation blocks. Affected: ObjectInfoMessage 
 8) CR: SMO ID 119: (Sector Only): Identification of the Rolling Stock in the PassengersTrainCompositionProcessMessage by both the EVN and RollingStockType + RollingStockIdentification. Affected: PassengerTrainCompositionProcessMessage 
 -->
+<!-- version 2.2.4 from 22/05/2019 -->
+<!--
+Change Requests approved on ERA TAF/TAP CCM WP on 2019-05-22 are reflected in this version.
+1) CR: SMO ID: 125, ERA ID 472 Update of TrainCompositionMessage with complex TrainActivityType
+2) CR: SMO ID: 126, ERA ID 473 Correction of Error: Requested Calendar BitmapDays
+3) CR: SMO ID: 124, ERA ID 474 New TypeOfInformation for acceptance and rejection of Draft and Final offer
+4) CR: SMO ID: 114, ERA ID 475 Specification for number in “message type” for national messages
+5) CR: SMO ID: 127, ERA ID 477 Addition of a Related Identifier Section in TrainRunningForecast and Information
+6) CR: SMO ID: 128, ERA ID 478 Cancellation of train object
+7) CR: SMO ID: 99, ERA ID 480 Change of annotation of data type “Time” in xsd
+8) CR: SMO ID: 111, ERA ID 482 Change of process to reject path offer
+9) CR: SMO ID: 102, ERA ID 485 Identification of a Section (Operation)
+10) CR: SMO ID: 140, ERA ID / Error in pattern for LocoTypeNumber
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://taf-jsg.info/schemes" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://taf-jsg.info/schemes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.3">
 	<xs:annotation>
 		<xs:appinfo>
@@ -2758,22 +2772,29 @@ Passenger with Freight - military trains, the Overnight Express; Royalty, Head o
 16	final offer
 17	final offer - accepted
 18	alternative offer accepted
-19    pre-accepted offer
-21    no alternative available
-22    booked 
-23    preparation of draft alternative offer is in progress
-
+19  pre-accepted offer
+21  no alternative available
+22  booked 
+23  preparation of draft alternative offer is in progress
+24	alternative offer triggered by IM
+25	offer/final offer rejected (without revision)
+26	alternative offer rejected (without revision)
+27	offer/final offer rejected (revision required)
+28	alternative offer rejected (revision required)
+29	withdrawal
 30	Create Dossier
 31	Close Dossier
-
-40          Fully Assembled Path (FAP, constructed path)
-
-	
-	
-	
+32	Path canceled full
+33	Path canceled partial
+40	Fully Assembled Path (FAP, constructed path)
+41	Final Offer rejected
+42	Preparation of draft offer - accepted
+43	Preparation of draft offer - rejected
+44	Draft offer rejected
 50	activate path (utilisation notification)
 51	deactivate path (utilisation notification)
 52	confirmation of utilisation notification
+53	path and train cancelled
 </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:integer">
@@ -2798,15 +2819,24 @@ Passenger with Freight - military trains, the Overnight Express; Royalty, Head o
 			<xs:enumeration value="17"/>
 			<xs:enumeration value="18"/>
 			<xs:enumeration value="19"/>
+			<xs:enumeration value="20"/>
 			<xs:enumeration value="21"/>
 			<xs:enumeration value="22"/>
 			<xs:enumeration value="23"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="26"/>
+			<xs:enumeration value="27"/>
+			<xs:enumeration value="28"/>
+			<xs:enumeration value="29"/>
 			<xs:enumeration value="30"/>
 			<xs:enumeration value="31"/>
+			<xs:enumeration value="32"/>
 			<xs:enumeration value="40"/>
 			<xs:enumeration value="50"/>
 			<xs:enumeration value="51"/>
 			<xs:enumeration value="52"/>
+			<xs:enumeration value="53"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="TypeOfRemovableAccessories">
@@ -2882,15 +2912,15 @@ Should be added to Code List. Values refer to UIC Leaflet 920-13:
 	</xs:element>
 	<xs:simpleType name="TypeOfRequestCode">
 		<xs:annotation>
-			<xs:documentation> Enumeration for 3 different basic types of the processes in the planning: Study (1), Request (2), Modification (3)
+			<xs:documentation> Enumeration for 3 different basic types of the processes in the planning: Study (1), Request (2), Modification (3), offer/final offer rejected (without revision) (25), alternative offer rejected (without revision) (26), offer/final offer rejected (revision required) (27), alternative offer rejected (revision required) (28)
 </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:short">
 			<xs:minInclusive value="1"/>
-			<xs:maxInclusive value="9"/>
 			<xs:enumeration value="1"/>
 			<xs:enumeration value="2"/>
 			<xs:enumeration value="3"/>
+			<!--xs:maxInclusive value="9"/-->
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TypeOfRUHarmonizationCode">
