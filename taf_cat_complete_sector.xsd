@@ -463,9 +463,9 @@ Change Requests approved on ERA TAF/TAP CCM WP on 2019-05-22 are reflected in th
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="LocationIdent">
-				<xs:sequence minOccurs="0">
-				<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
-				</xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
@@ -474,12 +474,12 @@ Change Requests approved on ERA TAF/TAP CCM WP on 2019-05-22 are reflected in th
 		<xs:annotation>
 			<xs:documentation>Origin of the section on which train composition is unchanged</xs:documentation>
 		</xs:annotation>
-				<xs:complexType>
+		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="LocationIdent">
-				<xs:sequence minOccurs="0">
-				<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
-				</xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element ref="BookedLocationDateTime" minOccurs="0"/>
+					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
@@ -4466,7 +4466,7 @@ The other subelements help describing the interruption information more precisel
 							<xs:minLength value="3"/>
 							<xs:whiteSpace value="replace"/>
 							<xs:maxLength value="3"/>
-							<xs:pattern value="[0-9]"/>
+							<xs:pattern value="[0-9]{3}"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
